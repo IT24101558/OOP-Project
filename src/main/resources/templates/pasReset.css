@@ -1,0 +1,211 @@
+/* General Reset */
+body {
+    font-family: Arial, sans-serif;
+    background: url('resetBG.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+/* Main container */
+.container {
+    flex: 1; /* Pushes footer down */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Reset Password Form */
+.reset-container {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    color: white;
+    width: 300px;
+}
+
+.reset-container h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.reset-container p {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.reset-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.reset-container input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.reset-container button {
+    width: 100%;
+    padding: 10px;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.reset-container button:hover {
+    background: darkred;
+}
+
+.reset-container a {
+    color: #ff4d4d;
+    text-decoration: none;
+}
+
+.reset-container a:hover {
+    text-decoration: underline;
+}
+
+/* Background Animation */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.bg-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: bgFade 20s infinite;
+}
+
+.bg-slide:nth-child(1) { animation-delay: 0s; }
+.bg-slide:nth-child(2) { animation-delay: 5s; }
+.bg-slide:nth-child(3) { animation-delay: 10s; }
+.bg-slide:nth-child(4) { animation-delay: 15s; }
+
+@keyframes bgFade {
+    0%, 100% { opacity: 0; }
+    25% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    background-color: #1a1a1a;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ... (Other styles from previous responses) ... */
+
+.footer {
+    background-color: #000000;
+    color: #fff;
+    padding: 40px 350px;
+    text-align: left;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 2000px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    width: 23%;
+    margin-bottom: 20px;
+}
+
+.about-us p {
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.footer-logo {
+    max-width: 20px; /* Adjusted logo size */
+    margin-bottom: 10px;
+}
+
+.footer-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-section p,
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li a::before {
+    content: ">";
+    margin-right: 5px;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    margin-right: 10px;
+    color: #ffffff;
+    opacity: 1.0;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+
+.social-icons a:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid #ffffff;
+    margin-top: 30px;
+    width: 350cm;
+}
