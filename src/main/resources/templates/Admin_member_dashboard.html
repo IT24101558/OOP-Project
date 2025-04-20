@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitConnect - Members</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+      color: #fff;
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .animate-slide-up {
+      animation: slideUp 0.5s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .scale-hover:hover {
+      transform: scale(1.03);
+      transition: transform 0.3s ease;
+    }
+    .gradient-blue-purple {
+      background: linear-gradient(to right, #6b7280, #8b5cf6);
+    }
+    .gradient-purple-pink {
+      background: linear-gradient(to right, #8b5cf6, #d946ef);
+    }
+    .gradient-green-teal {
+      background: linear-gradient(to right, #10b981, #14b8a6);
+    }
+    .gradient-yellow-orange {
+      background: linear-gradient(to right, #fef08a, #f97316);
+    }
+    .bg-grid-white {
+      background-image:
+              linear-gradient(rgba(255, 255, 255, 0.05) 0.5px, transparent 0.5px),
+              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0.5px, transparent 0.5px);
+      background-size: 16px 16px;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .modal {
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .badge-premium {
+      background: linear-gradient(to right, #f59e0b, #d97706);
+    }
+    .badge-standard {
+      background: linear-gradient(to right, #3b82f6, #2563eb);
+    }
+    .badge-basic {
+      background: linear-gradient(to right, #6b7280, #4b5563);
+    }
+    .badge-expired {
+      background: linear-gradient(to right, #ef4444, #b91c1c);
+    }
+    .renewal-badge-urgent {
+      background: linear-gradient(to right, #ef4444, #b91c1c);
+    }
+    .renewal-badge-soon {
+      background: linear-gradient(to right, #f59e0b, #d97706);
+    }
+    .renewal-badge-ok {
+      background: linear-gradient(to right, #10b981, #059669);
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-poppins">
+<div class="flex h-screen overflow-hidden">
+  <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
+    <div class="p-6">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+          <i class="fas fa-dumbbell text-white"></i>
+        </div>
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+      </a>
+    </div>
+    <nav class="flex-1 p-4 space-y-2">
+      <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+        <i class="fas fa-tachometer-alt"></i>
+        <span class="font-medium">Dashboard</span>
+      </a>
+      <a href="memberDash.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+        <i class="fas fa-users"></i>
+        <span class="font-medium">Members</span>
+      </a>
+
+      <a href="classes.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+        <i class="fas fa-calendar-alt"></i>
+        <span class="font-medium">Classes</span>
+      </a>
+      <a href="equipment.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+        <i class="fas fa-dumbbell"></i>
+        <span class="font-medium">Equipment</span>
+      </a>
+      <a href="reports.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+        <i class="fas fa-chart-bar"></i>
+        <span class="font-medium">Reports</span>
+      </a>
+      <a href="settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+        <i class="fas fa-cog"></i>
+        <span class="font-medium">Settings</span>
+      </a>
+    </nav>
+    <div class="p-4 border-t border-white/10">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+          <span class="font-semibold">AR</span>
+        </div>
+        <div>
+          <h3 class="font-medium">Alex Rodriguez</h3>
+          <p class="text-xs text-gray-400">Administrator</p>
+        </div>
+      </div>
+      <a href="logout.html">
+        <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Log Out</span>
+        </button>
+      </a>
+    </div>
+  </aside>
+
+  <header class="lg:hidden fixed w-full flex items-center justify-between p-4 glass-effect z-50">
+    <a href="#" class="flex items-center gap-2">
+      <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-1.5 rounded-lg">
+        <i class="fas fa-dumbbell text-white"></i>
+      </div>
+      <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+    </a>
+    <div class="flex items-center gap-4">
+      <div class="relative">
+        <i class="fas fa-bell text-gray-300"></i>
+        <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
+      </div>
+      <button aria-label="Toggle menu" class="p-1.5 rounded-lg bg-white/10">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-y-auto py-4 lg:py-6 px-4 lg:px-8 lg:pt-0 mt-16 lg:mt-0">
+    <div class="max-w-7xl mx-auto">
+      <header class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Members Management</h1>
+            <p class="text-gray-400 mt-2">View and manage all fitness center members</p>
+          </div>
+          <div class="flex gap-3">
+            <button id="add-member-btn" class="px-4 py-2.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl hover:opacity-90 transition-all flex items-center gap-2">
+              <i class="fas fa-user-plus"></i>
+              <span>Add Member</span>
+            </button>
+            <button id="renewal-queue-btn" class="px-4 py-2.5 bg-white/10 hover:bg-white/15 rounded-xl transition-all flex items-center gap-2 relative">
+              <i class="fas fa-clock"></i>
+              <span>Renewal Queue</span>
+              <span class="absolute -top-2 -right-2 h-6 w-6 bg-red-500 rounded-full flex items-center justify-center text-xs font-medium">8</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.2s;">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-sm font-medium text-gray-300">Total Members</h3>
+              <div class="mt-2 flex items-baseline">
+                <p class="text-3xl font-semibold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">1,250</p>
+              </div>
+            </div>
+            <div class="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700">
+              <i class="fas fa-users text-white"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.3s;">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-sm font-medium text-gray-300">Premium Members</h3>
+              <div class="mt-2 flex items-baseline">
+                <p class="text-3xl font-semibold bg-gradient-to-r from-yellow-400 to-amber-600 bg-clip-text text-transparent">350</p>
+                <span class="ml-2 text-xs py-0.5 px-1.5 rounded bg-yellow-500/20 text-yellow-300">28%</span>
+              </div>
+            </div>
+            <div class="p-3 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-700">
+              <i class="fas fa-crown text-white"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.4s;">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-sm font-medium text-gray-300">Renewals Due</h3>
+              <div class="mt-2 flex items-baseline">
+                <p class="text-3xl font-semibold bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">32</p>
+                <span class="ml-2 text-xs py-0.5 px-1.5 rounded bg-red-500/20 text-red-300">Urgent</span>
+              </div>
+            </div>
+            <div class="p-3 rounded-xl bg-gradient-to-br from-red-500 to-red-700">
+              <i class="fas fa-exclamation-circle text-white"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.5s;">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-sm font-medium text-gray-300">New Members</h3>
+              <div class="mt-2 flex items-baseline">
+                <p class="text-3xl font-semibold bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">58</p>
+                <span class="ml-2 text-xs py-0.5 px-1.5 rounded bg-green-500/20 text-green-300">This Month</span>
+              </div>
+            </div>
+            <div class="p-3 rounded-xl bg-gradient-to-br from-green-500 to-green-700">
+              <i class="fas fa-user-plus text-white"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search & Filter -->
+      <div class="glass-effect rounded-xl p-6 mb-8 animate-slide-up" style="animation-delay: 0.6s;">
+        <div class="flex flex-col md:flex-row gap-4">
+          <div class="relative flex-1">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <input type="text" id="search-input" placeholder="Search members..." class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-12 focus:outline-none focus:border-purple-500 transition-colors">
+            <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+              <i class="fas fa-filter"></i>
+            </button>
+          </div>
+
+          <div class="flex gap-2 flex-wrap">
+            <select id="membership-filter" class="bg-black/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 transition-colors">
+              <option value="">All Memberships</option>
+              <option value="premium">Premium</option>
+              <option value="standard">Standard</option>
+              <option value="basic">Basic</option>
+              <option value="expired">Expired</option>
+            </select>
+
+            <select id="sort-by" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-purple-500 transition-colors">
+              <option value="renewal">Sort by Renewal Date</option>
+              <option value="name">Sort by Name</option>
+              <option value="join-date">Sort by Join Date</option>
+              <option value="membership">Sort by Membership Type</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Members Table -->
+      <div class="glass-effect rounded-xl overflow-hidden mb-8 animate-slide-up" style="animation-delay: 0.7s;">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+            <tr class="border-b border-white/10">
+              <th class="p-4">
+                <div class="flex items-center">
+                  <input type="checkbox" id="select-all" class="h-4 w-4 rounded bg-white/5 border-white/20 focus:ring-0">
+                  <label for="select-all" class="sr-only">Select All</label>
+                </div>
+              </th>
+              <th class="p-4 font-medium">Member</th>
+              <th class="p-4 font-medium">Membership</th>
+              <th class="p-4 font-medium">Join Date</th>
+              <th class="p-4 font-medium">Last Renewal</th>
+              <th class="p-4 font-medium">Renewal Due</th>
+              <th class="p-4 font-medium">Status</th>
+              <th class="p-4 font-medium">Actions</th>
+            </tr>
+            </thead>
+            <tbody id="members-table-body">
+            <!-- Table rows will be dynamically generated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="p-4 border-t border-white/10 flex justify-between items-center">
+          <p class="text-sm text-gray-400">Showing <span id="showing-count">1-10</span> of <span id="total-count">1,250</span> members</p>
+          <div class="flex gap-2">
+            <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="p-2 rounded-lg bg-white/10 transition-all">1</button>
+            <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all">2</button>
+            <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all">3</button>
+            <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Add Member Modal -->
+<div id="add-member-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm opacity-0 invisible modal">
+  <div class="glass-effect rounded-xl max-w-md w-full mx-4 animate-scale-in">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold">Add New Member</h2>
+        <button id="close-add-modal" class="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-all">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <form id="add-member-form">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">Full Name</label>
+            <input type="text" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">Email Address</label>
+            <input type="email" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">Phone Number</label>
+            <input type="tel" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">Membership Type</label>
+            <select class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+              <option value="">Select Membership</option>
+              <option value="premium">Premium ($99/month)</option>
+              <option value="standard">Standard ($59/month)</option>
+              <option value="basic">Basic ($29/month)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">Membership Duration</label>
+            <select class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+              <option value="1">1 Month</option>
+              <option value="3">3 Months</option>
+              <option value="6">6 Months</option>
+              <option value="12">12 Months</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1">Payment Method</label>
+            <select class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+              <option value="">Select Payment Method</option>
+              <option value="credit">Credit Card</option>
+              <option value="debit">Debit Card</option>
+              <option value="bank">Bank Transfer</option>
+              <option value="cash">Cash</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-end gap-3">
+          <button type="button" id="cancel-add-member" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-all">
+            Add Member
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Renewal Queue Modal -->
+<div id="renewal-queue-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm opacity-0 invisible modal">
+  <div class="glass-effect rounded-xl max-w-2xl w-full mx-4 animate-scale-in">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold">Membership Renewal Queue</h2>
+        <button id="close-queue-modal" class="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-all">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="mb-4">
+        <p class="text-gray-300 text-sm">Members sorted by renewal urgency. Process renewals to maintain active memberships.</p>
+      </div>
+
+      <div class="space-y-3 max-h-96 overflow-y-auto pr-2">
+        <!-- Queue items will be dynamically generated -->
+      </div>
+
+      <div class="mt-6 flex justify-between">
+        <button id="process-all-btn" class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg hover:opacity-90 transition-all flex items-center gap-2">
+          <i class="fas fa-check-double"></i>
+          <span>Process All</span>
+        </button>
+        <button id="close-queue-btn" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sample member data
+  const membersData = [
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      email: "sarah.j@example.com",
+      phone: "+1 (555) 123-4567",
+      avatar: "https://randomuser.me/api/portraits/women/1.jpg",
+      membershipType: "premium",
+      joinDate: "2021-06-15",
+      lastRenewal: "2023-04-10",
+      renewalDue: "2023-05-10",
+      status: "active"
+    },
+    {
+      id: 2,
+      name: "Michael Chen",
+      email: "mike.chen@example.com",
+      phone: "+1 (555) 987-6543",
+      avatar: "https://randomuser.me/api/portraits/men/2.jpg",
+      membershipType: "standard",
+      joinDate: "2022-01-20",
+      lastRenewal: "2023-04-20",
+      renewalDue: "2023-05-20",
+      status: "active"
+    },
+    {
+      id: 3,
+      name: "Emily Rodriguez",
+      email: "e.rodriguez@example.com",
+      phone: "+1 (555) 234-5678",
+      avatar: "https://randomuser.me/api/portraits/women/3.jpg",
+      membershipType: "basic",
+      joinDate: "2022-08-05",
+      lastRenewal: "2023-03-05",
+      renewalDue: "2023-04-05",
+      status: "expired"
+    },
+    {
+      id: 4,
+      name: "David Williams",
+      email: "david.w@example.com",
+      phone: "+1 (555) 876-5432",
+      avatar: "https://randomuser.me/api/portraits/men/4.jpg",
+      membershipType: "premium",
+      joinDate: "2021-11-12",
+      lastRenewal: "2023-04-12",
+      renewalDue: "2023-05-12",
+      status: "active"
+    },
+    {
+      id: 5,
+      name: "Jessica Lee",
+      email: "jess.lee@example.com",
+      phone: "+1 (555) 345-6789",
+      avatar: "https://randomuser.me/api/portraits/women/5.jpg",
+      membershipType: "standard",
+      joinDate: "2022-03-18",
+      lastRenewal: "2023-02-18",
+      renewalDue: "2023-03-18",
+      status: "expired"
+    },
+    {
+      id: 6,
+      name: "Robert Miller",
+      email: "rob.miller@example.com",
+      phone: "+1 (555) 765-4321",
+      avatar: "https://randomuser.me/api/portraits/men/6.jpg",
+      membershipType: "basic",
+      joinDate: "2022-05-27",
+      lastRenewal: "2023-03-27",
+      renewalDue: "2023-04-27",
+      status: "expired"
+    },
+    {
+      id: 7,
+      name: "Amanda Taylor",
+      email: "a.taylor@example.com",
+      phone: "+1 (555) 456-7890",
+      avatar: "https://randomuser.me/api/portraits/women/7.jpg",
+      membershipType: "premium",
+      joinDate: "2021-08-03",
+      lastRenewal: "2023-04-03",
+      renewalDue: "2023-05-03",
+      status: "active"
+    },
+    {
+      id: 8,
+      name: "James Anderson",
+      email: "j.anderson@example.com",
+      phone: "+1 (555) 654-3210",
+      avatar: "https://randomuser.me/api/portraits/men/8.jpg",
+      membershipType: "standard",
+      joinDate: "2022-02-14",
+      lastRenewal: "2023-04-14",
+      renewalDue: "2023-05-14",
+      status: "active"
+    },
+    {
+      id: 9,
+      name: "Sophia Martinez",
+      email: "s.martinez@example.com",
+      phone: "+1 (555) 567-8901",
+      avatar: "https://randomuser.me/api/portraits/women/9.jpg",
+      membershipType: "basic",
+      joinDate: "2022-09-22",
+      lastRenewal: "2023-02-22",
+      renewalDue: "2023-03-22",
+      status: "expired"
+    },
+    {
+      id: 10,
+      name: "Daniel Thompson",
+      email: "d.thompson@example.com",
+      phone: "+1 (555) 543-2109",
+      avatar: "https://randomuser.me/api/portraits/men/10.jpg",
+      membershipType: "premium",
+      joinDate: "2021-10-08",
+      lastRenewal: "2023-03-08",
+      renewalDue: "2023-04-08",
+      status: "expired"
+    }
+  ];
+
+  // Insertion Sort Algorithm for Sorting Members by Last Renewal Date
+  function insertionSortByRenewalDate(arr) {
+    const result = [...arr];
+    for (let i = 1; i < result.length; i++) {
+      const current = result[i];
+      let j = i - 1;
+
+      // Compare dates - using the Date object for proper comparison
+      while (j >= 0 && new Date(result[j].renewalDue) > new Date(current.renewalDue)) {
+        result[j + 1] = result[j];
+        j--;
+      }
+      result[j + 1] = current;
+    }
+    return result;
+  }
+
+  // Queue for Membership Renewals
+  class RenewalQueue {
+    constructor() {
+      this.members = [];
+    }
+
+    // Add member to the renewal queue
+    enqueue(member) {
+      this.members.push(member);
+      return this.members.length;
+    }
+
+    // Remove member from the queue (process renewal)
+    dequeue() {
+      if (this.isEmpty()) {
+        return null;
+      }
+      return this.members.shift();
+    }
+
+    // Check if queue is empty
+    isEmpty() {
+      return this.members.length === 0;
+    }
+
+    // Get size of queue
+    size() {
+      return this.members.length;
+    }
+
+    // Get all members in queue
+    getAll() {
+      return this.members;
+    }
+
+    // Sort the queue by renewal date (using insertion sort)
+    sortByRenewalDate() {
+      this.members = insertionSortByRenewalDate(this.members);
+    }
+
+    // Initialize queue with expired or soon-to-expire members
+    initializeFromMembers(allMembers) {
+      const today = new Date();
+
+      // Clear the current queue
+      this.members = [];
+
+      // Add members whose renewals are due or expired
+      allMembers.forEach(member => {
+        const renewalDate = new Date(member.renewalDue);
+        const diffTime = renewalDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        // Add members whose renewal is within 30 days or already expired
+        if (diffDays <= 30) {
+          this.enqueue(member);
+        }
+      });
+
+      // Sort by renewal date
+      this.sortByRenewalDate();
+    }
+  }
+
+  // Initialize DOM elements and event listeners when the document is ready
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the renewal queue
+    const renewalQueue = new RenewalQueue();
+    renewalQueue.initializeFromMembers(membersData);
+
+    // Sort members by renewal date initially
+    let sortedMembers = insertionSortByRenewalDate(membersData);
+
+    // Render the members table
+    renderMembersTable(sortedMembers);
+
+    // Render the renewal queue
+    renderRenewalQueue(renewalQueue.getAll());
+
+    // Event listeners for modals
+    const addMemberBtn = document.getElementById('add-member-btn');
+    const closeAddModalBtn = document.getElementById('close-add-modal');
+    const cancelAddMemberBtn = document.getElementById('cancel-add-member');
+    const addMemberModal = document.getElementById('add-member-modal');
+
+    const renewalQueueBtn = document.getElementById('renewal-queue-btn');
+    const closeQueueModalBtn = document.getElementById('close-queue-modal');
+    const closeQueueBtn = document.getElementById('close-queue-btn');
+    const renewalQueueModal = document.getElementById('renewal-queue-modal');
+
+    // Toggle add member modal
+    addMemberBtn.addEventListener('click', function() {
+      addMemberModal.classList.remove('opacity-0', 'invisible');
+    });
+
+    closeAddModalBtn.addEventListener('click', function() {
+      addMemberModal.classList.add('opacity-0', 'invisible');
+    });
+
+    cancelAddMemberBtn.addEventListener('click', function() {
+      addMemberModal.classList.add('opacity-0', 'invisible');
+    });
+
+    // Toggle renewal queue modal
+    renewalQueueBtn.addEventListener('click', function() {
+      renewalQueueModal.classList.remove('opacity-0', 'invisible');
+    });
+
+    closeQueueModalBtn.addEventListener('click', function() {
+      renewalQueueModal.classList.add('opacity-0', 'invisible');
+    });
+
+    closeQueueBtn.addEventListener('click', function() {
+      renewalQueueModal.classList.add('opacity-0', 'invisible');
+    });
+
+    // Handle sorting when the sort-by dropdown changes
+    const sortBySelect = document.getElementById('sort-by');
+    sortBySelect.addEventListener('change', function() {
+      const sortType = this.value;
+      let sortedData = [...membersData];
+
+      switch(sortType) {
+        case 'renewal':
+          sortedData = insertionSortByRenewalDate(membersData);
+          break;
+        case 'name':
+          sortedData.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'join-date':
+          sortedData.sort((a, b) => new Date(a.joinDate) - new Date(b.joinDate));
+          break;
+        case 'membership':
+          sortedData.sort((a, b) => a.membershipType.localeCompare(b.membershipType));
+          break;
+      }
+
+      renderMembersTable(sortedData);
+    });
+
+    // Handle membership filtering
+    const membershipFilter = document.getElementById('membership-filter');
+    membershipFilter.addEventListener('change', function() {
+      const filterValue = this.value;
+
+      if (filterValue === '') {
+        renderMembersTable(sortedMembers);
+      } else {
+        const filteredMembers = sortedMembers.filter(member => member.membershipType === filterValue ||
+                (filterValue === 'expired' && member.status === 'expired'));
+        renderMembersTable(filteredMembers);
+      }
+    });
+
+    // Handle search
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', function() {
+      const searchQuery = this.value.toLowerCase();
+
+      if (searchQuery === '') {
+        renderMembersTable(sortedMembers);
+      } else {
+        const filteredMembers = sortedMembers.filter(member =>
+                member.name.toLowerCase().includes(searchQuery) ||
+                member.email.toLowerCase().includes(searchQuery) ||
+                member.phone.toLowerCase().includes(searchQuery)
+        );
+        renderMembersTable(filteredMembers);
+      }
+    });
+
+    // Handle the add member form submission
+    const addMemberForm = document.getElementById('add-member-form');
+    addMemberForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // In a real app, you'd process the form data and add a new member
+      // For this demo, we'll just close the modal
+      addMemberModal.classList.add('opacity-0', 'invisible');
+
+      // You could refresh the member list here
+    });
+
+    // Process all renewals button
+    const processAllBtn = document.getElementById('process-all-btn');
+    processAllBtn.addEventListener('click', function() {
+      // In a real app, you'd process all renewals
+      // For this demo, we'll just clear the queue
+      renewalQueue.members = [];
+      renderRenewalQueue(renewalQueue.getAll());
+    });
+  });
+
+  // Render the members table
+  function renderMembersTable(members) {
+    const tableBody = document.getElementById('members-table-body');
+    tableBody.innerHTML = '';
+
+    members.forEach(member => {
+      const row = document.createElement('tr');
+      row.className = 'border-b border-white/10 hover:bg-white/5 transition-colors';
+
+      // Calculate days until renewal
+      const today = new Date();
+      const renewalDate = new Date(member.renewalDue);
+      const diffTime = renewalDate - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      // Determine renewal status badge
+      let renewalBadgeClass = '';
+      let renewalStatus = '';
+
+      if (diffDays < 0) {
+        renewalBadgeClass = 'renewal-badge-urgent';
+        renewalStatus = 'Overdue';
+      } else if (diffDays <= 7) {
+        renewalBadgeClass = 'renewal-badge-urgent';
+        renewalStatus = 'Urgent';
+      } else if (diffDays <= 30) {
+        renewalBadgeClass = 'renewal-badge-soon';
+        renewalStatus = 'Soon';
+      } else {
+        renewalBadgeClass = 'renewal-badge-ok';
+        renewalStatus = 'OK';
+      }
+
+      // Format dates
+      const formattedJoinDate = new Date(member.joinDate).toLocaleDateString();
+      const formattedLastRenewal = new Date(member.lastRenewal).toLocaleDateString();
+      const formattedRenewalDue = new Date(member.renewalDue).toLocaleDateString();
+
+      // Determine membership badge class
+      let membershipBadgeClass = '';
+      switch (member.membershipType) {
+        case 'premium':
+          membershipBadgeClass = 'badge-premium';
+          break;
+        case 'standard':
+          membershipBadgeClass = 'badge-standard';
+          break;
+        case 'basic':
+          membershipBadgeClass = 'badge-basic';
+          break;
+      }
+
+      // Status badge class
+      const statusBadgeClass = member.status === 'active' ? 'bg-green-500/20 text-green-300' : 'badge-expired';
+
+      row.innerHTML = `
+                    <td class="p-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" class="h-4 w-4 rounded bg-white/5 border-white/20 focus:ring-0">
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <div class="flex items-center gap-3">
+                            <div class="h-10 w-10 rounded-full overflow-hidden">
+                                <img src="${member.avatar}" alt="${member.name}" class="h-full w-full object-cover">
+                            </div>
+                            <div>
+                                <p class="font-medium">${member.name}</p>
+                                <p class="text-xs text-gray-400">${member.email}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <span class="px-2 py-1 rounded-full text-xs ${membershipBadgeClass} capitalize">${member.membershipType}</span>
+                    </td>
+                    <td class="p-4">${formattedJoinDate}</td>
+                    <td class="p-4">${formattedLastRenewal}</td>
+                    <td class="p-4">
+                        <div class="flex items-center gap-2">
+                            <span>${formattedRenewalDue}</span>
+                            <span class="px-2 py-1 rounded-full text-xs ${renewalBadgeClass}">${renewalStatus}</span>
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <span class="px-2 py-1 rounded-full text-xs ${statusBadgeClass} capitalize">${member.status}</span>
+                    </td>
+                    <td class="p-4">
+                        <div class="flex items-center gap-2">
+                            <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all text-blue-400 hover:text-blue-300" title="Edit Member">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all text-purple-400 hover:text-purple-300" title="View Details">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all text-red-400 hover:text-red-300" title="Delete Member">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+
+      tableBody.appendChild(row);
+    });
+  }
+
+  // Render the renewal queue
+  function renderRenewalQueue(queueMembers) {
+    const queueContainer = document.querySelector('#renewal-queue-modal .space-y-3');
+    queueContainer.innerHTML = '';
+
+    if (queueMembers.length === 0) {
+      const emptyMessage = document.createElement('div');
+      emptyMessage.className = 'text-center p-6 text-gray-400';
+      emptyMessage.textContent = 'No pending renewals at this time.';
+      queueContainer.appendChild(emptyMessage);
+      return;
+    }
+
+    queueMembers.forEach((member, index) => {
+      const today = new Date();
+      const renewalDate = new Date(member.renewalDue);
+      const diffTime = renewalDate - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      let priorityClass = '';
+      let priorityText = '';
+
+      if (diffDays < 0) {
+        priorityClass = 'text-red-400';
+        priorityText = `Overdue by ${Math.abs(diffDays)} days`;
+      } else if (diffDays <= 7) {
+        priorityClass = 'text-amber-400';
+        priorityText = `Due in ${diffDays} days`;
+      } else {
+        priorityClass = 'text-green-400';
+        priorityText = `Due in ${diffDays} days`;
+      }
+
+      const queueItem = document.createElement('div');
+      queueItem.className = 'glass-effect rounded-xl p-4 flex items-center justify-between';
+
+      queueItem.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl font-semibold">${index + 1}</span>
+                        <div class="h-10 w-10 rounded-full overflow-hidden">
+                            <img src="${member.avatar}" alt="${member.name}" class="h-full w-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-medium">${member.name}</p>
+                            <p class="text-xs ${priorityClass}">${priorityText}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="px-3 py-1.5 bg-green-500/20 text-green-300 rounded-lg hover:bg-green-500/30 transition-all text-sm flex items-center gap-1" data-member-id="${member.id}">
+                            <i class="fas fa-check"></i>
+                            <span>Process</span>
+                        </button>
+                        <button class="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg transition-all" title="View Details" data-member-id="${member.id}">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                `;
+
+      queueContainer.appendChild(queueItem);
+    });
+
+    // Add event listeners to the process buttons
+    queueContainer.querySelectorAll('button[data-member-id]').forEach(button => {
+      button.addEventListener('click', function() {
+        const memberId = parseInt(this.getAttribute('data-member-id'));
+        // In a real app, you'd process the renewal
+        // For this demo, we'll just remove the item from the UI
+        this.closest('.glass-effect').remove();
+      });
+    });
+  }
+</script>
+</body>
+</html>
