@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Profile Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .scale-hover:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* File upload styling */
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
+            <div class="p-6">
+                <a href="/dashboard" class="flex items-center gap-3">
+                    <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                        <i class="fas fa-dumbbell text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+                </a>
+            </div>
+
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                    <i class="fas fa-th-large"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+                    <i class="fas fa-user"></i>
+                    <span class="font-medium">Profile</span>
+                </a>
+                <a href="schedule.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                    <i class="fas fa-calendar"></i>
+                    <span class="font-medium">Schedule</span>
+                </a>
+                <a href="exs.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                    <i class="fas fa-dumbbell"></i>
+                    <span class="font-medium">Exercises</span>
+                </a>
+                <a href="progress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="font-medium">Progress</span>
+                </a>
+                <a href="setttings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                    <i class="fas fa-cog"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </nav>
+
+            <div class="p-4 border-t border-white/10">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                        <span class="font-semibold">AR</span>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">Alex Rodriguez</h3>
+                        <p class="text-xs text-gray-400">Premium Member</p>
+                    </div>
+                </div>
+                <a href="logout.html">
+                    <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Log Out</span>
+                    </button>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Mobile Header -->
+        <header class="lg:hidden fixed w-full flex items-center justify-between p-4 glass-effect z-50">
+            <a href="#" class="flex items-center gap-2">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-1.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
+
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <i class="fas fa-bell text-gray-300"></i>
+                    <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
+                </div>
+                <button aria-label="Toggle menu" class="p-1.5 rounded-lg bg-white/10">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto py-4 lg:py-6 px-4 lg:px-8 lg:pt-0 mt-16 lg:mt-0">
+            <div class="max-w-5xl mx-auto">
+                <!-- Header Section -->
+                <header class="mb-6 animate-slide-up" style="animation-delay: 0.1s;">
+                    <div class="flex justify-between items-center">
+                        <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">My Profile</h1>
+                        <button id="editProfileBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-90 transition-all">
+                            <i class="fas fa-edit mr-2"></i>Edit Profile
+                        </button>
+                    </div>
+                    <p class="text-gray-400 mt-2">Update your personal information and account settings</p>
+                </header>
+
+                <!-- Profile Content -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Left Side - Profile Summary -->
+                    <div class="md:col-span-1 space-y-6">
+                        <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.2s;">
+                            <div class="flex flex-col items-center">
+                                <div class="relative mb-4 group">
+                                    <div class="h-32 w-32 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1">
+                                        <div class="h-full w-full rounded-full overflow-hidden border-2 border-white">
+                                            <img id="profileImage" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="h-full w-full object-cover" />
+                                        </div>
+                                    </div>
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <div class="file-upload">
+                                            <button class="p-2 rounded-full bg-black/50 text-white">
+                                                <i class="fas fa-camera"></i>
+                                            </button>
+                                            <input type="file" id="profilePictureInput" accept="image/*" onchange="updateProfilePicture()" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h2 class="text-xl font-semibold">Alex Rodriguez</h2>
+                                <p class="text-gray-400 text-sm">Premium Member</p>
+
+                                <div class="flex gap-3 mt-4 px-4 py-2 bg-white/5 rounded-lg w-full">
+                                    <div class="text-center flex-1">
+                                        <p class="text-lg font-semibold">85<span class="text-blue-400 text-xs">kg</span></p>
+                                        <p class="text-xs text-gray-400">Weight</p>
+                                    </div>
+                                    <div class="text-center flex-1 border-l border-r border-white/10">
+                                        <p class="text-lg font-semibold">183<span class="text-blue-400 text-xs">cm</span></p>
+                                        <p class="text-xs text-gray-400">Height</p>
+                                    </div>
+                                    <div class="text-center flex-1">
+                                        <p class="text-lg font-semibold">27<span class="text-blue-400 text-xs">y</span></p>
+                                        <p class="text-xs text-gray-400">Age</p>
+                                    </div>
+                                </div>
+
+                                <div class="w-full h-1.5 bg-white/10 rounded-full mt-6 overflow-hidden">
+                                    <div class="h-full rounded-full bg-gradient-to-r from-blue-400 to-purple-500" style="width: 75%;"></div>
+                                </div>
+                                <p class="text-xs text-gray-400 mt-2">75% to your monthly goal</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.3s;">
+                            <h3 class="font-semibold mb-4">Account Information</h3>
+
+                            <div class="space-y-4">
+                                <div class="space-y-1">
+                                    <p class="text-xs text-gray-400">Member Since</p>
+                                    <p class="text-sm">May 2022</p>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <p class="text-xs text-gray-400">Membership</p>
+                                    <p class="text-sm flex items-center">
+                                        <span class="inline-block h-2 w-2 rounded-full bg-green-500 mr-2"></span>
+                                        Premium (Active)
+                                    </p>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <p class="text-xs text-gray-400">Next Billing</p>
+                                    <p class="text-sm">June 15, 2023</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-white/10">
+                                <a href="membership.html" class="w-full px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition-all">
+                                    <i class="fas fa-crown text-yellow-500 mr-2"></i>
+                                    Manage Subscription
+                                </a>
+
+                            </div>
+                        </div>
+
+                       
+                    </div>
+
+                    <!-- Right Side - Profile Details -->
+                    <div class="md:col-span-2 space-y-6">
+                        <!-- View Mode Content -->
+                        <div id="viewProfileMode" class="space-y-6">
+                            <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.2s;">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-10 w-1 rounded-full"></div>
+                                    <h2 class="text-xl font-semibold">Personal Information</h2>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Full Name</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">Alex Rodriguez</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Email Address</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">alex@example.com</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Phone Number</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">(123) 456-7890</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Date of Birth</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">May 15, 1995</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Gender</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">Male</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Location</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">New York, USA</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.3s;">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="bg-gradient-to-r from-green-500 to-teal-500 h-10 w-1 rounded-full"></div>
+                                    <h2 class="text-xl font-semibold">Fitness Information</h2>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Height</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">183 cm (6'0")</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Weight</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">85 kg (187 lbs)</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Body Fat</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">14%</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">BMI</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">25.4 (Normal)</p>
+                                    </div>
+
+                                    <div class="space-y-2 md:col-span-2">
+                                        <p class="text-sm text-gray-400">Fitness Goals</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Build Muscle</span>
+                                            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Increase Strength</span>
+                                            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Improve Endurance</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.4s;">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="bg-gradient-to-r from-red-500 to-orange-500 h-10 w-1 rounded-full"></div>
+                                    <h2 class="text-xl font-semibold">Preferences</h2>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Workout Reminders</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">30 minutes before</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Measurement Units</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">Metric (kg, cm)</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Language</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">English (US)</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <p class="text-sm text-gray-400">Time Zone</p>
+                                        <p class="text-base bg-white/5 rounded-lg p-3">Eastern Time (ET)</p>
+                                    </div>
+
+                                    <div class="space-y-2 md:col-span-2">
+                                        <p class="text-sm text-gray-400">Email Notifications</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Workout Reminders</span>
+                                            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">Weekly Reports</span>
+                                            <span class="px-3 py-1 bg-white/10 rounded-full text-sm">New Features</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Edit Mode Content -->
+                        <div id="editProfileMode" class="space-y-6 hidden">
+                            <form id="profileEditForm">
+                                <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.2s;">
+                                    <div class="flex items-center gap-3 mb-6">
+                                        <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-10 w-1 rounded-full"></div>
+                                        <h2 class="text-xl font-semibold">Personal Information</h2>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Full Name</label>
+                                            <input type="text" value="Alex Rodriguez" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Email Address</label>
+                                            <input type="email" value="alex@example.com" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Phone Number</label>
+                                            <input type="tel" value="(123) 456-7890" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Date of Birth</label>
+                                            <input type="date" value="1995-05-15" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Gender</label>
+                                            <select class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                                <option value="male" selected>Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                                <option value="prefer-not">Prefer not to say</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Location</label>
+                                            <input type="text" value="New York, USA" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.3s;">
+                                    <div class="flex items-center gap-3 mb-6">
+                                        <div class="bg-gradient-to-r from-green-500 to-teal-500 h-10 w-1 rounded-full"></div>
+                                        <h2 class="text-xl font-semibold">Fitness Information</h2>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Height (cm)</label>
+                                            <input type="number" value="183" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Weight (kg)</label>
+                                            <input type="number" value="85" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Body Fat (%)</label>
+                                            <input type="number" value="14" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">BMI</label>
+                                            <input type="number" value="25.4" disabled class="w-full bg-white/5 border border-white/10 rounded-lg p-3 opacity-70">
+                                            <p class="text-xs text-gray-400">BMI is calculated automatically</p>
+                                        </div>
+
+                                        <div class="space-y-2 md:col-span-2">
+                                            <label class="text-sm text-gray-400">Fitness Goals (select all that apply)</label>
+                                            <div class="flex flex-wrap gap-2 mt-2">
+                                                <label class="inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" checked class="sr-only peer">
+                                                    <div class="px-3 py-1 bg-white/10 peer-checked:bg-purple-500/50 rounded-full text-sm transition-colors">Build Muscle</div>
+                                                </label>
+                                                <label class="inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" checked class="sr-only peer">
+                                                    <div class="px-3 py-1 bg-white/10 peer-checked:bg-purple-500/50 rounded-full text-sm transition-colors">Increase Strength</div>
+                                                </label>
+                                                <label class="inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" checked class="sr-only peer">
+                                                    <div class="px-3 py-1 bg-white/10 peer-checked:bg-purple-500/50 rounded-full text-sm transition-colors">Improve Endurance</div>
+                                                </label>
+                                                <label class="inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" class="sr-only peer">
+                                                    <div class="px-3 py-1 bg-white/10 peer-checked:bg-purple-500/50 rounded-full text-sm transition-colors">Weight Loss</div>
+                                                </label>
+                                                <label class="inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" class="sr-only peer">
+                                                    <div class="px-3 py-1 bg-white/10 peer-checked:bg-purple-500/50 rounded-full text-sm transition-colors">Flexibility</div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.4s;">
+                                    <div class="flex items-center gap-3 mb-6">
+                                        <div class="bg-gradient-to-r from-red-500 to-orange-500 h-10 w-1 rounded-full"></div>
+                                        <h2 class="text-xl font-semibold">Preferences</h2>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Workout Reminders</label>
+                                            <select class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                                <option value="none">No reminder</option>
+                                                <option value="15min">15 minutes before</option>
+                                                <option value="30min" selected>30 minutes before</option>
+                                                <option value="1hour">1 hour before</option>
+                                                <option value="1day">1 day before</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Measurement Units</label>
+                                            <select class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                                <option value="metric" selected>Metric (kg, cm)</option>
+                                                <option value="imperial">Imperial (lb, ft)</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Language</label>
+                                            <select class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                                <option value="en-us" selected>English (US)</option>
+                                                <option value="en-gb">English (UK)</option>
+                                                <option value="es">Spanish</option>
+                                                <option value="fr">French</option>
+                                                <option value="de">German</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <label class="text-sm text-gray-400">Time Zone</label>
+                                            <select class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                                <option value="et" selected>Eastern Time (ET)</option>
+                                                <option value="ct">Central Time (CT)</option>
+                                                <option value="mt">Mountain Time (MT)</option>
+                                                <option value="pt">Pacific Time (PT)</option>
+                                                <option value="utc">UTC</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="space-y-2 md:col-span-2">
+                                            <label class="text-sm text-gray-400">Email Notifications</label>
+                                            <div class="flex flex-wrap gap-4 mt-2">
+                                                <label class="inline-flex items-center gap-2 cursor-pointer">
+                                                    <input type="checkbox" checked class="h-4 w-4 rounded border-white/30 bg-white/5 focus:ring-0 focus:ring-offset-0">
+                                                    <span class="text-sm">Workout Reminders</span>
+                                                </label>
+                                                <label class="inline-flex items-center gap-2 cursor-pointer">
+                                                    <input type="checkbox" checked class="h-4 w-4 rounded border-white/30 bg-white/5 focus:ring-0 focus:ring-offset-0">
+                                                    <span class="text-sm">Weekly Reports</span>
+                                                </label>
+                                                <label class="inline-flex items-center gap-2 cursor-pointer">
+                                                    <input type="checkbox" checked class="h-4 w-4 rounded border-white/30 bg-white/5 focus:ring-0 focus:ring-offset-0">
+                                                    <span class="text-sm">New Features</span>
+                                                </label>
+                                                <label class="inline-flex items-center gap-2 cursor-pointer">
+                                                    <input type="checkbox" class="h-4 w-4 rounded border-white/30 bg-white/5 focus:ring-0 focus:ring-offset-0">
+                                                    <span class="text-sm">Promotions</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-end gap-4 mt-6">
+                                    <button type="button" id="cancelEditBtn" class="px-6 py-2.5 bg-white/10 hover:bg-white/20 rounded-xl transition-all">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl hover:opacity-90 transition-all">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript for Profile Picture Upload and Form Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle between view and edit modes
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const cancelEditBtn = document.getElementById('cancelEditBtn');
+            const viewProfileMode = document.getElementById('viewProfileMode');
+            const editProfileMode = document.getElementById('editProfileMode');
+            const profileEditForm = document.getElementById('profileEditForm');
+
+            editProfileBtn.addEventListener('click', function() {
+                viewProfileMode.classList.add('hidden');
+                editProfileMode.classList.remove('hidden');
+            });
+
+            cancelEditBtn.addEventListener('click', function() {
+                viewProfileMode.classList.remove('hidden');
+                editProfileMode.classList.add('hidden');
+            });
+
+            profileEditForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Here you would normally process the form data and update the profile
+                // For demo purposes, we'll just toggle back to view mode with an alert
+                alert('Profile updated successfully!');
+
+                viewProfileMode.classList.remove('hidden');
+                editProfileMode.classList.add('hidden');
+            });
+
+            // Mobile menu toggle
+            const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
+            if (menuButton) {
+                menuButton.addEventListener('click', function() {
+                    console.log('Menu toggled');
+                    // In a real implementation, show mobile menu
+                });
+            }
+
+            // Add animation effect
+            const elementsToAnimate = document.querySelectorAll('.animate-slide-up');
+            elementsToAnimate.forEach(element => {
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, parseFloat(element.style.animationDelay || '0') * 1000);
+            });
+
+            // Subtle hover effects on cards
+            const cards = document.querySelectorAll('.glass-effect');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    card.style.boxShadow = '0 10px 30px -15px rgba(0, 0, 255, 0.15)';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    card.style.transition = 'all 0.3s ease';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    card.style.boxShadow = 'none';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                });
+            });
+        });
+
+        // Function to update profile picture when a file is selected
+        function updateProfilePicture() {
+            const input = document.getElementById('profilePictureInput');
+            const image = document.getElementById('profileImage');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    image.src = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
