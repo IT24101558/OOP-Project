@@ -5,9 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitConnect Gyms</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<script>                                                                ////111
+    function calculateBMI() {
+        const weight = document.getElementById("weight").value;
+        const height = document.getElementById("height").value;
+        const gender = document.getElementById("gender").value;
+        const messageBox = document.getElementById("bmi-message");
+
+        if (!weight || !height || !gender) {
+            showMessage("Please fill in all fields.");
+            return;
+        }
+
+        fetch("/api/bmi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `weight=${weight}&height=${height}&gender=${gender}`
+        })
+        .then(res => res.text())
+        .then(data => {
+            showMessage(data);
+        })
+        .catch(err => {
+            showMessage("An error occurred.");
+            console.error(err);
+        });
+    }
+
+    function showMessage(message) {
+        const messageBox = document.getElementById("bmi-message");
+        messageBox.textContent = message;
+        messageBox.classList.add("show");
+
+        setTimeout(() => {
+            messageBox.classList.remove("show");
+        }, 4000); // Auto-hide after 4 seconds
+    }
+</script>                                                                           /////111
+
 <body>
 <header class="main-header">
     <div class="logo">
@@ -150,6 +189,7 @@
         <p id="bmi-result" class="result"></p>
     </div>
 </section>
+
 
 
 <section class="get-in-touch">
