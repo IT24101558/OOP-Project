@@ -7,45 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<script>                                                                ////111
-    function calculateBMI() {
-        const weight = document.getElementById("weight").value;
-        const height = document.getElementById("height").value;
-        const gender = document.getElementById("gender").value;
-        const messageBox = document.getElementById("bmi-message");
-
-        if (!weight || !height || !gender) {
-            showMessage("Please fill in all fields.");
-            return;
-        }
-
-        fetch("/api/bmi", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `weight=${weight}&height=${height}&gender=${gender}`
-        })
-        .then(res => res.text())
-        .then(data => {
-            showMessage(data);
-        })
-        .catch(err => {
-            showMessage("An error occurred.");
-            console.error(err);
-        });
-    }
-
-    function showMessage(message) {
-        const messageBox = document.getElementById("bmi-message");
-        messageBox.textContent = message;
-        messageBox.classList.add("show");
-
-        setTimeout(() => {
-            messageBox.classList.remove("show");
-        }, 4000); // Auto-hide after 4 seconds
-    }
-</script>                                                                           /////111
 
 <body>
 <header class="main-header">
@@ -188,6 +149,45 @@
 
         <p id="bmi-result" class="result"></p>
     </div>
+    <script>
+        function calculateBMI() {
+            const weight = document.getElementById("weight").value;
+            const height = document.getElementById("height").value;
+            const gender = document.getElementById("gender").value;
+            const messageBox = document.getElementById("bmi-message");
+
+            if (!weight || !height || !gender) {
+                showMessage("Please fill in all fields.");
+                return;
+            }
+
+            fetch("/api/bmi", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `weight=${weight}&height=${height}&gender=${gender}`
+            })
+            .then(res => res.text())
+            .then(data => {
+                showMessage(data);
+            })
+            .catch(err => {
+                showMessage("An error occurred.");
+                console.error(err);
+            });
+        }
+
+        function showMessage(message) {
+            const messageBox = document.getElementById("bmi-message");
+            messageBox.textContent = message;
+            messageBox.classList.add("show");
+
+            setTimeout(() => {
+                messageBox.classList.remove("show");
+            }, 4000); // Auto-hide after 4 seconds
+        }
+    </script>
 </section>
 
 
@@ -205,6 +205,31 @@
             <button type="submit">Send</button>
         </form>
     </div>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const formData = {
+                firstName: this.firstName.value,
+                lastName: this.lastName.value,
+                street: this.street.value,
+                city: this.city.value,
+                email: this.email.value,
+                message: this.message.value
+            };
+
+            const response = await fetch("http://localhost:8080/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.text();
+            alert(result);
+        });
+    </script>
 
     <div class="app-info">
         <h2>POWER SCORE</h2>
