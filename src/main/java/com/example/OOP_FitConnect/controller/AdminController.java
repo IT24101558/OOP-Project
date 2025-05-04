@@ -24,7 +24,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/admin_dashboard")
     public String adminDashboard(HttpServletRequest request, Model model) {
         String userId = (String) request.getSession().getAttribute("userId");
         User admin = userService.getUserById(userId);
