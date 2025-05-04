@@ -2,15 +2,15 @@ package com.example.OOP_FitConnect.controller;
 
 import com.example.OOP_FitConnect.model.User;
 import com.example.OOP_FitConnect.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;  //  Still needed for session
+import jakarta.servlet.http.HttpSession;      //  Still needed for session
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes; // Add this import
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +22,38 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    // Guest accessible pages
+    @GetMapping("/")
+    public String indexPage() {
+        return "index";
+    }
+
+    @GetMapping("/index")
+    public String indexPage2() {
+        return "index";
+    }
+
+    @GetMapping("/gallery")
+    public String galleryPage() {
+        return "gallery";
+    }
+
+    @GetMapping("/memplan")
+    public String memplanPage() {
+        return "memplan";
+    }
+
+    @GetMapping("/aboutus")
+    public String aboutUsPage() {
+        return "aboutus";
+    }
+
+    @GetMapping("/supplements")
+    public String supplementsPage() {
+        return "supplements";
+    }
+
+    // Authentication pages
     @GetMapping("/login")
     public String loginPage() {
         return "login";
@@ -46,6 +78,35 @@ public class AuthController {
         return "redirect:/login?error=invalid_token";
     }
 
+    // User and Admin dashboards
+    @GetMapping("/user/dashboard")
+    public String userDashboard(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userId") != null) {
+            String userId = (String) session.getAttribute("userId");
+            User user = userService.getUserById(userId);
+            if (user != null && "USER".equals(user.getRole())) {
+                model.addAttribute("user", user);
+                return "user_dashboard";
+            }
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/admin/dashboard")
+    public String adminDashboard(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userId") != null) {
+            String userId = (String) session.getAttribute("userId");
+            User admin = userService.getUserById(userId);
+            if (admin != null && "ADMIN".equals(admin.getRole())) {
+                model.addAttribute("admin", admin);
+                return "admin_dashboard";
+            }
+        }
+        return "redirect:/login";
+    }
+
     @PostMapping("/api/login")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> login(
@@ -57,21 +118,22 @@ public class AuthController {
 
         User user = userService.authenticate(email, password);
         if (user != null) {
-            // Create session
             HttpSession session = request.getSession(true);
             session.setAttribute("userId", user.getId());
             session.setAttribute("userEmail", user.getEmail());
-            session.setAttribute("userRole", user.getRole());  // Add role to session
+            session.setAttribute("userRole", user.getRole());
 
             response.put("success", true);
-            // Redirect based on role
-            response.put("redirect", user.isAdmin() ? "/admin/dashboard" : "/dashboard");
-
-            // Add verification check for non-admin users
-            if (!user.isAdmin() && !user.isVerified()) {
+            String redirectUrl = "/";
+            if ("ADMIN".equals(user.getRole())) {
+                redirectUrl = "/admin/dashboard";
+            } else if ("USER".equals(user.getRole())) {
+                redirectUrl = "/user/dashboard";
+            }
+            response.put("redirect", redirectUrl);
+            if (!user.isVerified() && !"ADMIN".equals(user.getRole())) {
                 response.put("warning", "Please verify your email to access all features");
             }
-
             return ResponseEntity.ok(response);
         }
 
@@ -90,18 +152,14 @@ public class AuthController {
 
         Map<String, Object> response = new HashMap<>();
 
-        // Check if email is already registered
         if (userService.getUserByEmail(email) != null) {
             response.put("success", false);
             response.put("message", "Email already registered");
             return ResponseEntity.badRequest().body(response);
         }
 
-        // Register new user
         String verificationToken = UUID.randomUUID().toString();
         User user = userService.registerUser(name, email, password, verificationToken);
-
-        // Send verification email
         userService.sendVerificationEmail(user, verificationToken);
 
         response.put("success", true);
@@ -150,12 +208,13 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request,  RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
-
+        redirectAttributes.addFlashAttribute("message", "Logged out successfully."); //use redirectAttributes
         return "redirect:/login";
     }
 }
+
