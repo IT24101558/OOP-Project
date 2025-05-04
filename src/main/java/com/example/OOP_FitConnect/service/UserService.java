@@ -21,20 +21,26 @@ public class UserService {
     @Autowired
     private JavaMailSender mailSender;
 
+    private static final String BASE_URL = "http://localhost:8080";
+
     @PostConstruct
     public void init() {
         // Check if admin already exists
         User existingAdmin = dbController.getUserByEmail("admin@user.com");
         if (existingAdmin == null) {
             // Create predefined admin
-            User admin = new User();
-            admin.setName("Admin");
-            admin.setEmail("admin@user.com");
-            admin.setPassword("1234567890");
-            admin.setRole("ADMIN");
-            admin.setVerified(true);
-            dbController.saveUser(admin);
+            createAdminUser();
         }
+    }
+
+    private void createAdminUser() {
+        User admin = new User();
+        admin.setName("Admin");
+        admin.setEmail("admin@user.com");
+        admin.setPassword("1234567890");
+        admin.setRole("ADMIN");
+        admin.setVerified(true);
+        dbController.saveUser(admin);
     }
 
     public User authenticate(String email, String password) {
@@ -46,13 +52,16 @@ public class UserService {
     }
 
     public User registerUser(String name, String email, String password, String verificationToken) {
+        if (dbController.getUserByEmail(email) != null) {
+            throw new IllegalArgumentException("Email already in use");
+        }
+
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
         user.setVerificationToken(verificationToken);
-        user.setRole("USER"); // Set default role
-
+        user.setRole("USER");
         dbController.saveUser(user);
         return user;
     }
@@ -113,30 +122,31 @@ public class UserService {
         }
     }
 
-    public void sendVerificationEmail(User user, String token) {
+    private void sendEmail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(user.getEmail());
-        message.setSubject("Verify your FitConnect account");
-        message.setText("Hello " + user.getName() + ",\n\n" +
-                "Please verify your email by clicking the link below:\n" +
-                "http://localhost:8080/verify?token=" + token + "\n\n" +
-                "Thank you,\nFitConnect Team");
-
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(body);
         mailSender.send(message);
+    }
+
+    public void sendVerificationEmail(User user, String token) {
+        String body = "Hello " + user.getName() + ",\n\n" +
+                "Please verify your email by clicking the link below:\n" +
+                BASE_URL + "/verify?token=" + token + "\n\n" +
+                "Thank you,\nFitConnect Team";
+        sendEmail(user.getEmail(), "Verify your FitConnect account", body);
     }
 
     public void sendPasswordResetEmail(User user, String resetToken) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(user.getEmail());
-        message.setSubject("FitConnect Password Reset");
-        message.setText("Hello " + user.getName() + ",\n\n" +
+        String body = "Hello " + user.getName() + ",\n\n" +
                 "Please reset your password by clicking the link below:\n" +
-                "http://localhost:8080/reset-password?token=" + resetToken + "\n\n" +
+                BASE_URL + "/reset-password?token=" + resetToken + "\n\n" +
                 "This link will expire in 24 hours.\n\n" +
-                "Thank you,\nFitConnect Team");
-
-        mailSender.send(message);
+                "Thank you,\nFitConnect Team";
+        sendEmail(user.getEmail(), "FitConnect Password Reset", body);
     }
+
 
     public List<WorkoutPlan> getUserWorkoutPlans(String userId) {
         User user = dbController.getUserById(userId);
@@ -155,7 +165,7 @@ public class UserService {
         User user = dbController.getUserById(userId);
         if (user == null) return false;
 
-        if (user.isAdmin()) return true;
+        if (user.isAdmin() || user.isGuest()) return true; // Guests can access if assigned.
 
         return user.getWorkoutPlans().stream()
                 .anyMatch(plan -> plan.getId().equals(workoutId));
@@ -177,5 +187,27 @@ public class UserService {
 
     public void deleteUser(String userId) {
         dbController.deleteUser(userId);
+    }
+
+    // Method to create a guest user
+    public User createGuestUser() {
+        User guestUser = new User();
+        guestUser.setName("Guest");
+        guestUser.setEmail(generateGuestEmail());  // Generate a unique email for the guest
+        guestUser.setPassword(generateGuestPassword()); // Generate a random password
+        guestUser.setRole("GUEST"); // Set the role to GUEST
+        guestUser.setVerified(true); // Guests are considered verified
+        dbController.saveUser(guestUser);
+        return guestUser;
+    }
+
+    // Method to generate a unique email for guest user
+    private String generateGuestEmail() {
+        return "guest-" + UUID.randomUUID().toString() + "@fitconnect.com";
+    }
+
+    // Method to generate a random password for guest user
+    private String generateGuestPassword() {
+        return UUID.randomUUID().toString();
     }
 }
