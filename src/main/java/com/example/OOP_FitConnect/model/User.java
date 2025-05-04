@@ -41,6 +41,9 @@ public class User {
     public boolean isAdmin() {
         return "ADMIN".equals(role);
     }
+    public boolean isGuest() {
+        return "GUEST".equals(role);
+    }
 
     public String getId() {
         return id;
