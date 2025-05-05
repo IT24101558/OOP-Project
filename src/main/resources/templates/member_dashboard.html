@@ -105,7 +105,7 @@
     <!-- Sidebar Navigation -->
     <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
         <div class="p-6">
-            <a href="/dashboard" class="flex items-center gap-3">
+            <a href="member_dashboard.html" class="flex items-center gap-3">
                 <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg animate-pulse-slow">
                     <i class="fas fa-dumbbell text-white"></i>
                 </div>
@@ -126,15 +126,15 @@
                 <i class="fas fa-calendar"></i>
                 <span class="font-medium">Schedule</span>
             </a>
-            <a href="exs.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="exercises.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-dumbbell"></i>
                 <span class="font-medium">Exercises</span>
             </a>
-            <a href="progress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="weekprogress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-chart-line"></i>
                 <span class="font-medium">Progress</span>
             </a>
-            <a href="/setttings" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="User-Settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-cog"></i>
                 <span class="font-medium">Settings</span>
             </a>
@@ -150,7 +150,7 @@
                     <p class="text-xs text-gray-400">Premium Member</p>
                 </div>
             </div>
-            <a href="/logout">
+            <a href="membership-logout.html">
                 <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Log Out</span>
@@ -190,7 +190,7 @@
                         <p class="text-gray-400 mt-2">Let's crush your fitness goals today</p>
                     </div>
                     <div class="glass-effect rounded-xl p-3 flex gap-3">
-                        <a href="settings.html" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
+                        <a href="User-Settings.html" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
                             <i class="fas fa-cog"></i>
                         </a>
                         <a href="profile.html" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
@@ -780,74 +780,144 @@
                     </div>
 
                     <!-- Calendar -->
-                    <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.8s;">
-                        <h2 class="font-semibold mb-4">May 2025</h2>
-
-                        <div class="grid grid-cols-7 gap-1 text-center">
-                            <div class="text-xs text-gray-400">Mo</div>
-                            <div class="text-xs text-gray-400">Tu</div>
-                            <div class="text-xs text-gray-400">We</div>
-                            <div class="text-xs text-gray-400">Th</div>
-                            <div class="text-xs text-gray-400">Fr</div>
-                            <div class="text-xs text-gray-400">Sa</div>
-                            <div class="text-xs text-gray-400">Su</div>
-
-                            <div class="text-xs text-gray-500 py-2">1</div>
-                            <div class="text-xs text-gray-500 py-2">2</div>
-                            <div class="text-xs text-gray-500 py-2">3</div>
-                            <div class="text-xs text-gray-500 py-2">4</div>
-                            <div class="text-xs text-gray-500 py-2">5</div>
-                            <div class="text-xs text-gray-500 py-2">6</div>
-                            <div class="text-xs text-gray-500 py-2">7</div>
-
-                            <div class="text-xs text-gray-500 py-2">8</div>
-                            <div class="text-xs text-gray-500 py-2">9</div>
-                            <div class="text-xs text-gray-500 py-2">10</div>
-                            <div class="text-xs text-gray-500 py-2">11</div>
-                            <div class="text-xs text-gray-500 py-2">12</div>
-                            <div class="text-xs text-gray-500 py-2">13</div>
-                            <div class="text-xs text-gray-500 py-2">14</div>
-
-                            <div class="text-xs text-gray-500 py-2">15</div>
-                            <div class="text-xs text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">16</div>
-                            <div class="text-xs text-gray-500 py-2">17</div>
-                            <div class="text-xs text-gray-500 py-2">18</div>
-                            <div class="text-xs text-gray-500 py-2">19</div>
-                            <div class="text-xs text-gray-500 py-2">20</div>
-                            <div class="text-xs text-gray-500 py-2">21</div>
-
-                            <div class="text-xs text-gray-500 py-2">22</div>
-                            <div class="text-xs text-gray-500 py-2">23</div>
-                            <div class="text-xs text-gray-500 py-2">24</div>
-                            <div class="text-xs text-gray-500 py-2">25</div>
-                            <div class="text-xs text-gray-500 py-2">26</div>
-                            <div class="text-xs text-gray-500 py-2">27</div>
-                            <div class="text-xs text-gray-500 py-2">28</div>
-
-                            <div class="text-xs text-gray-500 py-2">29</div>
-                            <div class="text-xs text-gray-500 py-2">30</div>
-                            <div class="text-xs text-gray-500 py-2">31</div>
-                            <div class="text-xs text-gray-400 py-2">1</div>
-                            <div class="text-xs text-gray-400 py-2">2</div>
-                            <div class="text-xs text-gray-400 py-2">3</div>
-                            <div class="text-xs text-gray-400 py-2">4</div>
+                    <div class="calendar-container">
+                        <div class="flex justify-center mb-4">
+                            <button id="prev-month-btn" class="bg-white/10 hover:bg-white/20 text-white rounded-md px-4 py-2 transition-colors">
+                                <i class="fas fa-arrow-left"></i> Previous
+                            </button>
+                            <h2 id="month-year" class="font-semibold text-lg text-white mx-6 my-2">May 2025</h2>
+                            <button id="next-month-btn" class="bg-white/10 hover:bg-white/20 text-white rounded-md px-4 py-2 transition-colors">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
                         </div>
 
-                        <div class="mt-4 flex justify-center gap-4">
-                            <div class="flex items-center gap-2">
-                                <div class="h-3 w-3 rounded-full bg-blue-500"></div>
-                                <span class="text-xs text-gray-400">Workout</span>
+                        <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.8s;">
+                            <div class="grid grid-cols-7 gap-1 text-center">
+                                <div class="text-xs text-gray-400">Mo</div>
+                                <div class="text-xs text-gray-400">Tu</div>
+                                <div class="text-xs text-gray-400">We</div>
+                                <div class="text-xs text-gray-400">Th</div>
+                                <div class="text-xs text-gray-400">Fr</div>
+                                <div class="text-xs text-gray-400">Sa</div>
+                                <div class="text-xs text-gray-400">Su</div>
+
+                                <div class="text-xs text-gray-500 py-2" id="day-1"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-2"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-3"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-4"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-5"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-6"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-7"></div>
+
+                                <div class="text-xs text-gray-500 py-2" id="day-8"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-9"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-10"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-11"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-12"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-13"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-14"></div>
+
+                                <div class="text-xs text-gray-500 py-2" id="day-15"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-16"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-17"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-18"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-19"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-20"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-21"></div>
+
+                                <div class="text-xs text-gray-500 py-2" id="day-22"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-23"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-24"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-25"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-26"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-27"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-28"></div>
+
+                                <div class="text-xs text-gray-500 py-2" id="day-29"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-30"></div>
+                                <div class="text-xs text-gray-500 py-2" id="day-31"></div>
+                                <div class="text-xs text-gray-400 py-2" id="day-32"></div>
+                                <div class="text-xs text-gray-400 py-2" id="day-33"></div>
+                                <div class="text-xs text-gray-400 py-2" id="day-34"></div>
+                                <div class="text-xs text-gray-400 py-2" id="day-35"></div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <div class="h-3 w-3 rounded-full bg-green-500"></div>
-                                <span class="text-xs text-gray-400">Goal Met</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="h-3 w-3 rounded-full bg-red-500"></div>
-                                <span class="text-xs text-gray-400">Missed</span>
+
+                            <div class="mt-4 flex justify-center gap-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="h-3 w-3 rounded-full bg-blue-500"></div>
+                                    <span class="text-xs text-gray-400">Workout</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="h-3 w-3 rounded-full bg-green-500"></div>
+                                    <span class="text-xs text-gray-400">Goal Met</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="h-3 w-3 rounded-full bg-red-500"></div>
+                                    <span class="text-xs text-gray-400">Missed</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const prevMonthBtn = document.getElementById('prev-month-btn');
+                            const nextMonthBtn = document.getElementById('next-month-btn');
+                            const monthYearLabel = document.getElementById('month-year');
+                            const dayElements = [];
+                            for (let i = 1; i <= 35; i++) {
+                                dayElements.push(document.getElementById(`day-${i}`));
+                            }
+
+                            let currentYear = 2025;
+                            let currentMonth = 4; // 0-indexed (0 = January, 11 = December)
+                            let today = new Date();
+
+
+                            function updateCalendar(year, month) {
+                                const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 (Sunday) to 6 (Saturday)
+                                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                                const monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+                                monthYearLabel.textContent = `${monthName[month]} ${year}`;
+
+                                let dayCounter = 1;
+                                for (let i = 0; i < 35; i++) {
+                                    dayElements[i].textContent = '';
+                                    dayElements[i].classList.remove('bg-gradient-to-r', 'from-blue-500', 'to-purple-500', 'text-white', 'font-medium', 'rounded-full');
+                                    if (i >= firstDayOfMonth && dayCounter <= daysInMonth) {
+                                        dayElements[i].textContent = dayCounter;
+                                        const isToday = year === today.getFullYear() && month === today.getMonth() && dayCounter === today.getDate();
+                                        if (isToday) {
+                                            dayElements[i].classList.add('bg-gradient-to-r', 'from-blue-500', 'to-purple-500', 'text-white', 'font-medium', 'rounded-full');
+                                        }
+                                        dayCounter++;
+                                    }
+                                }
+                            }
+
+                            prevMonthBtn.addEventListener('click', function() {
+                                currentMonth--;
+                                if (currentMonth < 0) {
+                                    currentMonth = 11;
+                                    currentYear--;
+                                }
+                                updateCalendar(currentYear, currentMonth);
+                            });
+
+                            nextMonthBtn.addEventListener('click', function() {
+                                currentMonth++;
+                                if (currentMonth > 11) {
+                                    currentMonth = 0;
+                                    currentYear++;
+                                }
+                                updateCalendar(currentYear, currentMonth);
+                            });
+
+                            updateCalendar(currentYear, currentMonth); // Initial render
+                        });
+                    </script>
+
                 </div>
             </div>
         </div>
