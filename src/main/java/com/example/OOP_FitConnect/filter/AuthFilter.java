@@ -29,9 +29,9 @@ public class AuthFilter implements Filter {
                 if (isAjax) {
                     httpResponse.setContentType("application/json");
                     httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    httpResponse.getWriter().write("{\"error\":\"Access denied\",\"redirect\":\"/dashboard\"}");
+                    httpResponse.getWriter().write("{\"error\":\"Access denied\",\"redirect\":\"/register\"}");
                 } else {
-                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/dashboard");
+                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/admin_dashboard");
                 }
                 return;
             }
@@ -42,9 +42,9 @@ public class AuthFilter implements Filter {
             if (isAjax) {
                 httpResponse.setContentType("application/json");
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                httpResponse.getWriter().write("{\"error\":\"Not authenticated\",\"redirect\":\"/login\"}");
+                httpResponse.getWriter().write("{\"error\":\"Not authenticated\",\"redirect\":\"/register\"}");
             } else {
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/member_dashboard");
             }
         }
     }
