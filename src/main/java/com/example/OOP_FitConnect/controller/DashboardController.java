@@ -25,7 +25,7 @@ public class DashboardController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/dashboard")
+    @GetMapping("/member_dashboard")
     public String dashboard(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("userId") != null) {
@@ -51,7 +51,7 @@ public class DashboardController {
                 model.addAttribute("completedWorkouts", completedWorkouts);
                 model.addAttribute("completionRate", Math.round(completionRate));
 
-                return "user_dashboard";
+                return "member_dashboard";
             }
         }
         return "redirect:/login";
