@@ -69,6 +69,11 @@ public class AuthController {
         return "forgot-password";
     }
 
+    @GetMapping("/verification-result")
+    public String verificationResultPage() {
+        return "verification-result";
+    }
+
     @GetMapping("/reset-password")
     public String resetPasswordPage(@RequestParam String token, Model model) {
         if (userService.isValidResetToken(token)) {
