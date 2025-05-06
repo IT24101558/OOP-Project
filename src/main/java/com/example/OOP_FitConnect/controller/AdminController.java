@@ -45,7 +45,7 @@ public class AdminController {
             return "admin_dashboard";
         }
 
-        return "redirect:admin_dashboard";
+        return "redirect:login";
     }
 
     @PostMapping("/api/create-admin")
