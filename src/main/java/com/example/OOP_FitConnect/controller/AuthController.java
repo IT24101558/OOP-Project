@@ -87,7 +87,7 @@ public class AuthController {
             User user = userService.getUserById(userId);
             if (user != null && "USER".equals(user.getRole())) {
                 model.addAttribute("user", user);
-                return "user_dashboard";
+                return "member_dashboard";
             }
         }
         return "redirect:/login";
