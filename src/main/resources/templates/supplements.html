@@ -6,6 +6,432 @@
     <title>Supplement Page</title>
     <link rel="stylesheet" href="supplements.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow-y: auto;
+            background-color: black;
+        }
+        h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-top: 20px;
+        }
+
+        .food-card {
+            width: 300px;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 10px;
+            transition: transform 0.3s ease-in-out;
+
+            background: rgb(68, 68, 68, 0.1); /* Light transparent overlay */
+            backdrop-filter: blur(40px); /* Adds blur effect */
+            box-shadow: 0 4px 10px rgb(4, 51, 255, 0.3); /* Optional for better visibility */
+
+        }
+
+        .food-card:hover {
+            transform: scale(1.05);
+        }
+
+        .food-card img {
+            width: 100%;
+            border-radius: 10px 8px 0 0;
+        }
+
+        .food-card button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            background-color: #007BFF;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .food-card button:hover {
+            background-color: #0433ff;
+        }
+
+        .food-details {
+            display: none;
+            padding: 10px;
+            color: #ffffff;
+        }
+
+        .food-details ul {
+            padding-left: 20px; /* Adds indentation for better structure */
+            margin: 0;
+            list-style-position: inside; /* Keeps bullets aligned properly */
+            text-align: left;
+        }
+
+        .food-card h2{
+            color: white;
+            text-align: center;
+        }
+        .food-card p {
+            color: white;
+            text-align: left;
+        }
+
+
+
+        /* Protein Section Animation */
+        .protein-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .protein-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%;
+            background-image: url("/images/supimg1.jpg");
+            background-size: auto;
+            background-position: 100% 0%;
+            animation: proteinAnimation 30s linear infinite alternate;
+            opacity: 1.0;
+            z-index: -1;
+        }
+
+        @keyframes proteinAnimation {
+            0% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 100%;
+            }
+        }
+
+        .pre-workout-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pre-workout-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("/images/supimg2.jpg");
+            background-size: auto;
+            background-position: 100% 0%;
+            animation: preWorkoutAnimation 50s linear infinite alternate;
+            opacity: 1.0;
+            z-index: -1;
+        }
+
+        @keyframes preWorkoutAnimation {
+            0% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 100%;
+            }
+        }
+        .Mass-gain-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .Mass-gain-section::before { /* Corrected typo and removed colon */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%; /* Changed to 150% to match protein */
+            background-image: url("/images/supimg3.jpg");
+            background-size: auto;
+            background-position: 100% 0%;
+            animation: massGainAnimation 50s linear infinite alternate; /* Corrected typo */
+            opacity: 1.0;
+            z-index: -1;
+        }
+
+        @keyframes massGainAnimation {
+            0% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 100%;
+            }
+
+        }
+
+        .Ceratine-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .Ceratine-section::before { /* Corrected typo and removed colon */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%; /* Changed to 150% to match protein */
+            background-image: url("/images/supimg1.jpg");
+            background-size: auto;
+            background-position: 100% 0%;
+            animation: massGainAnimation 40s linear infinite alternate; /* Corrected typo */
+            opacity: 1.0;
+            z-index: -1;
+        }
+
+        @keyframes CeratineAnimation {
+            0% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 100%;
+            }
+        }
+
+        .Foods-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .Foods-section::before { /* Corrected typo and removed colon */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%; /* Changed to 150% to match protein */
+            background-image: url("/images/supimg2.jpg");
+            background-size: auto;
+            background-position: 100% 0%;
+            animation: massGainAnimation 40s linear infinite alternate; /* Corrected typo */
+            opacity: 1.0;
+            z-index: -1;
+        }
+
+        @keyframes FoodsAnimation {
+            0% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 100%;
+            }
+        }
+
+        .Drinks-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .Drinks-section::before { /* Corrected typo and removed colon */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150%; /* Changed to 150% to match protein */
+            background-image: url("/images/supimg3.jpg");
+            background-size: auto;
+            background-position: 100% 0%;
+            animation: massGainAnimation 20s linear infinite alternate; /* Corrected typo */
+            opacity: 1.0;
+            z-index: -1;
+        }
+
+        @keyframes DrinksAnimation {
+            0% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 100%;
+            }
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background-color: #1a1a1a;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ... (Other styles from previous responses) ... */
+
+        .footer {
+            background-color: #000000;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 2500px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            width: 23%;
+            margin-bottom: 20px;
+        }
+
+        .about-us p {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .footer-logo {
+            max-width: 20px; /* Adjusted logo size */
+            margin-bottom: 10px;
+        }
+
+        .footer-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .footer-section p,
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li a::before {
+            content: ">";
+            margin-right: 5px;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ffffff;
+            border-radius: 50%;
+            margin-right: 10px;
+            color: #ffffff;
+            opacity: 1.0;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+
+        .social-icons a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #ffffff;
+            margin-top: 40px;
+            width: 100%;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background-color: #050505;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-header {
+            background-color: #1a1a1a;
+        }
+
+        .benefits-header {
+            background-color: #fefcdd;
+            color: #181616;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header .logo img {
+            height: 60px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        header .logo img:hover {
+            transform: scale(1.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #ff2600;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #0433ff;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out 0s;
+        }
+
+        nav ul li a:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+
+        nav ul li a:hover {
+            color: #0433ff;
+        }
+
+    </style>
 </head>
 <body>
 <header class="main-header">
@@ -14,13 +440,13 @@
     </div>
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="memplan.html">Membership Plans</a></li>
-            <li><a href="supplements.html">Supplements</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="about.html">Contact</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="about.html">About Us</a></li>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/memplan">Membership Plans</a></li>
+            <li><a href="/supplements">Supplements</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/about">Contact</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/about">About Us</a></li>
         </ul>
     </nav>
 </header>
@@ -353,11 +779,11 @@
         <div class="footer-section quick-links">
             <h2>Quick Links</h2>
             <ul>
-                <li><a href="index.html"> Home</a></li>
-                <li><a href="#"> About Us</a></li>
-                <li><a href="#"> Our Features</a></li>
-                <li><a href="#"> Classes</a></li>
-                <li><a href="#"> Contact Us</a></li>
+                <li><a href="/index"> Home</a></li>
+                <li><a href="/aboutus"> About Us</a></li>
+                <li><a href="/aboutus"> Our Features</a></li>
+                <li><a href="/aboutus"> Classes</a></li>
+                <li><a href="/aboutus"> Contact Us</a></li>
             </ul>
         </div>
         <div class="footer-section opening-hours">

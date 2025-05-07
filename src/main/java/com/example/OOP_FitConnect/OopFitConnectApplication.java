@@ -9,5 +9,4 @@ public class OopFitConnectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OopFitConnectApplication.class, args);
 	}
-
 }

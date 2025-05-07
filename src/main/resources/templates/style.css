@@ -386,11 +386,11 @@ nav ul li a:hover {
 
 /* Image Background Animation */
 @keyframes changeBackground {
-    0%   { background-image: url("/images/BG1.jpg"); }
-    25%  { background-image: url("/images/BG2.jpg"); }
-    50%  { background-image: url("/images/BG3.jpg"); }
-    75% { background-image: url("/images/BG4.jpg"); }
-    100% { background-image: url("/images/loginBG5.jpg"); }
+    0%   { background-image: url("/static/images/BG1.jpg"); }
+    25%  { background-image: url("/static/images/BG2.jpg"); }
+    50%  { background-image: url("/static/images/BG3.jpg"); }
+    75% { background-image: url("/static/images/BG4.jpg"); }
+    100% { background-image: url("/static/images/loginBG5.jpg"); }
 }
 
 /* Fade In Animation */
@@ -736,7 +736,7 @@ body {
     text-align: center;
     padding: 50px 20px;
     color: white;
-    background: url('/images/BG5.jpg') no-repeat center center/cover; /* Replace with your image */
+    background: url('/static/images/BG5.jpg') no-repeat center center/cover; /* Replace with your image */
     animation: fadeIn 2s ease-in-out;
 }
 
