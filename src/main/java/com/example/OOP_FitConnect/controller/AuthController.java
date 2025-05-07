@@ -43,9 +43,9 @@ public class AuthController {
         return "memplan";
     }
 
-    @GetMapping("/aboutus")
+    @GetMapping("/About_us")
     public String aboutUsPage() {
-        return "aboutus";
+        return "About_us";
     }
 
     @GetMapping("/supplements")
