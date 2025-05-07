@@ -1,0 +1,641 @@
+<!-- exercises.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .scale-hover:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
+        <div class="p-6">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-th-large"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-user"></i>
+                <span class="font-medium">Profile</span>
+            </a>
+            <a href="schedule.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-calendar"></i>
+                <span class="font-medium">Schedule</span>
+            </a>
+            <a href="exs.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+                <i class="fas fa-dumbbell"></i>
+                <span class="font-medium">Exercises</span>
+            </a>
+            <a href="progress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-chart-line"></i>
+                <span class="font-medium">Progress</span>
+            </a>
+            <a href="setttings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-cog"></i>
+                <span class="font-medium">Settings</span>
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                    <span class="font-semibold">AR</span>
+                </div>
+                <div>
+                    <h3 class="font-medium">Alex Rodriguez</h3>
+                    <p class="text-xs text-gray-400">Premium Member</p>
+                </div>
+            </div>
+            <a href="logout.html">
+                <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </button>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden fixed w-full flex items-center justify-between p-4 glass-effect z-50">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-1.5 rounded-lg">
+                <i class="fas fa-dumbbell text-white"></i>
+            </div>
+            <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+        </a>
+
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <i class="fas fa-bell text-gray-300"></i>
+                <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
+            </div>
+            <button aria-label="Toggle menu" class="p-1.5 rounded-lg bg-white/10">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto py-4 lg:py-6 px-4 lg:px-8 lg:pt-0 mt-16 lg:mt-0">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header Section -->
+            <header class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Exercise Library</h1>
+            </header>
+
+            <!-- Exercise Categories -->
+            <div class="mb-8 animate-slide-up" style="animation-delay: 0.4s;">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold mb-6">HIIT Workouts</h2>
+                    <button class="text-sm text-blue-400 hover:text-blue-300 transition-colors"></button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1: Jumping Jacks -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://hips.hearstapps.com/hmg-prod/images/766/jumping-jacks-in-any-workout-1516714280.jpg" alt="Jumping Jacks" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Jumping Jacks</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Chest, Legs</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: High Knees -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://www.dmoose.com/cdn/shop/articles/feature-image_94c64872-4b8a-4a11-a27f-38fc4b28d124.jpg?v=1679399510" alt="High Knees" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">High Knees</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Knees, Legs , Back</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Butt Kicks -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://www.shape.com/thmb/XnPlKD-V34i5-WP1A0BWpFGcqLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Cable-Kickback-47f64e410484455eb9edb863625da9df.jpg" alt="Butt Kicks" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Butt Kicks</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Chest, Legs , Knees</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Squat Jumps -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://hips.hearstapps.com/hmg-prod/images/pistol-squat-regular-pistol-squat-233-1654102650.jpg?crop=0.563xw:0.839xh;0.208xw,0.161xh&resize=1200:*" alt="Squat Jumps" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Squat Jumps</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Legs, Knees, Muscles</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Plank Jacks -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://steelsupplements.com/cdn/shop/articles/shutterstock_1059578720_4907x.jpg?v=1591017740" alt="Plank Jacks" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Plank Jacks</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Upper body, Lower body , Chest</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Jump Lunges -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://hortonbarbell.com/wp-content/uploads/2022/05/Dumbbell-Lunge.png" alt="Jump Lunges" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Jump Lunges</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Chest, Knees , Legs</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: shoulder tap -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://hortonbarbell.com/wp-content/uploads/2022/08/Shoulder-Taps.png" alt="shoulder tap" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">shoulder tap</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Shoulders, Chest , Arms</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 8: Upper Body Sculpt -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://www.verywellfit.com/thmb/yHMw_en0CTeoFkqZW5yZUOnYfWg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/3120397-GettyImages-1370779226-73bc1d94e66f4048942f1d1d9639494f.jpg" alt="Upper Body Sculpt" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Upper Body Sculpt</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Chest, Shoulders , Arma</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 9: Lower Body Focus -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/08/lower-body-workout-routine.jpg?fit=1000%2C667&ssl=1" alt="Lower Body Focus" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Lower Body Focus</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Hips, Legs , Muscles</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 10: Quick Fat Burn -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://cdn.muscleandstrength.com/sites/default/files/styles/800x500/public/fit_woman_doing_dumbbell_workout.jpg?itok=9Io03Tjp" alt="Quick Fat Burn" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Quick Fat Burn</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Chest, Shoulders ,Hips</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 11: Ultimate Core Strength -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://danishendurance.com/cdn/shop/articles/core-exercises-the-benefits-and-challenges-of-a-strong-and-stable-core-637280.jpg?v=1678713069" alt="Ultimate Core Strength" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Ultimate Core Strength</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Full body</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 12: 30-Minute Blitz-->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://cdn.prod.website-files.com/61713dc07218ee71af5413af/66a7c16c45ca86b393e344de_100%20Fitness%20Challenge%20Ideas%20for%20Your%20Gym-min.jpg" alt="30-Minute Blitz" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">30-Minute Blitz</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Upper Body, Lower Body</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 13: HIIT Hero -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://www.crunch.com/wp-content/uploads/2024/09/CR011AG_August-w-o-8-26-article-images_HIIT-Workouts_banner_8.30.24.jpg" alt="HIIT Hero" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">HIIT Hero</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Hips, Shoulders , Arms, Knees</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 14: Strength Circuit -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://hips.hearstapps.com/hmg-prod/images/determined-muscular-young-woman-doing-squats-with-royalty-free-image-922708878-1563460285.jpg" alt="Strength Circuit" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Strength Circuit</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Arms, Shoulders , Upper Body</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 15: Russian Twists -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://cdn.mos.cms.futurecdn.net/yTVgqM7RBHk8FsVVF9dp5D.jpg" alt="Russian Twists" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Russian Twists</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Hips, Shoulders </span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </main>
+</div>>
+
+<!-- JavaScript for toggles and interactions -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
+        if (menuButton) {
+            menuButton.addEventListener('click', function() {
+                console.log('Menu toggled');
+                // In a real implementation, show mobile menu
+            });
+        }
+
+        // Add animation effect
+        const elementsToAnimate = document.querySelectorAll('.animate-slide-up');
+        elementsToAnimate.forEach(element => {
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, parseFloat(element.style.animationDelay || '0') * 1000);
+        });
+
+        // Subtle hover effects on cards
+        const cards = document.querySelectorAll('.glass-effect');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                card.style.boxShadow = '0 10px 30px -15px rgba(0, 0, 255, 0.15)';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                card.style.transition = 'all 0.3s ease';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                card.style.boxShadow = 'none';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // Toggle favorite functionality
+        const heartButtons = document.querySelectorAll('.fa-heart');
+        heartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.classList.toggle('text-red-400');
+                parent.classList.toggle('text-gray-400');
+            });
+        });
+    });
+</script>
+</body>
+</html>

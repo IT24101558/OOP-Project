@@ -1,0 +1,380 @@
+<!-- exercises.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .scale-hover:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
+        <div class="p-6">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-th-large"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-user"></i>
+                <span class="font-medium">Profile</span>
+            </a>
+            <a href="schedule.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-calendar"></i>
+                <span class="font-medium">Schedule</span>
+            </a>
+            <a href="exs.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+                <i class="fas fa-dumbbell"></i>
+                <span class="font-medium">Exercises</span>
+            </a>
+            <a href="progress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-chart-line"></i>
+                <span class="font-medium">Progress</span>
+            </a>
+            <a href="setttings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-cog"></i>
+                <span class="font-medium">Settings</span>
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                    <span class="font-semibold">AR</span>
+                </div>
+                <div>
+                    <h3 class="font-medium">Alex Rodriguez</h3>
+                    <p class="text-xs text-gray-400">Premium Member</p>
+                </div>
+            </div>
+            <a href="logout.html">
+                <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </button>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden fixed w-full flex items-center justify-between p-4 glass-effect z-50">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-1.5 rounded-lg">
+                <i class="fas fa-dumbbell text-white"></i>
+            </div>
+            <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+        </a>
+
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <i class="fas fa-bell text-gray-300"></i>
+                <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
+            </div>
+            <button aria-label="Toggle menu" class="p-1.5 rounded-lg bg-white/10">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto py-4 lg:py-6 px-4 lg:px-8 lg:pt-0 mt-16 lg:mt-0">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header Section -->
+            <header class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Exercise Library</h1>
+            </header>
+
+            <!-- Popular Workouts -->
+            <div class="animate-slide-up" style="animation-delay: 0.6s;">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold">Popular Workouts</h2>
+
+                    <button class="text-sm text-blue-400 hover:text-blue-300 transition-colors"></button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Card 1: Upper Body Focus -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Upper Body Workout" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+                                <div class="absolute bottom-0 left-0 p-4 text-white">
+                                    <h3 class="font-medium text-lg">Upper Body Focus</h3>
+                                    <p class="text-sm opacity-90">5 exercises � 45 min</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 text-sm text-gray-400 mb-3">
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="w-1 h-1 rounded-full bg-gray-500"></div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-clock text-xs"></i>
+                                    <span>Intermediate</span>
+                                </div>
+                            </div>
+
+                            <button class="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-all">
+                                Add to Schedule
+                            </button>
+                        </div>
+                    </div>
+
+
+            <!-- Card 2: Full Body HIIT -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="HIIT Workout" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+                                <div class="absolute bottom-0 left-0 p-4 text-white">
+                                    <h3 class="font-medium text-lg">Full Body HIIT</h3>
+                                    <p class="text-sm opacity-90">8 exercises � 30 min</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 text-sm text-gray-400 mb-3">
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bolt text-xs"></i>
+                                    <span>HIIT</span>
+                                </div>
+                                <div class="w-1 h-1 rounded-full bg-gray-500"></div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-clock text-xs"></i>
+                                    <span>Advanced</span>
+                                </div>
+                            </div>
+
+                            <button class="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-all">
+                                Add to Schedule
+                            </button>
+                        </div>
+                    </div>
+
+            <!-- Card 3: Mobility & Stretch -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Flexibility Workout" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+                                <div class="absolute bottom-0 left-0 p-4 text-white">
+                                    <h3 class="font-medium text-lg">Mobility & Stretch</h3>
+                                    <p class="text-sm opacity-90">6 exercises � 20 min</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 text-sm text-gray-400 mb-3">
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-peace text-xs"></i>
+                                    <span>Flexibility</span>
+                                </div>
+                                <div class="w-1 h-1 rounded-full bg-gray-500"></div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-clock text-xs"></i>
+                                    <span>Beginner</span>
+                                </div>
+                            </div>
+
+                            <button class="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-all">
+                                Add to Schedule
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Lower Body Blast -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="data:image/jpeg;base64,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" alt="Upper Body Workout" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+                                <div class="absolute bottom-0 left-0 p-4 text-white">
+                                    <h3 class="font-medium text-lg">Lower Body Blast</h3>
+                                    <p class="text-sm opacity-90">5 exercises � 25 min</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 text-sm text-gray-400 mb-3">
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="w-1 h-1 rounded-full bg-gray-500"></div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-clock text-xs"></i>
+                                    <span>Intermediate</span>
+                                </div>
+                            </div>
+
+                            <button class="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-all">
+                                Add to Schedule
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Cardio Burn -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUw4V4LZMuvcK2_MjY3XYjfVzMEcTzZjxJrw&s" alt="Upper Body Workout" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+                                <div class="absolute bottom-0 left-0 p-4 text-white">
+                                    <h3 class="font-medium text-lg">Cardio Burn</h3>
+                                    <p class="text-sm opacity-90">6 exercises � 40 min</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="flex items-center gap-2 text-sm text-gray-400 mb-3">
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Flexibility</span>
+                                </div>
+                                <div class="w-1 h-1 rounded-full bg-gray-500"></div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-clock text-xs"></i>
+                                    <span>Intermediate</span>
+                                </div>
+                            </div>
+
+                            <button class="w-full py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-all">
+                                Add to Schedule
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- JavaScript for toggles and interactions -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
+        if (menuButton) {
+            menuButton.addEventListener('click', function() {
+                console.log('Menu toggled');
+                // In a real implementation, show mobile menu
+            });
+        }
+
+        // Add animation effect
+        const elementsToAnimate = document.querySelectorAll('.animate-slide-up');
+        elementsToAnimate.forEach(element => {
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, parseFloat(element.style.animationDelay || '0') * 1000);
+        });
+
+        // Subtle hover effects on cards
+        const cards = document.querySelectorAll('.glass-effect');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                card.style.boxShadow = '0 10px 30px -15px rgba(0, 0, 255, 0.15)';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                card.style.transition = 'all 0.3s ease';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                card.style.boxShadow = 'none';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // Toggle favorite functionality
+        const heartButtons = document.querySelectorAll('.fa-heart');
+        heartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.classList.toggle('text-red-400');
+                parent.classList.toggle('text-gray-400');
+            });
+        });
+    });
+</script>
+</body>
+</html>

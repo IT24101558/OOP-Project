@@ -29,9 +29,9 @@ public class AuthFilter implements Filter {
                 if (isAjax) {
                     httpResponse.setContentType("application/json");
                     httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    httpResponse.getWriter().write("{\"error\":\"Access denied\",\"redirect\":\"/register\"}");
+                    httpResponse.getWriter().write("{\"error\":\"Access denied\",\"redirect\":\"/verification-result\"}");
                 } else {
-                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/admin_dashboard");
+                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/verification-result");
                 }
                 return;
             }

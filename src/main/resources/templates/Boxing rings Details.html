@@ -1,0 +1,308 @@
+<!-- exercises.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .scale-hover:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
+        <div class="p-6">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-th-large"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-user"></i>
+                <span class="font-medium">Profile</span>
+            </a>
+            <a href="schedule.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-calendar"></i>
+                <span class="font-medium">Schedule</span>
+            </a>
+            <a href="exs.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+                <i class="fas fa-dumbbell"></i>
+                <span class="font-medium">Exercises</span>
+            </a>
+            <a href="progress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-chart-line"></i>
+                <span class="font-medium">Progress</span>
+            </a>
+            <a href="setttings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-cog"></i>
+                <span class="font-medium">Settings</span>
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                    <span class="font-semibold">AR</span>
+                </div>
+                <div>
+                    <h3 class="font-medium">Alex Rodriguez</h3>
+                    <p class="text-xs text-gray-400">Premium Member</p>
+                </div>
+            </div>
+            <a href="logout.html">
+                <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </button>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden fixed w-full flex items-center justify-between p-4 glass-effect z-50">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-1.5 rounded-lg">
+                <i class="fas fa-dumbbell text-white"></i>
+            </div>
+            <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+        </a>
+
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <i class="fas fa-bell text-gray-300"></i>
+                <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
+            </div>
+            <button aria-label="Toggle menu" class="p-1.5 rounded-lg bg-white/10">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto py-4 lg:py-6 px-4 lg:px-8 lg:pt-0 mt-16 lg:mt-0">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header Section -->
+            <header class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Exercise Library</h1>
+            </header>
+
+            <!-- Exercise Categories -->
+            <div class="mb-8 animate-slide-up" style="animation-delay: 0.4s;">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold mb-6">Box Rings</h2>
+                    <button class="text-sm text-blue-400 hover:text-blue-300 transition-colors"></button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1: Shadow Boxing -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://img2.storyblok.com/1800x743/filters:focal(null):format(jpeg)/f/115220/2400x990/74320721dc/shadowboxing-vs-hitting-the-heavy-bag.jpg" alt="Shadow Boxing" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Shadow Boxing</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Shoulders , Back , Arms</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <button class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2: Speed Bag Work -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://www.centurykickboxing.com/cdn/shop/articles/02102020_CenturyLifestlye_PlazaDistrict_AB-0406_1200x.jpg?v=1687211384" alt="Speed Bag Work" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Speed Bag Work</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Arms , Muscles , Legs</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <button class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3: Focus Mitt Drills -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://fightgearguide.com/wp-content/uploads/2021/03/Best-Focus-Mitt-Drills-For-A-New-Boxer.jpg" alt="Focus Mitt Drills" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Focus Mitt Drills</h3>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Shoulders ,Arms</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <button class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+</div>>
+
+<!-- JavaScript for toggles and interactions -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
+        if (menuButton) {
+            menuButton.addEventListener('click', function() {
+                console.log('Menu toggled');
+                // In a real implementation, show mobile menu
+            });
+        }
+
+        // Add animation effect
+        const elementsToAnimate = document.querySelectorAll('.animate-slide-up');
+        elementsToAnimate.forEach(element => {
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, parseFloat(element.style.animationDelay || '0') * 1000);
+        });
+
+        // Subtle hover effects on cards
+        const cards = document.querySelectorAll('.glass-effect');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                card.style.boxShadow = '0 10px 30px -15px rgba(0, 0, 255, 0.15)';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                card.style.transition = 'all 0.3s ease';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                card.style.boxShadow = 'none';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // Toggle favorite functionality
+        const heartButtons = document.querySelectorAll('.fa-heart');
+        heartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.classList.toggle('text-red-400');
+                parent.classList.toggle('text-gray-400');
+            });
+        });
+    });
+</script>
+</body>
+</html>
