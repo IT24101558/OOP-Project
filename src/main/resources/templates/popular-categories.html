@@ -1,0 +1,420 @@
+<!-- exercises.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Exercises</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .scale-hover:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
+        <div class="p-6">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-th-large"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-user"></i>
+                <span class="font-medium">Profile</span>
+            </a>
+            <a href="schedule.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-calendar"></i>
+                <span class="font-medium">Schedule</span>
+            </a>
+            <a href="exs.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+                <i class="fas fa-dumbbell"></i>
+                <span class="font-medium">Exercises</span>
+            </a>
+            <a href="progress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-chart-line"></i>
+                <span class="font-medium">Progress</span>
+            </a>
+            <a href="setttings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-cog"></i>
+                <span class="font-medium">Settings</span>
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                    <span class="font-semibold">AR</span>
+                </div>
+                <div>
+                    <h3 class="font-medium">Alex Rodriguez</h3>
+                    <p class="text-xs text-gray-400">Premium Member</p>
+                </div>
+            </div>
+            <a href="logout.html">
+                <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </button>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden fixed w-full flex items-center justify-between p-4 glass-effect z-50">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-1.5 rounded-lg">
+                <i class="fas fa-dumbbell text-white"></i>
+            </div>
+            <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+        </a>
+
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <i class="fas fa-bell text-gray-300"></i>
+                <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
+            </div>
+            <button aria-label="Toggle menu" class="p-1.5 rounded-lg bg-white/10">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto py-4 lg:py-6 px-4 lg:px-8 lg:pt-0 mt-16 lg:mt-0">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header Section -->
+            <header class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Exercise Library</h1>
+            </header>
+
+            <!-- Exercise Categories -->
+            <div class="mb-8 animate-slide-up" style="animation-delay: 0.4s;">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold mb-6">Popular Categories</h2>
+                    <button class="text-sm text-blue-400 hover:text-blue-300 transition-colors"></button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <!-- Card 1: Strength Training -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://cdn.pixabay.com/photo/2021/11/10/06/23/workout-6783020_640.jpg">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Strength Training</h3>
+                                <p class="text-sm text-gray-400">10 exercises</p>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Chest, Shoulders , Arms , Back</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <a href="Strength Training Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                    <span>Details</span>
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: HIIT Workouts -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://cdn.pixabay.com/photo/2024/03/30/19/29/ai-generated-8665327_640.png" alt="Bench Press" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">HIIT Workouts</h3>
+                                <p class="text-sm text-gray-400">15 exercises</p>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Chest, Shoulders , Back</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <a href="HIIT Workouts Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                    <span>Details</span>
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Flexibility & Yoga -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://cdn.pixabay.com/photo/2021/04/28/16/05/fitness-6214388_640.jpg" alt="Bench Press" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Flexibility & Yoga</h3>
+                                <p class="text-sm text-gray-400">10 exercises</p>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Neck, Shoulders , Back</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <a href="Flexibility & Yoga Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                    <span>Details</span>
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Boxing rings -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://media.istockphoto.com/id/685878760/photo/young-woman-training-with-boxing-gloves-and-a-punching-bag.jpg?s=612x612&w=0&k=20&c=s1DVMfyHQ1cpyfjbBGLst77xSpy_9VD-E5FnYttTvqU=" alt="Bench Press" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Boxing rings</h3>
+                                <p class="text-sm text-gray-400">03 exercises</p>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Shoulders , Back , Legs</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <a href="Boxing rings Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                    <span>Details</span>
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: CrossFit -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://static01.nyt.com/images/2025/03/13/multimedia/13xp-crossfit-lwpj/13xp-crossfit-lwpj-videoSixteenByNine3000.jpg" alt="Bench Press" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">CrossFit</h3>
+                                <p class="text-sm text-gray-400">04 exercises</p>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Arms, Shoulders , Back</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <a href="CrossFit Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                    <span>Details</span>
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                </div>
+
+
+                    <!-- Card 6: Cycling -->
+                    <div class="glass-effect rounded-xl overflow-hidden scale-hover min-w-[280px]">
+                        <div class="h-48 overflow-hidden">
+                            <img src="data:image/jpeg;base64,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" alt="Bench Press" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium">Cycling</h3>
+                                <p class="text-sm text-gray-400">03 exercises</p>
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-400">
+                                <div class="flex items-center gap-1 mb-1">
+                                    <i class="fas fa-dumbbell text-xs"></i>
+                                    <span>Strength</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-bullseye text-xs"></i>
+                                    <span>Neck, Shoulders , Back</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
+                                <a href="Cycling Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                    <span>Details</span>
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </main>
+</div>>
+
+<!-- JavaScript for toggles and interactions -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const menuButton = document.querySelector('button[aria-label="Toggle menu"]');
+        if (menuButton) {
+            menuButton.addEventListener('click', function() {
+                console.log('Menu toggled');
+                // In a real implementation, show mobile menu
+            });
+        }
+
+        // Add animation effect
+        const elementsToAnimate = document.querySelectorAll('.animate-slide-up');
+        elementsToAnimate.forEach(element => {
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, parseFloat(element.style.animationDelay || '0') * 1000);
+        });
+
+        // Subtle hover effects on cards
+        const cards = document.querySelectorAll('.glass-effect');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                card.style.boxShadow = '0 10px 30px -15px rgba(0, 0, 255, 0.15)';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                card.style.transition = 'all 0.3s ease';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                card.style.boxShadow = 'none';
+                card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // Toggle favorite functionality
+        const heartButtons = document.querySelectorAll('.fa-heart');
+        heartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.classList.toggle('text-red-400');
+                parent.classList.toggle('text-gray-400');
+            });
+        });
+    });
+</script>
+</body>
+</html>

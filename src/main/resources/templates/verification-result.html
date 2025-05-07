@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,16 +20,18 @@
 
 <div class="w-1/2 bg-white p-8 min-h-screen flex items-center justify-center">
     <div class="text-center">
-        <div class="mb-6">
+        <!-- Success Message -->
+        <div th:if="${verified}">
             <h2 class="text-2xl font-semibold text-green-600">Email Verified!</h2>
-            <p class="text-gray-700">Your email has been verified successfully!</p>
-            <a href="login.html" class="mt-4 inline-block text-blue-500 hover:underline">Proceed to Login</a>
+            <p class="text-gray-700" th:text="${message}">Your email has been verified successfully!</p>
+            <a th:href="@{/login}" class="mt-4 inline-block text-blue-500 hover:underline">Proceed to Login</a>
         </div>
 
-        <div>
+        <!-- Failure Message -->
+        <div th:if="${!verified}">
             <h2 class="text-2xl font-semibold text-red-600">Verification Failed</h2>
-            <p class="text-gray-700">Invalid or expired verification token.</p>
-            <a href="register.html" class="mt-4 inline-block text-blue-500 hover:underline">Back to Login</a>
+            <p class="text-gray-700" th:text="${message}">Invalid or expired verification token.</p>
+            <a th:href="@{/register}" class="mt-4 inline-block text-blue-500 hover:underline">Back to Register</a>
         </div>
     </div>
 </div>
