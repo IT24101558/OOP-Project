@@ -129,7 +129,7 @@
                 <i class="fas fa-dumbbell"></i>
                 <span class="font-medium">Exercises</span>
             </a>
-            <a href="weekprogress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="monthprogress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-chart-line"></i>
                 <span class="font-medium">Progress</span>
             </a>
@@ -145,11 +145,11 @@
                     <span class="font-semibold">AR</span>
                 </div>
                 <div>
-                    <h3 class="font-medium">Alex Rodriguez</h3>
+                    <h3 class="font-medium">Soeash Nisheada</h3>
                     <p class="text-xs text-gray-400">Premium Member</p>
                 </div>
             </div>
-            <a href="membership-logout.html">
+            <a href="Member_logout.html">
                 <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Log Out</span>
@@ -184,7 +184,7 @@
             <header class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
                 <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
                     <div>
-                        <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Welcome back, Alex!</h1>
+                        <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Welcome back, Soeash!</h1>
                         <p class="text-gray-400 mt-2">Let's crush your fitness goals today</p>
                     </div>
                     <div class="glass-effect rounded-xl p-3 flex gap-3">
@@ -281,11 +281,11 @@
                                 <h2 class="text-xl font-semibold">Today's Workout</h2>
                             </div>
                             <div class="flex items-center gap-2 text-sm">
-                                <span class="text-gray-400">May 16, 2023</span>
+                                <span id="current-date" class="text-gray-400"></span>
                                 <span class="px-2 py-1 rounded-lg bg-green-500/20 text-green-300 flex items-center gap-1">
-                                        <i class="fas fa-check-circle"></i>
-                                        <span>In Progress</span>
-                                    </span>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>In Progress</span>
+                                </span>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -430,6 +430,12 @@
                     </div>
 
                     <script>
+                        const today = new Date();
+                        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        const formattedDate = today.toLocaleDateString('en-US', options);
+
+                        // Set the formatted date to the span
+                        document.getElementById('current-date').textContent = formattedDate;
                         document.addEventListener('DOMContentLoaded', function() {
                             const chartButtons = document.querySelectorAll('.chart-button');
                             const verticalLinesAndLabels = document.querySelector('.vertical-lines-and-labels');
@@ -647,7 +653,7 @@
                                 </div>
                             </div>
 
-                            <h2 class="text-xl font-semibold">Alex Rodriguez</h2>
+                            <h2 class="text-xl font-semibold">Soeash Nisheada</h2>
                             <p class="text-gray-400 text-sm">Premium Member</p>
 
                             <div class="flex gap-3 mt-4">
@@ -660,7 +666,7 @@
                                     <p class="text-xs text-gray-400">Height</p>
                                 </div>
                                 <div class="text-center">
-                                    <p class="text-2xl font-semibold">27<span class="text-blue-400">y</span></p>
+                                    <p class="text-2xl font-semibold">20<span class="text-blue-400">y</span></p>
                                     <p class="text-xs text-gray-400">Age</p>
                                 </div>
                             </div>
