@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .scale-hover:hover {
+            transform: scale(1.03);
+            transition: transform 0.3s ease;
+        }
+        .gradient-blue-purple {
+            background: linear-gradient(to right, #6b7280, #8b5cf6);
+        }
+        .gradient-purple-pink {
+            background: linear-gradient(to right, #8b5cf6, #d946ef);
+        }
+        .gradient-green-teal {
+            background: linear-gradient(to right, #10b981, #14b8a6);
+        }
+        .gradient-yellow-orange {
+            background: linear-gradient(to right, #fef08a, #f97316);
+        }
+        .bg-grid-white {
+            background-image:
+                    linear-gradient(rgba(255, 255, 255, 0.05) 0.5px, transparent 0.5px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Booking System Styles */
+        .time-slot {
+            transition: all 0.3s ease;
+        }
+        .time-slot:hover:not(.booked) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .time-slot.booked {
+            background: rgba(239, 68, 68, 0.2);
+            cursor: not-allowed;
+        }
+        .time-slot.available {
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .time-slot.selected {
+            background: rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+        }
+        .modal {
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+        }
+        .modal-content {
+            max-width: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-poppins">
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
+        <div class="p-6">
+            <a href="#" class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-users"></i>
+                <span class="font-medium">Members</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="font-medium">Class Booking</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-dumbbell"></i>
+                <span class="font-medium">Equipment</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-chart-bar"></i>
+                <span class="font-medium">Reports</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-cog"></i>
+                <span class="font-medium">Settings</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                    <span class="font-semibold">AR</span>
+                </div>
+                <div>
+                    <h3 class="font-medium">Alex Rodriguez</h3>
+                    <p class="text-xs text-gray-400">Administrator</p>
+                </div>
+            </div>
+            <button id="logoutBtn" class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden fixed w-full flex items-center justify-between p-4 glass-effect z-50">
+        <a href="#" class="flex items-center gap-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-1.5 rounded-lg">
+                <i class="fas fa-dumbbell text-white"></i>
+            </div>
+            <h1 class="text-lg font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+        </a>
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <i class="fas fa-bell text-gray-300"></i>
+                <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
+            </div>
+            <button id="mobileMenuBtn" aria-label="Toggle menu" class="p-1.5 rounded-lg bg-white/10">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto py-4 lg:py-6 px-4 lg:px-8 lg:pt-0 mt-16 lg:mt-0">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <header class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+                <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Class Booking System</h1>
+                        <p class="text-gray-400 mt-2">Manage gym class schedules and bookings</p>
+                    </div>
+                    <div class="glass-effect rounded-xl p-3 flex gap-3">
+                        <div class="relative">
+                            <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
+                                <i class="fas fa-bell"></i>
+                            </button>
+                            <span class="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full flex items-center justify-center text-xs">3</span>
+                        </div>
+                        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.2s;">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-300">Total Classes</h3>
+                            <div class="mt-2 flex items-baseline">
+                                <p class="text-3xl font-semibold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">42</p>
+                                <span class="ml-2 text-xs py-0.5 px-1.5 rounded bg-green-500/20 text-green-300">+4</span>
+                            </div>
+                            <p class="text-xs mt-1 text-gray-400">This week</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700">
+                            <i class="fas fa-calendar-check text-white"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.3s;">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-300">Booked Classes</h3>
+                            <div class="mt-2 flex items-baseline">
+                                <p class="text-3xl font-semibold bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">28</p>
+                            </div>
+                            <p class="text-xs mt-1 text-gray-400">67% occupancy</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-gradient-to-br from-green-500 to-green-700">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full" style="width: 67%;"></div>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.4s;">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-300">Available Slots</h3>
+                            <div class="mt-2 flex items-baseline">
+                                <p class="text-3xl font-semibold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">14</p>
+                            </div>
+                            <p class="text-xs mt-1 text-gray-400">33% available</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700">
+                            <i class="fas fa-clipboard-list text-white"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-purple-400 to-purple-600 rounded-full" style="width: 33%;"></div>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.5s;">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-300">Instructors</h3>
+                            <div class="mt-2 flex items-baseline">
+                                <p class="text-3xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">8</p>
+                                <span class="ml-2 text-xs py-0.5 px-1.5 rounded bg-yellow-500/20 text-yellow-300">+1</span>
+                            </div>
+                            <p class="text-xs mt-1 text-gray-400">New hire this month</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-gradient-to-br from-yellow-500 to-yellow-700">
+                            <i class="fas fa-chalkboard-teacher text-white"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full" style="width: 80%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Class Calendar and Controls -->
+            <div class="glass-effect rounded-xl p-6 mb-8 animate-slide-up" style="animation-delay: 0.6s;">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-10 w-1 rounded-full"></div>
+                        <h2 class="text-xl font-semibold">Class Schedule</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button id="prevDayBtn" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 active:bg-white/15 transition-colors text-sm">
+                            <i class="fas fa-chevron-left mr-1"></i> Prev
+                        </button>
+                        <button id="todayBtn" class="px-3 py-1.5 rounded-lg bg-white/10 text-blue-400 transition-colors text-sm">Today</button>
+                        <button id="nextDayBtn" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 active:bg-white/15 transition-colors text-sm">
+                            Next <i class="fas fa-chevron-right ml-1"></i>
+                        </button>
+                        <button id="addClassBtn" class="ml-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-sm">
+                            <i class="fas fa-plus mr-1"></i> Add Class
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h3 id="currentDate" class="text-xl font-medium"></h3>
+                </div>
+
+                <!-- Class Schedule Grid -->
+                <div id="classGrid" class="w-full overflow-hidden">
+                    <!-- Time Slots will be generated here -->
+                </div>
+            </div>
+
+            <!-- Class Types List -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.7s;">
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-gradient-to-r from-green-500 to-teal-500 h-10 w-1 rounded-full"></div>
+                            <h2 class="text-xl font-semibold">Class Types</h2>
+                        </div>
+                        <button id="addClassTypeBtn" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 hover:opacity-90 transition-all text-sm">
+                            <i class="fas fa-plus mr-1"></i> Add Type
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="glass-effect bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-lg bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                                    <i class="fas fa-dumbbell text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">HIIT Training</h3>
+                                    <p class="text-xs text-gray-400">60 minutes • Intensity: High</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm">
+                                    <i class="fas fa-edit text-blue-400"></i>
+                                </button>
+                                <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm">
+                                    <i class="fas fa-trash text-red-400"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="glass-effect bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                                    <i class="fas fa-om text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Yoga</h3>
+                                    <p class="text-xs text-gray-400">45 minutes • Intensity: Medium</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm">
+                                    <i class="fas fa-edit text-blue-400"></i>
+                                </button>
+                                <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm">
+                                    <i class="fas fa-trash text-red-400"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="glass-effect bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-lg bg-gradient-to-r from-yellow-500 to-lime-500 flex items-center justify-center">
+                                    <i class="fas fa-biking text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Spinning</h3>
+                                    <p class="text-xs text-gray-400">45 minutes • Intensity: High</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm">
+                                    <i class="fas fa-edit text-blue-400"></i>
+                                </button>
+                                <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm">
+                                    <i class="fas fa-trash text-red-400"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="glass-effect bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-lg bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                                    <i class="fas fa-heart text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Pilates</h3>
+                                    <p class="text-xs text-gray-400">60 minutes • Intensity: Medium</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm">
+                                    <i class="fas fa-edit text-blue-400"></i>
+                                </button>
+                                <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm">
+                                    <i class="fas fa-trash text-red-400"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructors List -->
+                <div class="glass-effect rounded-xl p-6 animate-slide-up" style="animation-delay: 0.8s;">
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-gradient-to-r from-yellow-500 to-orange-500 h-10 w-1 rounded-full"></div>
+                            <h2 class="text-xl font-semibold">Instructors</h2>
+                        </div>
+                        <button id="addInstructorBtn" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 hover:opacity-90 transition-all text-sm">
+                            <i class="fas fa-plus mr-1"></i> Add Instructor
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass-effect bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-r from-red-500 to-pink-500 flex items-center justify-center text-lg font-bold">
+                                    SM
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Sarah Mitchell</h3>
+                                    <p class="text-xs text-gray-400">HIIT, Spinning</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="px-2 py-1 rounded-full bg-green-500/20 text-green-300 text-xs">Active</span>
+                            </div>
+                        </div>
+                        <div class="glass-effect bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-lg font-bold">
+                                    JR
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Jason Rodriguez</h3>
+                                    <p class="text-xs text-gray-400">Yoga, Pilates</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="px-2 py-1 rounded-full bg-green-500/20 text-green-300 text-xs">Active</span>
+                            </div>
+                        </div>
+                        <div class="glass-effect bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center text-lg font-bold">
+                                    AK
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Aisha Khan</h3>
+                                    <p class="text-xs text-gray-400">Pilates, HIIT</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="px-2 py-1 rounded-full bg-green-500/20 text-green-300 text-xs">Active</span>
+                            </div>
+                        </div>
+                        <div class="glass-effect bg-white/5 rounded-lg p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="h-12 w-12 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center text-lg font-bold">
+                                    TN
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Thomas Nelson</h3>
+                                    <p class="text-xs text-gray-400">Spinning, Yoga</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="px-2 py-1 rounded-full bg-green-500/20 text-green-300 text-xs">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Add Class Modal -->
+<div id="addClassModal" class="modal fixed inset-0 hidden items-center justify-center px-4">
+    <div class="modal-overlay absolute inset-0 bg-black opacity-50"></div>
+    <div class="modal-content glass-effect p-6 rounded-xl relative z-50 animate-slide-up">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold">Add New Class</h3>
+            <button id="closeAddClassModal" class="p-2 rounded-lg hover:bg-white/10">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form id="addClassForm" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="className" class="block text-sm font-medium text-gray-300 mb-1">Class Name</label>
+                    <div class="relative custom-select-container">
+                        <div class="custom-select-header w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-white cursor-pointer flex justify-between items-center">
+                            <span class="custom-select-text">Select class type</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="custom-select-options hidden absolute left-0 right-0 mt-1 bg-gray-800 border border-white/10 rounded-lg max-h-40 overflow-y-auto z-10">
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="HIIT Training">HIIT Training</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="Yoga">Yoga</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="Spinning">Spinning</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="Pilates">Pilates</div>
+                        </div>
+                        <input type="hidden" id="className" name="className" required>
+                    </div>
+                </div>
+                <div>
+                    <label for="instructor" class="block text-sm font-medium text-gray-300 mb-1">Instructor</label>
+                    <div class="relative custom-select-container">
+                        <div class="custom-select-header w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-white cursor-pointer flex justify-between items-center">
+                            <span class="custom-select-text">Select instructor</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="custom-select-options hidden absolute left-0 right-0 mt-1 bg-gray-800 border border-white/10 rounded-lg max-h-40 overflow-y-auto z-10">
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="Sarah Mitchell">Sarah Mitchell</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="Jason Rodriguez">Jason Rodriguez</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="Aisha Khan">Aisha Khan</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="Thomas Nelson">Thomas Nelson</div>
+                        </div>
+                        <input type="hidden" id="instructor" name="instructor" required>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="classDate" class="block text-sm font-medium text-gray-300 mb-1">Date</label>
+                    <input type="date" id="classDate" required class="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="classTime" class="block text-sm font-medium text-gray-300 mb-1">Time</label>
+                    <div class="relative custom-select-container">
+                        <div class="custom-select-header w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-white cursor-pointer flex justify-between items-center">
+                            <span class="custom-select-text">Select time slot</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="custom-select-options hidden absolute left-0 right-0 mt-1 bg-gray-800 border border-white/10 rounded-lg max-h-40 overflow-y-auto z-10">
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="06:00 AM">06:00 AM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="07:00 AM">07:00 AM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="08:00 AM">08:00 AM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="09:00 AM">09:00 AM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="10:00 AM">10:00 AM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="11:00 AM">11:00 AM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="12:00 PM">12:00 PM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="01:00 PM">01:00 PM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="02:00 PM">02:00 PM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="03:00 PM">03:00 PM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="04:00 PM">04:00 PM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="05:00 PM">05:00 PM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="06:00 PM">06:00 PM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="07:00 PM">07:00 PM</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="08:00 PM">08:00 PM</div>
+                        </div>
+                        <input type="hidden" id="classTime" name="classTime" required>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="duration" class="block text-sm font-medium text-gray-300 mb-1">Duration (minutes)</label>
+                    <div class="relative custom-select-container">
+                        <div class="custom-select-header w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-white cursor-pointer flex justify-between items-center">
+                            <span class="custom-select-text">60 minutes</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="custom-select-options hidden absolute left-0 right-0 mt-1 bg-gray-800 border border-white/10 rounded-lg max-h-40 overflow-y-auto z-10">
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="30">30 minutes</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="45">45 minutes</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer selected" data-value="60">60 minutes</div>
+                            <div class="custom-option py-2 px-4 hover:bg-white/10 cursor-pointer" data-value="90">90 minutes</div>
+                        </div>
+                        <input type="hidden" id="duration" name="duration" value="60" required>
+                    </div>
+                </div>
+                <div>
+                    <label for="capacity" class="block text-sm font-medium text-gray-300 mb-1">Max Capacity</label>
+                    <input type="number" id="capacity" min="1" max="50" value="20" required class="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+            <div>
+                <label for="classDescription" class="block text-sm font-medium text-gray-300 mb-1">Description</label>
+                <textarea id="classDescription" rows="3" class="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Brief description of the class..."></textarea>
+            </div>
+            <div class="mt-6 flex justify-end gap-3">
+                <button type="button" id="cancelAddClass" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all">
+                    Add Class
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit/View Class Modal -->
+<div id="viewClassModal" class="modal fixed inset-0 hidden items-center justify-center px-4">
+    <div class="modal-overlay absolute inset-0 bg-black opacity-50"></div>
+    <div class="modal-content glass-effect p-6 rounded-xl relative z-50 animate-slide-up">
+        <div class="flex justify-between items-center mb-6">
+            <h3 id="viewClassTitle" class="text-xl font-bold">View Class</h3>
+            <button id="closeViewClassModal" class="p-2 rounded-lg hover:bg-white/10">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="viewClassContent" class="space-y-4">
+            <!-- Content will be dynamically generated -->
+        </div>
+        <div class="mt-6 flex justify-end gap-3">
+            <button id="deleteClassBtn" class="px-4 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 transition-all">
+                <i class="fas fa-trash mr-1"></i> Delete
+            </button>
+            <button id="editClassBtn" class="px-4 py-2 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 transition-all">
+                <i class="fas fa-edit mr-1"></i> Edit
+            </button>
+            <button id="closeViewClassBtn" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Booking System -->
+<script>
+    // Mock data storage - in a real application, this would be replaced with a backend API
+    let classSchedule = [];
+    let currentDate = new Date();
+
+    // Initialize app with sample data
+    function initializeApp() {
+        // Load data from localStorage if available
+        const savedData = localStorage.getItem('classSchedule');
+        if (savedData) {
+            classSchedule = JSON.parse(savedData);
+        } else {
+            // Generate sample data if no saved data exists
+            generateSampleData();
+        }
+
+        updateDateDisplay();
+        renderClassGrid();
+        setupEventListeners();
+    }
+
+    // Generate sample class data
+    function generateSampleData() {
+        const today = new Date();
+        const classTypes = ['HIIT Training', 'Yoga', 'Spinning', 'Pilates'];
+        const instructors = ['Sarah Mitchell', 'Jason Rodriguez', 'Aisha Khan', 'Thomas Nelson'];
+        const times = ['06:00 AM', '08:00 AM', '10:00 AM', '12:00 PM', '04:00 PM', '06:00 PM', '07:00 PM'];
+
+        // Generate classes for the next 7 days
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(today);
+            date.setDate(date.getDate() + i);
+
+            // Add 3-5 classes per day
+            const classCount = Math.floor(Math.random() * 3) + 3;
+            const dayTimes = [...times].sort(() => 0.5 - Math.random()).slice(0, classCount);
+
+            dayTimes.forEach(time => {
+                const classType = classTypes[Math.floor(Math.random() * classTypes.length)];
+                const instructor = instructors[Math.floor(Math.random() * instructors.length)];
+                const duration = classType === 'HIIT Training' || classType === 'Pilates' ? 60 : 45;
+                const capacity = Math.floor(Math.random() * 10) + 15; // 15-25
+                const bookings = Math.floor(Math.random() * (capacity - 5)) + 5; // 5 to capacity-1
+
+                classSchedule.push({
+                    id: generateId(),
+                    name: classType,
+                    date: formatDate(date),
+                    time: time,
+                    duration: duration,
+                    instructor: instructor,
+                    capacity: capacity,
+                    bookings: bookings,
+                    description: `Join us for a ${duration}-minute ${classType} session led by ${instructor}.`
+                });
+            });
+        }
+
+        // Save to localStorage
+        saveData();
+    }
+
+    // Generate a unique ID for classes
+    function generateId() {
+        return Math.random().toString(36).substring(2, 11);
+    }
+
+    // Format date to YYYY-MM-DD
+    function formatDate(date) {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    // Parse date from YYYY-MM-DD to Date object
+    function parseDate(dateString) {
+        const [year, month, day] = dateString.split('-').map(Number);
+        return new Date(year, month - 1, day);
+    }
+
+    // Format date for display (e.g., "Wednesday, May 7, 2025")
+    function formatDateForDisplay(date) {
+        return date.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
+
+    // Update the date display on the page
+    function updateDateDisplay() {
+        const dateDisplay = document.getElementById('currentDate');
+        dateDisplay.textContent = formatDateForDisplay(currentDate);
+    }
+
+    // Render the class schedule grid
+    function renderClassGrid() {
+        const grid = document.getElementById('classGrid');
+        grid.innerHTML = '';
+
+        const dateString = formatDate(currentDate);
+        const dayClasses = classSchedule.filter(cls => cls.date === dateString);
+
+        // Sort by time
+        dayClasses.sort((a, b) => {
+            const timeA = new Date(`2000-01-01 ${a.time}`);
+            const timeB = new Date(`2000-01-01 ${b.time}`);
+            return timeA - timeB;
+        });
+
+        if (dayClasses.length === 0) {
+            const emptyState = document.createElement('div');
+            emptyState.className = 'py-8 text-center';
+            emptyState.innerHTML = `
+                <div class="text-gray-400 text-lg mb-4">No classes scheduled for this day</div>
+                <button id="emptyAddClassBtn" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all">
+                    <i class="fas fa-plus mr-1"></i> Add Class
+                </button>
+            `;
+            grid.appendChild(emptyState);
+
+            document.getElementById('emptyAddClassBtn').addEventListener('click', () => {
+                openAddClassModal();
+            });
+
+            return;
+        }
+
+        // Create table structure
+        const table = document.createElement('table');
+        table.className = 'w-full text-left';
+
+        // Create header
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        headerRow.className = 'border-b border-white/10';
+
+        ['Time', 'Class', 'Instructor', 'Bookings', 'Actions'].forEach(header => {
+            const th = document.createElement('th');
+            th.className = 'py-3 px-4 font-medium';
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create body
+        const tbody = document.createElement('tbody');
+
+        dayClasses.forEach(cls => {
+            const row = document.createElement('tr');
+            row.className = 'border-b border-white/10 hover:bg-white/5';
+
+            // Time cell
+            const timeCell = document.createElement('td');
+            timeCell.className = 'py-3 px-4';
+            timeCell.innerHTML = `
+                <div class="font-medium">${cls.time}</div>
+                <div class="text-xs text-gray-400">${cls.duration} mins</div>
+            `;
+            row.appendChild(timeCell);
+
+            // Class cell
+            const classCell = document.createElement('td');
+            classCell.className = 'py-3 px-4';
+            classCell.innerHTML = `<div class="font-medium">${cls.name}</div>`;
+            row.appendChild(classCell);
+
+            // Instructor cell
+            const instructorCell = document.createElement('td');
+            instructorCell.className = 'py-3 px-4';
+            instructorCell.textContent = cls.instructor;
+            row.appendChild(instructorCell);
+
+            // Bookings cell
+            const bookingsCell = document.createElement('td');
+            bookingsCell.className = 'py-3 px-4';
+            const capacity = parseInt(cls.capacity);
+            const bookings = parseInt(cls.bookings);
+            const percentage = (bookings / capacity) * 100;
+
+            let statusColor = 'bg-green-500/20 text-green-300';
+            if (percentage >= 85) {
+                statusColor = 'bg-red-500/20 text-red-300';
+            } else if (percentage >= 60) {
+                statusColor = 'bg-yellow-500/20 text-yellow-300';
+            }
+
+            bookingsCell.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <div class="font-medium">${bookings}/${capacity}</div>
+                    <span class="px-2 py-0.5 rounded-full text-xs ${statusColor}">${Math.round(percentage)}%</span>
+                </div>
+                <div class="mt-1 w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full" style="width: ${percentage}%; background: linear-gradient(to right, #10b981, #14b8a6);"></div>
+                </div>
+            `;
+            row.appendChild(bookingsCell);
+
+            // Actions cell
+            const actionsCell = document.createElement('td');
+            actionsCell.className = 'py-3 px-4';
+            actionsCell.innerHTML = `
+                <div class="flex gap-2">
+                    <button class="view-class-btn p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all" data-id="${cls.id}">
+                        <i class="fas fa-eye text-blue-400"></i>
+                    </button>
+                    <button class="edit-class-btn p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all" data-id="${cls.id}">
+                        <i class="fas fa-edit text-green-400"></i>
+                    </button>
+                    <button class="delete-class-btn p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all" data-id="${cls.id}">
+                        <i class="fas fa-trash text-red-400"></i>
+                    </button>
+                </div>
+            `;
+            row.appendChild(actionsCell);
+
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+        grid.appendChild(table);
+
+        // Add event listeners for action buttons
+        document.querySelectorAll('.view-class-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const classId = e.currentTarget.getAttribute('data-id');
+                openViewClassModal(classId);
+            });
+        });
+
+        document.querySelectorAll('.edit-class-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const classId = e.currentTarget.getAttribute('data-id');
+                // To be implemented
+                console.log('Edit class:', classId);
+            });
+        });
+
+        document.querySelectorAll('.delete-class-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const classId = e.currentTarget.getAttribute('data-id');
+                // To be implemented
+                console.log('Delete class:', classId);
+            });
+        });
+    }
+
+    // Save data to localStorage
+    function saveData() {
+        localStorage.setItem('classSchedule', JSON.stringify(classSchedule));
+    }
+
+    // Set up event listeners
+    function setupEventListeners() {
+        // Date navigation
+        document.getElementById('prevDayBtn').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() - 1);
+            updateDateDisplay();
+            renderClassGrid();
+        });
+
+        document.getElementById('nextDayBtn').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() + 1);
+            updateDateDisplay();
+            renderClassGrid();
+        });
+
+        document.getElementById('todayBtn').addEventListener('click', () => {
+            currentDate = new Date();
+            updateDateDisplay();
+            renderClassGrid();
+        });
+
+        // Add Class
+        document.getElementById('addClassBtn').addEventListener('click', () => {
+            openAddClassModal();
+        });
+
+        // Add Class Modal
+        document.getElementById('closeAddClassModal').addEventListener('click', () => {
+            closeAddClassModal();
+        });
+
+        document.getElementById('cancelAddClass').addEventListener('click', () => {
+            closeAddClassModal();
+        });
+
+        document.getElementById('addClassForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            addNewClass();
+        });
+
+        // View Class Modal
+        document.getElementById('closeViewClassModal').addEventListener('click', () => {
+            closeViewClassModal();
+        });
+
+        document.getElementById('closeViewClassBtn').addEventListener('click', () => {
+            closeViewClassModal();
+        });
+
+        document.getElementById('deleteClassBtn').addEventListener('click', () => {
+            deleteClass();
+        });
+
+        document.getElementById('editClassBtn').addEventListener('click', () => {
+            // To be implemented
+            console.log('Edit class button clicked');
+        });
+
+        // Mobile menu
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            // To be implemented
+            console.log('Mobile menu button clicked');
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            // To be implemented
+            alert('Logout clicked - in a real app, this would log you out');
+        });
+    }
+
+    // Open Add Class Modal
+    function openAddClassModal() {
+        const modal = document.getElementById('addClassModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+
+        // Set default date to current displayed date
+        document.getElementById('classDate').value = formatDate(currentDate);
+    }
+
+    // Close Add Class Modal
+    function closeAddClassModal() {
+        const modal = document.getElementById('addClassModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.getElementById('addClassForm').reset();
+    }
+
+    // Add New Class
+    function addNewClass() {
+        const className = document.getElementById('className').value;
+        const instructor = document.getElementById('instructor').value;
+        const classDate = document.getElementById('classDate').value;
+        const classTime = document.getElementById('classTime').value;
+        const duration = document.getElementById('duration').value;
+        const capacity = document.getElementById('capacity').value;
+        const description = document.getElementById('classDescription').value ||
+                            `Join us for a ${duration}-minute ${className} session led by ${instructor}.`;
+
+        const newClass = {
+            id: generateId(),
+            name: className,
+            date: classDate,
+            time: classTime,
+            duration: duration,
+            instructor: instructor,
+            capacity: capacity,
+            bookings: 0,
+            description: description
+        };
+
+        classSchedule.push(newClass);
+        saveData();
+
+        // If the added class is for the currently displayed date, refresh the grid
+        if (classDate === formatDate(currentDate)) {
+            renderClassGrid();
+        }
+
+        closeAddClassModal();
+
+        // Show success notification
+        showNotification('Class added successfully!', 'success');
+    }
+
+    // Open View Class Modal
+    function openViewClassModal(classId) {
+        const modal = document.getElementById('viewClassModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+
+        const classData = classSchedule.find(cls => cls.id === classId);
+        if (!classData) return;
+
+        // Store the current class ID for deletion/editing
+        modal.setAttribute('data-class-id', classId);
+
+        const content = document.getElementById('viewClassContent');
+        content.innerHTML = `
+            <div class="glass-effect bg-white/5 rounded-lg p-4">
+                <div class="flex justify-between">
+                    <h3 class="text-xl font-semibold">${classData.name}</h3>
+                    <span class="px-2 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">
+                        ${classData.duration} mins
+                    </span>
+                </div>
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm text-gray-400">Date</p>
+                        <p>${formatDateForDisplay(parseDate(classData.date))}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400">Time</p>
+                        <p>${classData.time}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400">Instructor</p>
+                        <p>${classData.instructor}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400">Capacity</p>
+                        <p>${classData.bookings}/${classData.capacity}</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="text-sm text-gray-400">Description</p>
+                    <p>${classData.description}</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4 class="text-lg font-medium mb-2">Bookings</h4>
+                <div class="glass-effect bg-white/5 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-semibold">${classData.bookings}</span>
+                            <span class="text-gray-400"> of </span>
+                            <span class="text-xl">${classData.capacity}</span>
+                        </div>
+                        <div class="space-x-2">
+                            <button id="decreaseBookingsBtn" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button id="increaseBookingsBtn" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-2 w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full rounded-full"
+                             style="width: ${(classData.bookings / classData.capacity) * 100}%;
+                                    background: linear-gradient(to right, #10b981, #14b8a6);"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Add event listeners for booking buttons
+        document.getElementById('decreaseBookingsBtn').addEventListener('click', () => {
+            updateBookings(classId, -1);
+        });
+
+        document.getElementById('increaseBookingsBtn').addEventListener('click', () => {
+            updateBookings(classId, 1);
+        });
+    }
+
+    // Close View Class Modal
+    function closeViewClassModal() {
+        const modal = document.getElementById('viewClassModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+
+    // Update Bookings Count
+    function updateBookings(classId, change) {
+        const classIndex = classSchedule.findIndex(cls => cls.id === classId);
+        if (classIndex === -1) return;
+
+        const cls = classSchedule[classIndex];
+        const newBookings = Math.max(0, Math.min(cls.capacity, parseInt(cls.bookings) + change));
+
+        classSchedule[classIndex].bookings = newBookings;
+        saveData();
+
+        // Update the modal content
+        openViewClassModal(classId);
+
+        // If the class is for the currently displayed date, refresh the grid
+        if (cls.date === formatDate(currentDate)) {
+            renderClassGrid();
+        }
+    }
+
+    // Delete Class
+    function deleteClass() {
+        const modal = document.getElementById('viewClassModal');
+        const classId = modal.getAttribute('data-class-id');
+
+        const classIndex = classSchedule.findIndex(cls => cls.id === classId);
+        if (classIndex === -1) return;
+
+        const confirmDelete = confirm('Are you sure you want to delete this class?');
+        if (!confirmDelete) return;
+
+        const deletedClass = classSchedule[classIndex];
+        classSchedule.splice(classIndex, 1);
+        saveData();
+
+        closeViewClassModal();
+
+        // If the deleted class is for the currently displayed date, refresh the grid
+        if (deletedClass.date === formatDate(currentDate)) {
+            renderClassGrid();
+        }
+
+        // Show success notification
+        showNotification('Class deleted successfully!', 'success');
+    }
+
+    // Show Notification
+    function showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg text-white animate-fade-in z-50 ${
+            type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+        }`;
+        notification.innerHTML = `
+            <div class="flex items-center gap-3">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        document.body.appendChild(notification);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateY(20px)';
+            notification.style.transition = 'opacity 0.5s, transform 0.5s';
+            setTimeout(() => {
+                notification.remove();
+            }, 500);
+        }, 3000);
+    }
+
+    // Initialize the app when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeApp();
+        setupCustomDropdowns();
+    });
+
+    // Set up custom dropdown functionality
+    function setupCustomDropdowns() {
+        const customSelects = document.querySelectorAll('.custom-select-container');
+
+        customSelects.forEach(select => {
+            const header = select.querySelector('.custom-select-header');
+            const options = select.querySelector('.custom-select-options');
+            const displayText = select.querySelector('.custom-select-text');
+            const hiddenInput = select.querySelector('input[type="hidden"]');
+
+            // Check if there's a pre-selected value
+            const preselected = options.querySelector('.custom-option.selected');
+            if (preselected) {
+                displayText.textContent = preselected.textContent;
+                hiddenInput.value = preselected.getAttribute('data-value');
+            }
+
+            // Toggle dropdown when clicking the header
+            header.addEventListener('click', () => {
+                options.classList.toggle('hidden');
+
+                // Close other dropdowns when opening this one
+                customSelects.forEach(otherSelect => {
+                    if (otherSelect !== select) {
+                        otherSelect.querySelector('.custom-select-options').classList.add('hidden');
+                    }
+                });
+            });
+
+            // Handle option selection
+            const optionElements = options.querySelectorAll('.custom-option');
+            optionElements.forEach(option => {
+                option.addEventListener('click', () => {
+                    displayText.textContent = option.textContent;
+                    hiddenInput.value = option.getAttribute('data-value');
+
+                    // Update selected state
+                    optionElements.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+
+                    // Close dropdown after selection
+                    options.classList.add('hidden');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-select-container')) {
+                document.querySelectorAll('.custom-select-options').forEach(dropdown => {
+                    dropdown.classList.add('hidden');
+                });
+            }
+        });
+    }
+
+    // Update hidden inputs before form submission
+    document.getElementById('addClassForm').addEventListener('submit', (e) => {
+        // Make sure all hidden inputs have values
+        const requiredHiddenInputs = document.querySelectorAll('#addClassForm input[type="hidden"][required]');
+        let allValid = true;
+
+        requiredHiddenInputs.forEach(input => {
+            if (!input.value) {
+                allValid = false;
+                // Find the parent container and add error styling
+                const container = input.closest('.custom-select-container');
+                container.querySelector('.custom-select-header').classList.add('border-red-500');
+                setTimeout(() => {
+                    container.querySelector('.custom-select-header').classList.remove('border-red-500');
+                }, 2000);
+            }
+        });
+
+        if (!allValid) {
+            e.preventDefault();
+            showNotification('Please fill in all required fields', 'error');
+        }
+    });
+</script>
+</body>
+</html>

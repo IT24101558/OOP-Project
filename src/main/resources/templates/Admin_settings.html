@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --background: #1a1c2e;
+            --background: #0d0e16;
             --foreground: #ffffff;
             --card: #171826;
             --card-foreground: #ffffff;
@@ -182,8 +181,7 @@
             padding: 1rem;
             background: var(--card);
             border-bottom: 1px solid var(--border);
-            z-index: 10;
-            backdrop-filter: blur(10px);
+            z-index: 50;
         }
 
         .mobile-header-content {
@@ -192,14 +190,39 @@
             justify-content: space-between;
         }
 
-        .menu-btn {
-            width: 40px;
-            height: 40px;
+        .mobile-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-bell {
+            position: relative;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #f9595f;
+            color: white;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
+            font-size: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .menu-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             color: white;
             cursor: pointer;
@@ -210,6 +233,86 @@
             flex: 1;
             padding: 2rem;
             margin-left: 280px;
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            backdrop-filter: blur(3px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 256px;
+            height: 100%;
+            background: var(--card);
+            z-index: 45;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.show {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-nav {
+            padding: 1rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .mobile-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--muted-foreground);
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: all 0.2s ease;
+        }
+
+        .mobile-nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .mobile-nav-item.active {
+            background: linear-gradient(to right, #7e57c2, #4d5bbe);
+            color: white;
+        }
+
+        .mobile-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Navigation bar (sticky) */
@@ -245,6 +348,11 @@
         .nav-link:hover {
             background: rgba(255, 255, 255, 0.05);
             color: white;
+        }
+
+        .nav-link.active {
+            background: rgba(126, 87, 194, 0.1);
+            color: #7e57c2;
         }
 
         /* Section styling */
@@ -284,14 +392,6 @@
 
         .section-indicator.green {
             background: linear-gradient(to bottom, #5dd1a6, #5bd4c0);
-        }
-
-        .section-indicator.purple {
-            background: linear-gradient(to bottom, #a777e3, #7e57c2);
-        }
-
-        .section-indicator.orange {
-            background: linear-gradient(to bottom, #ff9f43, #ff7eb3);
         }
 
         .section-title {
@@ -496,242 +596,6 @@
             gap: 0.5rem;
         }
 
-        /* Plan cards */
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .plans-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .plan-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .plan-card.active {
-            border-color: #7e57c2;
-            transform: scale(1.02);
-            z-index: 1;
-        }
-
-        .plan-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #7e57c2;
-            color: white;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 999px;
-        }
-
-        .plan-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .plan-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .plan-price span {
-            font-size: 0.875rem;
-            font-weight: 400;
-            opacity: 0.7;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin-bottom: 1.5rem;
-        }
-
-        .plan-features li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-            color: var(--muted-foreground);
-        }
-
-        .check-icon {
-            color: #5dd1a6;
-        }
-
-        /* Payment methods */
-        .payment-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 1rem;
-            border-radius: var(--radius);
-            margin-bottom: 1rem;
-        }
-
-        .payment-card-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .card-icon {
-            background: rgba(255, 255, 255, 0.05);
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card-details h4 {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .card-details p {
-            font-size: 0.75rem;
-            color: var(--muted-foreground);
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-        }
-
-        .card-actions button {
-            background: none;
-            border: none;
-            color: var(--muted-foreground);
-            cursor: pointer;
-        }
-
-        .card-actions button:hover {
-            color: white;
-        }
-
-        /* Tables */
-        .table-container {
-            overflow-x: auto;
-            border-radius: var(--radius);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        th, td {
-            padding: 0.75rem 1rem;
-            text-align: left;
-        }
-
-        th {
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        td {
-            font-size: 0.875rem;
-            border-top: 1px solid var(--border);
-        }
-
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
-        }
-
-        .status-paid {
-            background: rgba(93, 209, 166, 0.2);
-            color: #5dd1a6;
-        }
-
-        /* FAQ */
-        .faq-item {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: var(--radius);
-            margin-bottom: 0.75rem;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .faq-answer {
-            padding: 0 1rem 1rem;
-            color: var(--muted-foreground);
-            font-size: 0.875rem;
-            display: none;
-        }
-
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-
-        /* Support section */
-        .support-card {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: var(--radius);
-            padding: 1rem;
-        }
-
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .info-card {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(77, 91, 190, 0.1);
-            border: 1px solid rgba(77, 91, 190, 0.2);
-            border-radius: var(--radius);
-            margin-top: 1rem;
-        }
-
-        .info-icon {
-            background: rgba(77, 91, 190, 0.2);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4d5bbe;
-        }
-
         /* Save button */
         .save-button {
             position: fixed;
@@ -779,26 +643,6 @@
             visibility: visible;
         }
 
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
-            .mobile-header {
-                display: block;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding-top: 5rem;
-            }
-
-            .settings-nav {
-                top: 70px;
-            }
-        }
-
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -842,49 +686,24 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
-        /* Mobile menu */
-        .mobile-menu {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: var(--card);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem;
-            z-index: 9;
-            display: none;
-        }
-
-        .mobile-menu.show {
-            display: block;
-            animation: slideDown 0.3s ease-out forwards;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .mobile-header {
+                display: block;
             }
-        }
 
-        .mobile-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: var(--muted-foreground);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
+            .main-content {
+                margin-left: 0;
+                padding-top: 5rem;
+            }
 
-        .mobile-nav-item:hover,
-        .mobile-nav-item.active {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
+            .settings-nav {
+                top: 70px;
+            }
         }
     </style>
 </head>
@@ -901,27 +720,27 @@
         </div>
 
         <nav class="nav-menu">
-            <a href="member_dashboard.html" class="nav-item">
+            <a href="admin_dashboard.html" class="nav-item">
                 <i class="fas fa-th-large"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="profile.html" class="nav-item">
-                <i class="fas fa-user"></i>
-                <span>Profile</span>
+            <a href="Admin_member_dashboard.html" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Members</span>
             </a>
-            <a href="schedule.html" class="nav-item">
+            <a href="#" class="nav-item">
                 <i class="fas fa-calendar"></i>
-                <span>Schedule</span>
+                <span>Classes</span>
             </a>
-            <a href="exercises.html" class="nav-item">
+            <a href="Equipments.html" class="nav-item">
                 <i class="fas fa-dumbbell"></i>
-                <span>Exercises</span>
+                <span>Equipment</span>
             </a>
-            <a href="monthprogress.html" class="nav-item">
+            <a href="#" class="nav-item">
                 <i class="fas fa-chart-line"></i>
-                <span>Progress</span>
+                <span>Reports</span>
             </a>
-            <a href="#" class="nav-item active">
+            <a href="Admin_settings.html" class="nav-item active">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
             </a>
@@ -933,14 +752,16 @@
                     <span>AR</span>
                 </div>
                 <div class="user-details">
-                    <h3>Soeash Nisheada</h3>
+                    <h3>Alex Rodriguez</h3>
                     <p>Premium Member</p>
                 </div>
             </div>
-            <button class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Log Out</span>
-            </button>
+            <a href="Admin_logout.html">
+                <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </button>
+            </a>
         </div>
     </aside>
 
@@ -953,13 +774,69 @@
                 </div>
                 <h1 class="logo-text">FitConnect</h1>
             </div>
-            <button class="menu-btn" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="mobile-right">
+                <div class="notification-bell">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <button class="menu-btn" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="menuOverlay"></div>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="logo-icon">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+            <h1 class="logo-text">FitConnect</h1>
+        </div>
+        <nav class="mobile-nav">
+            <a href="admin_dashboard.html" class="mobile-nav-item">
+                <div class="mobile-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span>Dashboard</span>
+            </a>
+            <a href="Admin_member_dashboard.html" class="mobile-nav-item">
+                <div class="mobile-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span>Members</span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="mobile-icon">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <span>Classes</span>
+            </a>
+            <a href="Equipments.html" class="mobile-nav-item">
+                <div class="mobile-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <span>Equipment</span>
+            </a>
+            <a href="#" class="mobile-nav-item">
+                <div class="mobile-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <span>Reports</span>
+            </a>
+            <a href="Admin_settings.html" class="mobile-nav-item active">
+                <div class="mobile-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -970,11 +847,9 @@
 
         <!-- Settings Navigation -->
         <nav class="settings-nav animate-fade-in">
-            <a href="#account" class="nav-link">Account</a>
+            <a href="#account" class="nav-link active">Account</a>
             <a href="#notifications" class="nav-link">Notifications</a>
             <a href="#privacy" class="nav-link">Privacy & Security</a>
-            <a href="#billing" class="nav-link">Billing</a>
-            <a href="#support" class="nav-link">Support</a>
         </nav>
 
         <!-- Account Settings -->
@@ -1013,7 +888,7 @@
                             <p>Update your display name</p>
                         </div>
                         <div class="form-input">
-                            <input type="text" value="Soeash Nisheada">
+                            <input type="text" value="Alex Rodriguez">
                         </div>
                     </div>
                 </div>
@@ -1025,7 +900,7 @@
                             <p>Update your email address</p>
                         </div>
                         <div class="form-input">
-                            <input type="email" value="nishedas@gmail.com">
+                            <input type="email" value="alex@example.com">
                         </div>
                     </div>
                 </div>
@@ -1181,234 +1056,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Billing Settings -->
-        <section id="billing" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator purple"></div>
-                    <h2 class="section-title">Billing</h2>
-                </div>
-
-                <h3 style="margin-bottom: 1rem;">Your Plan</h3>
-                <div class="plans-grid">
-                    <div class="plan-card">
-                        <h4 class="plan-name">Student Plan</h4>
-                        <p class="plan-price">Rs.7,000.00<span>/month</span></p>
-                        <ul class="plan-features">
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Workout tracking
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Basic analytics
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                3 workout plans
-                            </li>
-                        </ul>
-                        <button class="btn btn-secondary" style="width: 100%;">Downgrade</button>
-                    </div>
-
-                    <div class="plan-card active">
-                        <div class="plan-badge">Current</div>
-                        <h4 class="plan-name">Basic Plan</h4>
-                        <p class="plan-price">Rs. 10,000.00<span>/month</span></p>
-                        <ul class="plan-features">
-                            <li>
-                                <span class="check-icon">✓</span>
-                                All Basic features
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Advanced analytics
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Unlimited workout plans
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Personal coach chat
-                            </li>
-                        </ul>
-                        <button class="btn btn-secondary" style="width: 100%; background: rgba(126, 87, 194, 0.2); color: #a777e3; cursor: not-allowed;">Current Plan</button>
-                    </div>
-
-                    <div class="plan-card">
-                        <h4 class="plan-name">Couples Plan</h4>
-                        <p class="plan-price">Rs. 15,000.00<span>/month</span></p>
-                        <ul class="plan-features">
-                            <li>
-                                <span class="check-icon">✓</span>
-                                All Premium features
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Priority support
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                1-on-1 coaching calls
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Custom meal plans
-                            </li>
-                        </ul>
-                        <button class="btn btn-secondary" style="width: 100%;">Upgrade</button>
-                    </div>
-                </div>
-
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3>Payment Methods</h3>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-credit-card"></i>
-                            <span style="margin-left: 0.5rem;">Add New</span>
-                        </button>
-                    </div>
-
-                    <div class="payment-card">
-                        <div class="payment-card-info">
-                            <div class="card-icon">
-                                <i class="fab fa-cc-visa" style="color: #1A1F71;"></i>
-                            </div>
-                            <div class="card-details">
-                                <h4>Visa ending in 4242</h4>
-                                <p>Expires 12/25</p>
-                            </div>
-                        </div>
-                        <div class="card-actions">
-                            <button>Edit</button>
-                            <span style="color: #555;">|</span>
-                            <button>Remove</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
-                    <h3 style="margin-bottom: 1rem;">Billing History</h3>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Description</th>
-                                <th style="text-align: right;">Amount</th>
-                                <th style="text-align: right;">Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>May 1, 2025</td>
-                                <td>Premium Plan - Monthly</td>
-                                <td style="text-align: right;">$19.00</td>
-                                <td style="text-align: right;">
-                                    <span class="status-badge status-paid">Paid</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Apr 1, 2025</td>
-                                <td>Premium Plan - Monthly</td>
-                                <td style="text-align: right;">$19.00</td>
-                                <td style="text-align: right;">
-                                    <span class="status-badge status-paid">Paid</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Mar 1, 2025</td>
-                                <td>Premium Plan - Monthly</td>
-                                <td style="text-align: right;">$19.00</td>
-                                <td style="text-align: right;">
-                                    <span class="status-badge status-paid">Paid</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Support Settings -->
-        <section id="support" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator orange"></div>
-                    <h2 class="section-title">Support</h2>
-                </div>
-
-                <h3 style="margin-bottom: 1rem;">Frequently Asked Questions</h3>
-                <div style="margin-bottom: 2rem;">
-                    <div class="faq-item" id="faq1">
-                        <div class="faq-question">
-                            <span>How do I track my workouts?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            You can track your workouts by going to the Exercises section, selecting your workout plan, and clicking on "Start Workout". The app will guide you through your exercises and record your progress.
-                        </div>
-                    </div>
-
-                    <div class="faq-item" id="faq2">
-                        <div class="faq-question">
-                            <span>How do I change my subscription plan?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            You can change your subscription plan in the Billing section of your Settings. Choose the plan you want and follow the prompts to update your subscription.
-                        </div>
-                    </div>
-
-                    <div class="faq-item" id="faq3">
-                        <div class="faq-question">
-                            <span>Can I sync with other fitness devices?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Yes! FitConnect can sync with most popular fitness trackers and smartwatches. Go to the Settings page and look for "Connected Devices" to set up your integrations.
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-top: 2rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3>Contact Support</h3>
-                        <a href="mailto:support@fitconnect.com" style="color: #7e57c2; text-decoration: none;">support@fitconnect.com</a>
-                    </div>
-
-                    <div class="support-card">
-                        <div style="margin-bottom: 1rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">How can we help you?</label>
-                            <textarea placeholder="Describe your issue or question..."></textarea>
-                        </div>
-
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-headset"></i>
-                                <span style="margin-left: 0.5rem;">Submit Request</span>
-                            </button>
-                            <button class="btn btn-secondary">Live Chat</button>
-                        </div>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-info-circle"></i>
-                        </div>
-                        <div>
-                            <h4 style="color: #4d5bbe; font-weight: 500; margin-bottom: 0.5rem;">Premium Support</h4>
-                            <p style="font-size: 0.875rem; color: var(--muted-foreground);">
-                                As a Premium member, you have access to priority support. Our team typically responds within 2 hours during business hours.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 </div>
 
@@ -1427,38 +1074,31 @@
         // Mobile menu toggle
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
 
         menuToggle.addEventListener('click', function() {
             mobileMenu.classList.toggle('show');
+            menuOverlay.classList.toggle('show');
 
             const icon = menuToggle.querySelector('i');
             if (mobileMenu.classList.contains('show')) {
                 icon.classList.remove('fa-bars');
                 icon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
             } else {
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
+                document.body.style.overflow = '';
             }
         });
 
-        // FAQ toggles
-        const faqItems = document.querySelectorAll('.faq-item');
-
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-
-            question.addEventListener('click', function() {
-                item.classList.toggle('active');
-
-                const icon = question.querySelector('i');
-                if (item.classList.contains('active')) {
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                } else {
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
-            });
+        menuOverlay.addEventListener('click', function() {
+            mobileMenu.classList.remove('show');
+            menuOverlay.classList.remove('show');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+            document.body.style.overflow = '';
         });
 
         // Smooth scroll for navigation links
@@ -1468,6 +1108,11 @@
             link.addEventListener('click', function(e) {
                 e.preventDefault();
 
+                // Remove active class from all links
+                navLinks.forEach(l => l.classList.remove('active'));
+                // Add active class to the clicked link
+                this.classList.add('active');
+
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
 
@@ -1475,10 +1120,6 @@
                     top: targetElement.offsetTop - 80,
                     behavior: 'smooth'
                 });
-
-                // Highlight active link
-                navLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
             });
         });
 
@@ -1516,30 +1157,6 @@
                 }
             });
         });
-
-        // Style active nav link
-        const addActiveNavStyle = () => {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function() {
-                    document.querySelectorAll('.nav-link').forEach(l => {
-                        l.style.background = 'transparent';
-                        l.style.color = 'var(--muted-foreground)';
-                    });
-
-                    this.style.background = 'rgba(126, 87, 194, 0.1)';
-                    this.style.color = '#7e57c2';
-                });
-            });
-
-            // Set the first link as active by default
-            const firstLink = document.querySelector('.nav-link');
-            if (firstLink) {
-                firstLink.style.background = 'rgba(126, 87, 194, 0.1)';
-                firstLink.style.color = '#7e57c2';
-            }
-        };
-
-        addActiveNavStyle();
     });
 </script>
 </body>

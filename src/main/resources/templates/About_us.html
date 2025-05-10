@@ -3,11 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - FitConnect Gyms</title>
+    <title>About Us</title>
     <link rel="stylesheet" href="about.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        /* Footer Styles */
+    <style>
+        * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+       }
+
+       body {
+           font-family: Arial, sans-serif;
+           background-color: #0c0f18;
+
+           margin: 0;
+           padding: 0;
+           text-align: center;
+       }
+
+       /* Header Styles */
+       header {
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           padding: 20px 30px;
+           background-color: #050505;
+           color: white;
+           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+       }
+
+       .main-header {
+           background-color: #1a1a1a;
+       }
+
+       .benefits-header {
+           background-color: #fefcdd;
+           color: #181616;
+           text-align: center;
+           padding: 30px 20px;
+       }
+
+       header .logo img {
+           height: 60px;
+           width: auto;
+           transition: transform 0.3s ease;
+       }
+
+       header .logo img:hover {
+           transform: scale(1.1);
+       }
+
+       nav ul {
+           list-style: none;
+           display: flex;
+           gap: 30px;
+       }
+
+       nav ul li a {
+           color: #ff2600;
+           text-decoration: none;
+           font-weight: 600;
+           position: relative;
+       }
+
+       nav ul li a::before {
+           content: '';
+           position: absolute;
+           width: 100%;
+           height: 2px;
+           bottom: -5px;
+           left: 0;
+           background-color: #0433ff;
+           visibility: hidden;
+           transform: scaleX(0);
+           transition: all 0.3s ease-in-out 0s;
+       }
+
+       nav ul li a:hover::before {
+           visibility: visible;
+           transform: scaleX(1);
+       }
+
+       nav ul li a:hover {
+           color: #0433ff;
+       }
+       /* Footer Styles */
         .footer {
             background-color: #000000;
             color: #fff;
@@ -102,23 +183,562 @@
             color: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-    </script>
 
+        /* Animations */
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Hero section */
+        .about-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .about-hero-content h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .about-hero-content p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Our Story section */
+        .about-story {
+            padding: 50px 0;
+            background-color: white;
+        }
+
+        .about-story h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Timeline section */
+        .milestone-timeline {
+            padding: 50px 0;
+            background-color: #f5f5f5;
+        }
+
+        .milestone-timeline h2 {
+            font-size: 28px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 20px 30px;
+            position: relative;
+            background-color: white;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .timeline-item.animated {
+            transform: translateY(0);
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Core Values */
+        .core-values {
+            padding: 50px 0;
+            background-color: #f5f5f5;
+        }
+
+        .core-values h2 {
+            font-size: 28px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .values-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .value {
+            background-color: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .value i {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .value h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        /* Facilities Section */
+        .facilities {
+            padding: 50px 0;
+            background-color: white;
+        }
+
+        .facilities h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .section-intro {
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .facility {
+            background-color: #f5f5f5;
+            padding: 25px;
+            border-radius: 5px;
+        }
+
+        .facility i {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .facility h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        /* Gym Staff Section */
+        .gym-staff {
+            padding: 50px 0;
+            background-color: #f5f5f5;
+        }
+
+        .gym-staff h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .staff-member {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .staff-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .staff-member img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .staff-member h3 {
+            padding: 15px 20px 5px;
+            font-size: 20px;
+        }
+
+        .staff-member .role {
+            color: #ff0000;
+            font-weight: bold;
+            padding: 0 20px;
+        }
+
+        .staff-member .bio {
+            padding: 10px 20px 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 50px 0;
+            background-color: white;
+        }
+
+        .testimonials h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .testimonial-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            padding: 20px;
+            position: relative;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #e5e5e5;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .testimonial-author h4 {
+            margin-bottom: 0;
+        }
+
+        /* Join Team */
+        .join-team {
+            padding: 50px 0;
+            background-color: #f5f5f5;
+        }
+
+        .join-team h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .career-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .benefit {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .benefit i {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .benefit h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .career-btn {
+            display: inline-block;
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .career-btn:hover {
+            background-color: #cc0000;
+        }
+
+        /* FAQ */
+         .faq {
+            padding: 50px 0;
+            background-color: white;
+         }
+
+        .faq h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .faq-container {
+            max-width: 800px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 20px;
+        }
+
+        .faq-item h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .faq-item.active h3 {
+            color: #ff0000;
+        }
+
+        .faq-item p {
+            display: block;
+        }
+
+        .faq-item.active p {
+            display: block;
+        }
+
+        /* Contact Section */
+        .get-in-touch {
+            padding: 50px 0;
+            background-color: #f5f5f5;
+        }
+
+        .get-in-touch h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+             background-color: #007bff;
+             color: white;
+             border: none;
+             padding: 10px 25px;
+             border-radius: 4px;
+             cursor: pointer;
+             font-weight: bold;
+             transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-method i {
+            color: #ff0000;
+            font-size: 20px;
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+
+        .contact-method h3 {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #ff0000;
+            color: white;
+        }
+
+        /* Location Map */
+        .location-map {
+            padding: 50px 0;
+            background-color: white;
+            text-align: center;
+        }
+
+        .location-map h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .map-container {
+            margin: 30px 0;
+        }
+
+        .location-map-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .location-btn {
+            display: inline-block;
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .location-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
 </head>
 <body>
 <header class="main-header">
     <div class="logo">
-        <img src="/images/logo.png" alt="FitConnect Logo" />
+        <img src="/images/111.jpeg" alt="FitConnect Logo" />
     </div>
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="/memplan">Membership Plans</a></li>
-            <li><a href="supplements.html">Supplements</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="about.html">About Us</a></li>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/memplan" class="active">Membership Plans</a></li>
+            <li><a href="/supplements">Supplements</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="#">About Us</a></li>
         </ul>
     </nav>
 </header>
@@ -136,7 +756,7 @@
         <h2>Our Story</h2>
         <div class="about-content">
             <div class="about-text">
-                <p>Founded in 1995 by fitness enthusiast Kenula Abenayaka, FitConnect began as a modest 500-square-foot facility in the heart of Colombo with just a handful of equipment and a passionate vision to transform Sri Lanka's fitness landscape.</p>
+                <p>Founded in 1995 by fitness enthusiast Sanith Wijesinghe, FitConnect began as a modest 500-square-foot facility in the heart of Colombo with just a handful of equipment and a passionate vision to transform Sri Lanka's fitness landscape.</p>
 
                 <p>In our early years, we faced numerous challenges—limited resources, skepticism about gym culture, and a small but dedicated clientele. However, our commitment to quality, personal attention, and results quickly earned us a reputation as the go-to fitness destination in Colombo.</p>
 
@@ -145,7 +765,7 @@
                 <p>Our journey continues to be driven by our founding principle: that fitness should be accessible, enjoyable, and transformative for everyone, regardless of their starting point. As we look to the future, we remain committed to innovation, expansion, and most importantly, to being a catalyst for positive change in the lives of Sri Lankans.</p>
             </div>
             <div class="about-image">
-                <img src="/images/gym-image.jpg" alt="FitConnect Gym" />
+                <img src="/images/BG4.jpg" alt="FitConnect Gym" />
             </div>
         </div>
     </div>
@@ -278,19 +898,19 @@
 
         <div class="staff-grid">
             <div class="staff-member">
-                <img src="images/staff-1.jpg" alt="Trainer 1">
-                <h3>Michael Fernando</h3>
+                <img src="images/Ulindu.jpg" alt="Trainer 1">
+                <h3>Ulindu Vibodha</h3>
                 <p class="role">Senior Personal Trainer</p>
                 <p class="bio">Specializing in strength training and sports performance. Michael has 8 years of experience and holds certifications in exercise science.</p>
             </div>
             <div class="staff-member">
-                <img src="images/staff-2.jpg" alt="Trainer 2">
-                <h3>Samantha Silva</h3>
+                <img src="images/kenula.jpg" alt="Trainer 2">
+                <h3>Kenula De Silva</h3>
                 <p class="role">Yoga & Pilates Instructor</p>
                 <p class="bio">A certified yoga instructor with expertise in meditation and mindfulness. Samantha brings 10 years of holistic wellness experience.</p>
             </div>
             <div class="staff-member">
-                <img src="images/staff-3.jpg" alt="Trainer 3">
+                <img src="images/Kaushikesh.png" alt="Trainer 3">
                 <h3>Rajan Perera</h3>
                 <p class="role">Group Fitness Instructor</p>
                 <p class="bio">Energetic instructor leading HIIT, Zumba, and cycling classes. Known for motivating members to push beyond their limits.</p>
@@ -309,7 +929,7 @@
                     <p>"FitConnect transformed not just my physique but my entire outlook on health. The trainers here don't just push you; they educate and motivate you to become your best self."</p>
                 </div>
                 <div class="testimonial-author">
-                    <img src="/images/member-1.jpg" alt="Priya Mendis">
+                    <img src="/images/oshada.jpg" alt="Priya Mendis">
                     <div>
                         <h4>Priya Mendis</h4>
                         <p>Member since 2018</p>
@@ -322,7 +942,7 @@
                     <p>"As a senior citizen, I was intimidated by gyms. FitConnect's specialized program for older adults has improved my balance, strength, and confidence. I feel 20 years younger!"</p>
                 </div>
                 <div class="testimonial-author">
-                    <img src="/images/member-2.jpg" alt="Lakshman Perera">
+                    <img src="/images/sasidu.jpg" alt="Lakshman Perera">
                     <div>
                         <h4>Lakshman Perera</h4>
                         <p>Member since 2020</p>
@@ -334,9 +954,11 @@
                 <div class="testimonial-text">
                     <p>"The community at FitConnect keeps me coming back. From the friendly staff to the supportive fellow members, it feels less like a gym and more like a second home."</p>
                 </div>
+
                 <div class="testimonial-author">
-                    <img src="/images/member-3.jpg" alt="Fathima Hussain">
+                    <img src="/images/yasoda.jpg" alt="Fathima Hussain">
                     <div>
+                        <br>
                         <h4>Fathima Hussain</h4>
                         <p>Member since 2019</p>
                     </div>
@@ -401,98 +1023,7 @@
     </div>
 </section>
 
-<section class="get-in-touch">
-    <div class="container">
-        <h2>Get In Touch</h2>
-        <p class="section-intro">Have questions about FitConnect? We'd love to hear from you! Complete the form below, and a member of our team will respond within 24 hours.</p>
 
-        <div class="contact-container">
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" placeholder="Your Full Name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Your Email Address" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
-                </div>
-
-                <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <select id="subject" name="subject" required>
-                        <option value="" disabled selected>Select a Subject</option>
-                        <option value="membership">Membership Inquiry</option>
-                        <option value="feedback">Feedback</option>
-                        <option value="partnership">Partnership Opportunity</option>
-                        <option value="careers">Careers</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-
-            <div class="contact-info">
-                <div class="contact-method">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <h3>Headquarters</h3>
-                        <p>No:128, Malwatte Avenue,<br>Colombo 10, Sri Lanka</p>
-                    </div>
-                </div>
-
-                <div class="contact-method">
-                    <i class="fas fa-phone"></i>
-                    <div>
-                        <h3>Phone</h3>
-                        <p>+94 77 045 6514 (General Inquiries)</p>
-                        <p>+94 76 453 1877 (Membership)</p>
-                    </div>
-                </div>
-
-                <div class="contact-method">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <h3>Email</h3>
-                        <p>info@fitconnect.com</p>
-                        <p>support@fitconnect.com</p>
-                    </div>
-                </div>
-
-                <div class="contact-method">
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h3>Office Hours</h3>
-                        <p>Monday - Friday: 9AM - 6PM</p>
-                        <p>Saturday: 10AM - 4PM</p>
-                    </div>
-                </div>
-
-                <div class="social-links">
-                    <h3>Connect With Us</h3>
-                    <div class="social-icons">
-                        <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="location-map">
     <div class="container">
@@ -504,7 +1035,6 @@
         <a href="locations.html" class="btn location-btn">View All Locations</a>
     </div>
 </section>
-
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-section about-us">
