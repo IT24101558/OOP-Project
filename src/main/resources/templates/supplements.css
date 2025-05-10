@@ -1,30 +1,162 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Inter, sans-serif;
     text-align: center;
     margin: 0;
-    overflow-y: auto;
+    overflow-y: scroll;
     background-color: black;
+    border: 5px solid red; /* Temporary for testing */
 }
+
 h1 {
-    color: #ffffff;
+    color: white;
     font-size: 2.5rem;
     margin-top: 20px;
     text-align: center;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-
     display: inline-block;
     padding: 5px 15px;
     border-radius: 5px;
 }
-
 .container {
     display: flex;
+    color: white;
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
-    padding-top: 20px;
+    padding-bottom: 70px;
+    position: relative; /* Needed for absolute positioning of basket */
+    z-index: 1;
 }
+.basket-container {
+    width: 350px;
+    background-color:#f9f9f9;
+    border-left: 1px solid #ddd;
+    box-sizing: border-box;
+    position: fixed; /* Add this line */
+    top: 0;           /* Add this line */
+    right: 0;         /* Add this line */
+    height: 100vh;      /* Add this line */
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.basket-container.open {
+    transform: translateX(0);
+}
+
+.basket-header {
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+    font-weight: normal;
+    border-bottom: thick solid #ddd;
+}
+
+.basket-content {
+    padding: 1px;
+    flex-grow: 1;
+}
+
+.basket-content p {
+    color:black;
+}
+.basket-item {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    display: block;
+    justify-content: space-between;
+    align-items: normal;
+}
+.basket-item .item-name {
+    font-weight: normal;
+    color:black;
+}
+.basket-item .item-quantity {
+    margin: 0 10px;
+    color: black;
+}
+.basket-item .item-price {
+    font-weight: bold;
+    color:black;
+}
+.basket-footer {
+    padding: 15px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+}
+
+.basket-footer .subtotal,
+.basket-footer .service-charge {
+    text-align: right;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.basket-footer .checkout {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.basket-footer .checkout button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#close-basket-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-quantity {
+    margin: 0 10px;
+}
+
+.basket-total {
+    font-weight: bold;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+.item-name {
+    font-weight: bold;
+}
+
+.item-quantity {
+    margin: 0 10px;
+}
+.basket-total{
+    font-weight: bold;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+
+
 
 .food-card {
     width: 300px;
@@ -33,22 +165,17 @@ h1 {
     overflow: hidden;
     padding: 10px;
     transition: transform 0.3s ease-in-out;
-
-    background: rgb(68, 68, 68, 0.1); /* Light transparent overlay */
+    background: rgba(68, 68, 68, 0.1); /* Light transparent overlay */
     backdrop-filter: blur(40px); /* Adds blur effect */
-    box-shadow: 0 4px 10px rgb(4, 51, 255, 0.3); /* Optional for better visibility */
-
+    box-shadow: 0 4px 10px rgba(4, 51, 255, 0.3); /* Optional for better visibility */
 }
-
 .food-card:hover {
     transform: scale(1.05);
 }
-
 .food-card img {
     width: 100%;
     border-radius: 10px 8px 0 0;
 }
-
 .food-card button {
     margin-top: 10px;
     padding: 10px;
@@ -59,25 +186,21 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 .food-card button:hover {
     background-color: #0433ff;
 }
-
 .food-details {
     display: none;
     padding: 10px;
     color: #ffffff;
 }
-
 .food-details ul {
     padding-left: 20px; /* Adds indentation for better structure */
     margin: 0;
     list-style-position: inside; /* Keeps bullets aligned properly */
     text-align: left;
 }
-
-.food-card h2{
+.food-card h2 {
     color: white;
     text-align: center;
 }
@@ -85,15 +208,10 @@ h1 {
     color: white;
     text-align: left;
 }
-
-
-
-/* Protein Section Animation */
 .protein-section {
     position: relative;
     overflow: hidden;
 }
-
 .protein-section::before {
     content: "";
     position: absolute;
@@ -101,14 +219,13 @@ h1 {
     left: 0;
     width: 100%;
     height: 150%;
-    background-image: url("/static/images/supimg1.jpg");
+    background-image: url("/static/images/supimg1.jpg"); /* Verify this path */
     background-size: auto;
     background-position: 100% 0%;
     animation: proteinAnimation 30s linear infinite alternate;
     opacity: 1.0;
     z-index: -1;
 }
-
 @keyframes proteinAnimation {
     0% {
         background-position: 100% 0%;
@@ -117,12 +234,10 @@ h1 {
         background-position: 0% 100%;
     }
 }
-
 .pre-workout-section {
     position: relative;
     overflow: hidden;
 }
-
 .pre-workout-section::before {
     content: "";
     position: absolute;
@@ -130,14 +245,13 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("/static/images/supimg2.jpg");
+    background-image: url("/static/images/supimg2.jpg"); /* Verify this path */
     background-size: auto;
     background-position: 100% 0%;
     animation: preWorkoutAnimation 50s linear infinite alternate;
     opacity: 1.0;
     z-index: -1;
 }
-
 @keyframes preWorkoutAnimation {
     0% {
         background-position: 100% 0%;
@@ -150,21 +264,20 @@ h1 {
     position: relative;
     overflow: hidden;
 }
-.Mass-gain-section::before { /* Corrected typo and removed colon */
+.Mass-gain-section::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 150%; /* Changed to 150% to match protein */
-    background-image: url("/static/images/supimg3.jpg");
+    height: 150%;
+    background-image: url("/static/images/supimg2.jpg"); /* Verify this path */
     background-size: auto;
     background-position: 100% 0%;
-    animation: massGainAnimation 50s linear infinite alternate; /* Corrected typo */
+    animation: massGainAnimation 50s linear infinite alternate;
     opacity: 1.0;
     z-index: -1;
 }
-
 @keyframes massGainAnimation {
     0% {
         background-position: 100% 0%;
@@ -172,29 +285,26 @@ h1 {
     100% {
         background-position: 0% 100%;
     }
-
 }
-
-.Ceratine-section {
+.Creatine-section {
     position: relative;
     overflow: hidden;
 }
-.Ceratine-section::before { /* Corrected typo and removed colon */
+.Creatine-section::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 150%; /* Changed to 150% to match protein */
-    background-image: url("/static/images/supimg1.jpg");
+    height: 150%;
+    background-image: url("/static/images/supimg1.jpg"); /* Verify this path */
     background-size: auto;
     background-position: 100% 0%;
-    animation: massGainAnimation 40s linear infinite alternate; /* Corrected typo */
+    animation: CreatineAnimation 40s linear infinite alternate;
     opacity: 1.0;
     z-index: -1;
 }
-
-@keyframes CeratineAnimation {
+@keyframes CreatineAnimation {
     0% {
         background-position: 100% 0%;
     }
@@ -202,26 +312,24 @@ h1 {
         background-position: 0% 100%;
     }
 }
-
 .Foods-section {
     position: relative;
     overflow: hidden;
 }
-.Foods-section::before { /* Corrected typo and removed colon */
+.Foods-section::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 150%; /* Changed to 150% to match protein */
-    background-image: url("/static/images/supimg2.jpg");
+    height: 150%;
+    background-image: url("/static/images/supimg2.jpg"); /* Verify this path */
     background-size: auto;
     background-position: 100% 0%;
-    animation: massGainAnimation 40s linear infinite alternate; /* Corrected typo */
+    animation: FoodsAnimation 40s linear infinite alternate;
     opacity: 1.0;
     z-index: -1;
 }
-
 @keyframes FoodsAnimation {
     0% {
         background-position: 100% 0%;
@@ -230,24 +338,39 @@ h1 {
         background-position: 0% 100%;
     }
 }
-
 .Drinks-section {
     position: relative;
     overflow: hidden;
 }
-.Drinks-section::before { /* Corrected typo and removed colon */
+.Drinks-section::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 150%; /* Changed to 150% to match protein */
-    background-image: url("/static/images/supimg3.jpg");
+    height: 150%;
+    background-image: url("/static/images/supimg3.jpg"); /* Verify this path */
     background-size: auto;
     background-position: 100% 0%;
-    animation: massGainAnimation 20s linear infinite alternate; /* Corrected typo */
+    animation: DrinksAnimation 20s linear infinite alternate;
     opacity: 1.0;
     z-index: -1;
+}
+.learn-more-button:hover {
+    backdrop-filter: blur(20px);
+}
+
+.learn-more-content {
+    display: none;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: left;
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+}
+
+.learn-more-content.expanded {
+    display: block;
 }
 
 @keyframes DrinksAnimation {
@@ -264,20 +387,16 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 20px 30px;
-    background-color: #1a1a1a;
+    background-color: #050505; /* Consolidated from duplicate rules */
     color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
-
-/* ... (Other styles from previous responses) ... */
-
 .footer {
     background-color: #000000;
     color: #fff;
     padding: 40px 20px;
     text-align: left;
 }
-
 .footer-content {
     display: flex;
     flex-wrap: wrap;
@@ -285,49 +404,40 @@ header {
     max-width: 2500px;
     margin: 0 auto;
 }
-
 .footer-section {
     width: 23%;
     margin-bottom: 20px;
 }
-
 .about-us p {
     line-height: 1.6;
     color: #ccc;
 }
-
 .footer-logo {
     max-width: 20px; /* Adjusted logo size */
     margin-bottom: 10px;
 }
-
 .footer-section h2 {
     font-size: 1.5rem;
     margin-bottom: 15px;
     color: #fff;
 }
-
 .footer-section p,
 .footer-section ul li a {
     color: #ccc;
     text-decoration: none;
     margin-bottom: 10px;
 }
-
 .footer-section ul {
     list-style: none;
     padding: 0;
 }
-
 .footer-section ul li a::before {
     content: ">";
     margin-right: 5px;
 }
-
 .social-icons {
     margin-top: 20px;
 }
-
 .social-icons a {
     display: inline-flex;
     justify-content: center;
@@ -342,13 +452,10 @@ header {
     text-decoration: none;
     transition: background-color 0.3s ease;
 }
-
-
 .social-icons a:hover {
     background-color: #ffffff;
     color: #000000;
 }
-
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
@@ -356,50 +463,34 @@ header {
     margin-top: 40px;
     width: 100%;
 }
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 30px;
-    background-color: #050505;
-    color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
 .main-header {
     background-color: #1a1a1a;
 }
-
 .benefits-header {
     background-color: #fefcdd;
     color: #181616;
     text-align: center;
     padding: 30px 20px;
 }
-
 header .logo img {
     height: 60px;
     width: auto;
     transition: transform 0.3s ease;
 }
-
 header .logo img:hover {
     transform: scale(1.1);
 }
-
 nav ul {
     list-style: none;
     display: flex;
     gap: 30px;
 }
-
 nav ul li a {
     color: #ff2600;
     text-decoration: none;
     font-weight: 600;
     position: relative;
 }
-
 nav ul li a::before {
     content: '';
     position: absolute;
@@ -412,12 +503,10 @@ nav ul li a::before {
     transform: scaleX(0);
     transition: all 0.3s ease-in-out 0s;
 }
-
 nav ul li a:hover::before {
     visibility: visible;
     transform: scaleX(1);
 }
-
 nav ul li a:hover {
     color: #0433ff;
 }
