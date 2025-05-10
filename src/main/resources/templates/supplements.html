@@ -28,64 +28,70 @@
     <br><br>
     <div class="protein-section">
         <h1>-------------------------------- Protein Powder--------------------------------</h1>
+
         <div class="container">
+            <div style="display: flex; justify-content: space-between;">
 
-            <div class="food-card">
-                <img src="/static/images/Protein1.jpg" alt="Optimum Gold Standard Whey Protein">
-                <h2>Optimum Gold Standard Whey Protein </h2>
-                <p>24g of Whey Protein with Amino Acids for Muscle Recovery & Growth.</p>
-                <div id="details1" class="food-details" style="display: none;">
+            <div class="container">
+              <div style="display: flex; justify-content: space-between;">
 
-                    <ul>
-                        <li>Whey Protein Isolates: Primary Source.</li><br>
-                        <li>5.5 Grams of Naturally Occurring BCAAs.</li><br>
-                        <li>4 Grams of Naturally Occurring Glutamine and Glutamic Acid.</li><br>
-                        <li>Instantized to Mix Easily Using Just a Glass and Spoon.</li><br>
-                        <li>Over 20 Different Flavors to Choose From.</li>
-                    </ul>
+                 <div class="food-card">
+                   <img src="/static/images/Protein1.jpg" alt="Optimum Gold Standard Whey Protein">
+                   <h2>Optimum Gold Standard Whey Protein</h2>
+                   <p>24g of Whey Protein with Amino Acids for Muscle Recovery & Growth.</p>
+                   <div id="learn-more-content-123" class="learn-more-content hidden">
+                       <ul>
+                         <li>Whey Protein Isolates Primary Source.</li><br>
+                         <li>5.5 Grams of Naturally Occurring BCAAs.</li><br>
+                         <li>4 Grams of Naturally Occurring Glutamine and Glutamic Acid.</li><br>
+                         <li>Instantized to Mix Easily Using Just a Glass and Spoon.</li><br>
+                         <li>Over 20 Different Flavors to Choose From.</li><br>
+                       </ul>
+                   </div>
+                       <button class="learn-more-button" data-target-id="learn-more-content-123">Learn More</button>
+                       <button class="add-to-basket-button" data-product-id="123" data-product-name="Optimum Gold Standard Whey Protein" data-product-price="30000">Add to Basket - Rs 30,000</button>
+                 </div>
+              </div>
 
+
+                    <div class="food-card">
+                        <img src="/static/images/Protein2.jpg" alt="Dymatize ISO 100">
+                        <h2>Dymatize ISO 100</h2>
+                        <p>Ultra-fast absorbing hydrolyzed whey protein. Dymatize ISO 100 – Sri Lanka’s #1 choice for authentic supplements!</p>
+                        <div id="learn-more-content-456" class="learn-more-content hidden">
+                            <ul>
+                                <li>Ultra-Fast Absorption.</li><br>
+                                <li>Hydrolyzed 100% Whey Protein Isolate.</li><br>
+                                <li>25 Grams Protein per Serving.</li><br>
+                                <li>5 Grams of BCAAs.</li><br>
+                                <li>Gluten Free & Lactose Free.</li><br>
+                            </ul>
+                        </div>
+                        <button class="learn-more-button" data-target-id="learn-more-content-456">Learn More</button>
+                        <button class="add-to-basket-button" data-product-id="456" data-product-name="Dymatize ISO 100" data-product-price="27500">Add to Basket - Rs 27,500</button>
+                    </div>
+
+                    <div class="food-card">
+                        <img src="/static/images/Protein3.jpg" alt="Applied Nutrition BEEF-XP Clear Hydrolysed Beef Protein">
+                        <h2>BEEF-XP Clear Hydrolysed Protein</h2>
+                        <p>Beef protein for lean muscle growth and Power-packed protein fuel!</p>
+                        <div id="learn-more-content-789" class="learn-more-content hidden">
+                            <ul>
+                                <li>Brand new, improved flavours.</li><br>
+                                <li>100% hydrolysed beef protein.</li><br>
+                                <li>Over 27g of protein per serving.</li><br>
+                                <li>Lactose & dairy-free.</li><br>
+                                <li>Contributes to the growth of muscle mass.</li><br>
+                                <li>Perfect mixing & amazing taste.</li><br>
+                                <li>Tested for Athletes™️.</li><br>
+                            </ul>
+                        </div>
+                        <button class="learn-more-button" data-target-id="learn-more-content-789">Learn More</button>
+                        <button class="add-to-basket-button" data-product-id="789" data-product-name="BEEF-XP Clear Hydrolysed Protein" data-product-price="24000">Add to Basket - Rs 24,000</button>
+                    </div>
                 </div>
-                <button onclick="toggleDetails('details1')">Learn More</button>
-            </div>
-
-            <div class="food-card">
-                <img src="/static/images/Protein2.jpg" alt="Dymatize ISO 100">
-                <h2>Dymatize ISO 100</h2>
-                <p>Ultra-fast absorbing hydrolyzed whey protein. Dymatize ISO 100 – Sri Lanka’s #1 choice for authentic supplements!</p>
-                <div id="details2" class="food-details" style="display: none;">
-                    <ul>
-                        <li>Ultra-Fast Absorption.</li><br>
-                        <li>Hydrolyzed 100% Whey Protein Isolate.</li><br>
-                        <li>25 Grams Protein per Serving.</li><br>
-                        <li>5 Grams of BCAAs.</li><br>
-                        <li>Gluten Free & Lactose Free.</li><br><br><br><br>
-                    </ul>
                 </div>
-                <button onclick="toggleDetails('details2')">Learn More</button>
-            </div>
-
-            <div class="food-card">
-                <img src="/static/images/Protein3.jpg" alt="Applied Nutrition BEEF-XP Clear Hydrolysed Beef Protein">
-                <h2>BEEF-XP Clear Hydrolysed Protein</h2>
-                <p>Beef protein for lean muscle growth and Power-packed protein fuel!</p>
-                <div id="details3" class="food-details" style="display: none;">
-                    <ul>
-                        <li>Brand new, improved flavours.</li><br>
-                        <li>100% hydrolysed beef protein.</li><br>
-                        <li>Over 27g of protein per serving.</li><br>
-                        <li>Lactose & dairy-free.</li><br>
-                        <li>Contributes to the growth of muscle mass.</li><br>
-                        <li>Perfect mixing & amazing taste.</li><br>
-                        <li>Tested for Athletes™️.</li>
-
-
-                    </ul>
-                </div>
-                <button onclick="toggleDetails('details3')">Learn More</button>
-            </div>
         </div>
-    </div>
-
 
     <div class="pre-workout-section">
         <h1>---------------------------------- Pre Workout ----------------------------------</h1>
@@ -95,34 +101,38 @@
                 <img src="/static/images/preworkout1.jpeg" alt="The Curse Pineapple Shred">
                 <h2>Curse Pineapple Shred</h2>
                 <p>Pre-Workout Powder for Insane Energy and Promotes Sharp Mental Focus and Animalistic Intensity.</p>
-                <div id="details4" class="food-details" style="display: none;">
+                <div id="learn-more-curse" class="learn-more-content hidden">
                     <ul>
                         <li>Most powerful and mind blowing pre workout energy product.</li><br>
                         <li>Need Only 1 or 2 scoops in 4-8 ounces of water and 30 minutes.</li><br>
-                        <li>Intense mental focus, massive increase in energy and a mad aggressive desire to push yourself past the limits of normal human endurance.</li><br><br>
+                        <li>Intense mental focus, massive increase in energy and a mad aggressive desire to push yourself past the limits of normal human endurance.</li><br>
                     </ul>
                 </div>
-                <button onclick="toggleDetails('details4')">Learn More</button>  </div>
+                <button class="learn-more-button" data-target-id="learn-more-curse">Learn More</button>
+                <button class="add-to-basket-button" data-product-id="curse-123" data-product-name="Curse Pineapple Shred" data-product-price="27500">Add to Basket - Rs 27,500</button>
+            </div>
+
 
             <div class="food-card">
                 <img src="/static/images/preworkout2.jpeg" alt="Mammoth Shock">
                 <h2>Mammoth Shock</h2>
                 <p>Mammoth Shock is the new standard for High-intensity,Maximum-dose per workout.</p>
-                <div id="details5" class="food-details" style="display: none;">
+                <div id="learn-more-mammoth" class="learn-more-content hidden">
                     <ul>
                         <li>Contains a potent blend of stimulants, including caffeine, for intense energy.</li><br>
                         <li>Helps delay muscle fatigue, allowing for longer and stronger workouts.</li><br>
-                        <li>Enhances vascularity and improves oxygen delivery to muscles.</li><br><br>
-
+                        <li>Enhances vascularity and improves oxygen delivery to muscles.</li><br>
                     </ul>
                 </div>
-                <button onclick="toggleDetails('details5')">Learn More</button>  </div>
+                <button class="learn-more-button" data-target-id="learn-more-mammoth">Learn More</button>
+                <button class="add-to-basket-button" data-product-id="mammoth-456" data-product-name="Mammoth Shock" data-product-price="18500">Add to Basket - Rs 18,500</button>
+            </div>
 
             <div class="food-card">
                 <img src="/static/images/preworkout3.jpeg" alt="GAT Sport Nitraflex">
                 <h2>GAT Sport Nitraflex</h2>
                 <p>Nitraflix is a formulaic powerhouse that crushes any session with extreme pumps, pushing beyond all expectation.</p>
-                <div id="details6" class="food-details" style="display: none;">
+                <div id="learn-more-gat" class="learn-more-content hidden">
                     <ul>
                         <li>Increased energy & endurance.</li><br>
                         <li>Improved blood flow & muscle Pump.</li><br>
@@ -131,9 +141,12 @@
                         <li>Laser-Sharp focus & mental clarity.</li><br>
                     </ul>
                 </div>
-                <button onclick="toggleDetails('details6')">Learn More</button>  </div>
-
+                <button class="learn-more-button" data-target-id="learn-more-gat">Learn More</button>
+                <button class="add-to-basket-button" data-product-id="gat-789" data-product-name="GAT Sport Nitraflex" data-product-price="22000">Add to Basket - Rs 22,000</button>
+            </div>
         </div>
+    </div>
+
 
         <div class="Mass-gain-section">
             <h1>----------------------------------- Mass Gain -----------------------------------</h1>
@@ -142,21 +155,22 @@
                     <img src="/static/images/massgain1.jpeg" alt="Applied Nutrition Critical Mass">
                     <h2>Applied Nutrition Critical Mass</h2>
                     <p>Critical Mass has been carefully engineered to offer those with fast metabolisms a fantastic source of premium quality carbohydrates and proteins, which contributes to a growth or maintenance of muscle mass.</p>
-                    <div id="details7" class="food-details" style="display: none;">
+                    <div id="learn-more-critical-mass" class="learn-more-content hidden">
                         <ul>
                             <li>Provides over 1,000 calories per serving, ideal for muscle gain and recovery.</li><br>
                             <li>Contains 42g of premium protein per serving to support muscle recovery and growth.</li><br>
                             <li>Contains medium-chain triglycerides (MCTs) and essential fatty acids for sustained energy.</li><br>
-                            <br>
                         </ul>
                     </div>
-                    <button onclick="toggleDetails('details7')">Learn More</button>  </div>
+                    <button class="learn-more-button" data-target-id="learn-more-critical-mass">Learn More</button>
+                    <button class="add-to-basket-button" data-product-id="critical-mass-1" data-product-name="Applied Nutrition Critical Mass" data-product-price="31000">Add to Basket - Rs 31,000</button>
+                </div>
 
                 <div class="food-card">
                     <img src="/static/images/massgain2.jpeg" alt="Ronnie Coleman King Mass">
                     <h2>Ronnie Coleman King Mass</h2>
                     <p>King Mass XL packs a massive 60G of protein per serving to help keep your muscles FED and in an ANABOLIC state.</p><br><br><br>
-                    <div id="details8" class="food-details" style="display: none;">
+                    <div id="learn-more-king-mass" class="learn-more-content hidden">
                         <ul>
                             <li>Optimal Carbohydrate Ratio for Energy.</li><br>
                             <li>High-Calorie Formula for Maximum Muscle Growth.</li><br>
@@ -164,13 +178,15 @@
                             <li>Provides 180g+ of complex carbs, ensuring long-lasting energy.</li><br>
                         </ul>
                     </div>
-                    <button onclick="toggleDetails('details8')">Learn More</button>  </div>
+                    <button class="learn-more-button" data-target-id="learn-more-king-mass">Learn More</button>
+                    <button class="add-to-basket-button" data-product-id="king-mass-1" data-product-name="Ronnie Coleman King Mass XL" data-product-price="29000">Add to Basket - Rs 29,000</button>
+                </div>
 
                 <div class="food-card">
                     <img src="/static/images/massgain3.jpeg" alt="MuscleTech Mass-Tech Extreme 2000">
                     <h2>MuscleTech Mass-Tech Extreme 2000</h2>
                     <p>Mass-Tech Extreme 2000 features 80g of protein, over 400g of carbs and over 2,000 mass-producing calories, plus 8g of L-leucine (when mixed with 16 oz. of skim milk), 5g of creatine, and 20 vitamins and minerals.</p>
-                    <div id="details9" class="food-details" style="display: none;">
+                    <div id="learn-more-mass-tech" class="learn-more-content hidden">
                         <ul>
                             <li>Helps promote lean muscle development without excessive fat gain.</li><br>
                             <li>Supports immune function, digestion, and metabolism for optimal performance.</li><br>
@@ -178,9 +194,12 @@
                             <li>Ensures maximum nutrient utilization for better muscle recovery.</li>
                         </ul>
                     </div>
-                    <button onclick="toggleDetails('details9')">Learn More</button>  </div>
+                    <button class="learn-more-button" data-target-id="learn-more-mass-tech">Learn More</button>
+                    <button class="add-to-basket-button" data-product-id="mass-tech-1" data-product-name="MuscleTech Mass-Tech Extreme 2000" data-product-price="27000">Add to Basket - Rs 27,000</button>
+                </div>
+             </div>
+          </div>
 
-            </div>
             <div class="Ceratine-section">
                 <h1>------------------------------------- Ceratine -------------------------------------</h1>
                 <div class="container">
@@ -189,7 +208,7 @@
                         <img src="/static/images/cr1.jpeg" alt="MuscleTech Platinum 100% Creatine">
                         <h2>MuscleTech Platinum 100% Creatine</h2>
                         <p>Provides your muscles with the world's highest quality and most clinically researched form of micronized creatine. Creatine is shown to increase lean muscle and improve strength and muscular endurance.</p>
-                        <div id="details10" class="food-details" style="display: none;">
+                        <div id="learn-more-mt-creatine" class="learn-more-content hidden">
                             <ul>
                                 <li>Helps improve high-intensity performance and muscle endurance.</li><br>
                                 <li>Supports muscle cell volumization for a fuller, more pumped look.</li><br>
@@ -197,38 +216,42 @@
                                 <li>Ultra-fine creatine particles for fast digestion and mixability</li>
                             </ul>
                         </div>
-                        <button onclick="toggleDetails('details10')">Learn More</button>  </div>
+                        <button class="learn-more-button" data-target-id="learn-more-mt-creatine">Learn More</button>
+                        <button class="add-to-basket-button" data-product-id="mt-creatine-1" data-product-name="MuscleTech Platinum 100% Creatine" data-product-price="20000">Add to Basket - Rs 20,000</button>
+                    </div>
 
                     <div class="food-card">
                         <img src="/static/images/cr2.jpeg" alt="The Curse! Micronized Creatine Monohydrate Unflavored">
                         <h2>The Curse! Micronized Creatine </h2>
                         <p>Pure Micronized Creatine Monohydrate to increase muscle size, strength and power when combined with high-intensity activities.</p><br><br>
-                        <div id="details11" class="food-details" style="display: none;">
+                        <div id="learn-more-curse-creatine" class="learn-more-content hidden">
                             <ul>
                                 <li>5 grams 100% pure micronized creatine monohydrate per serving. Scoop included.</li><br>
                                 <li>Supports increases in muscle size, strength, and power when combined with high-intensity training.</li><br>
                                 <li>Non-GMO, soy-free, gluten-free, vegan-friendly, and sugar-free. Suitable for various dietary needs.</li><br>
-
                             </ul>
                         </div>
-                        <button onclick="toggleDetails('details11')">Learn More</button>  </div>
+                        <button class="learn-more-button" data-target-id="learn-more-curse-creatine">Learn More</button>
+                        <button class="add-to-basket-button" data-product-id="curse-creatine-1" data-product-name="The Curse! Micronized Creatine" data-product-price="25000">Add to Basket - Rs 25,000</button>
+                    </div>
 
                     <div class="food-card">
                         <img src="/static/images/cr3.jpg" alt="RC Creatine XS">
                         <h2>RC Creatine XS Unflavored Powder</h2>
                         <p>Creatine XS is one of the most scientifically researched supplements of all time and has shown over and over again its worth in helping your muscles perform at its peak ability and grow to its fullest..</p>
-                        <div id="details12" class="food-details" style="display: none;">
+                        <div id="learn-more-rc-creatine" class="learn-more-content hidden">
                             <ul>
                                 <li>Supports muscle size and strength, making it ideal for bodybuilders and athletes.</li><br>
                                 <li>Aids in muscle repair, reducing post-workout soreness.</li><br>
                                 <li>Can be easily added to any drink without altering the taste.</li><br>
                                 <li>Increases energy levels, improving overall workout efficiency.</li><br>
-
                             </ul>
                         </div>
-                        <button onclick="toggleDetails('details12')">Learn More</button>  </div>
-
+                        <button class="learn-more-button" data-target-id="learn-more-rc-creatine">Learn More</button>
+                        <button class="add-to-basket-button" data-product-id="rc-creatine-1" data-product-name="RC Creatine Unflavored Powder" data-product-price="28500">Add to Basket - Rs 28,500</button>
+                    </div>
                 </div>
+            </div>
 
                 <div class="Foods-section">
                     <h1>-------------------------------------- Foods --------------------------------------</h1>
@@ -238,7 +261,7 @@
                             <img src="/static/images/food1.jpg" alt="Beef">
                             <h2>Beef</h2>
                             <p>Among the powerful package of 10 essential nutrients beef is known for, protein may be one of the most notable. In fact, one 3 oz cooked serving of beef provides 50% of your Daily Value (25 grams) of this important nutrient—making it an excellent source!.</p>
-                            <div id="details13" class="food-details" style="display: none;">
+                            <div id="learn-more-content-44" class="learn-more-content hidden">
                                 <ul>
                                     <li>Helps prevent anemia by boosting red blood cell production.</li><br>
                                     <li>A great source of creatine and amino acids for bodybuilders.</li><br>
@@ -246,37 +269,36 @@
                                     <li>Helps promote muscle growth and strength.</li>
                                 </ul>
                             </div>
-                            <button onclick="toggleDetails('details13')">Learn More</button>  </div>
+                            <button class="learn-more-button" data-target-id="learn-more-content-44">Learn More</button>
+                        </div>
 
                         <div class="food-card">
                             <img src="/static/images/food2.jpg" alt="Eggs">
                             <h2>Eggs</h2>
                             <p>As a general guideline, 2-3 whole eggs per day can provide 12-18 grams of high-quality protein, which can help meet the protein needs for many adults. However, the exact number will depend on the individual's specific protein requirements.</p><br>
-                            <div id="details14" class="food-details" style="display: none;">
+                            <div id="learn-more-content-47" class="learn-more-content hidden">
                                 <ul>
                                     <li>Contains all essential amino acids for muscle growth and repair.</li><br>
                                     <li>Helps delay muscle fatigue, allowing for longer and stronger workouts.</li><br>
                                     <li> Increases HDL (good cholesterol) for heart health.</li><br><br>
-
                                 </ul>
                             </div>
-                            <button onclick="toggleDetails('details14')">Learn More</button>  </div>
+                            <button class="learn-more-button" data-target-id="learn-more-content-47">Learn More</button>
+                        </div>
 
                         <div class="food-card">
                             <img src="/static/images/food3.jpg" alt="Chicken">
                             <h2>Chicken</h2>
                             <p>Chicken comes in a variety of cuts, providing between 24 and 32 grams of protein per 100 grams, depending on the cut. All chicken is high in protein, breasts providing the highest protein count. Chicken is one of the most commonly consumed meats worldwide.</p>
-                            <div id="details15" class="food-details" style="display: none;">
+                            <div id="learn-more-content-46" class="learn-more-content hidden">
                                 <ul>
                                     <li>Essential for muscle building, weight loss, and metabolism.</li><br>
                                     <li>Helps maintain stable glucose levels when paired with healthy carbs.</li><br>
                                     <li>Selenium and zinc help fight infections and improve immune response.</li><br>
-
-
                                 </ul>
                             </div>
-                            <button onclick="toggleDetails('details15')">Learn More</button>  </div>
-
+                            <button class="learn-more-button" data-target-id="learn-more-content-46">Learn More</button>
+                        </div>
                     </div>
 
                     <div class="Drinks-section">
@@ -287,7 +309,7 @@
                                 <img src="/static/images/drink1.jpg" alt="Milk">
                                 <h2>Milk</h2>
                                 <p>Milk has about 8 grams of protein per cup. This is a good amount of protein for most people and can help to meet daily protein needs. Milk is also a source of other essential nutrients, such as calcium and vitamin D.</p>
-                                <div id="details16" class="food-details" style="display: none;">
+                                <div id="learn-more-content-31" class="learn-more-content hidden">
                                     <ul>
                                         <li>Contains potassium, which helps regulate blood pressure.</li><br>
                                         <li>Provides carbohydrates, fats, and proteins for sustained energy levels.</li><br>
@@ -295,13 +317,14 @@
                                         <li>Helps keep the body hydrated with its high water content.</li>
                                     </ul>
                                 </div>
-                                <button onclick="toggleDetails('details16')">Learn More</button>  </div>
+                                <button class="learn-more-button" data-target-id="learn-more-content-31">Learn More</button>
+                            </div>
 
                             <div class="food-card">
                                 <img src="/static/images/drink2.jpg" alt="Banana Juice">
                                 <h2>Banana Juice</h2>
                                 <p>Bananas are a good source of nutrients, including some protein, banana juice, especially when made with added ingredients like milk or other fruits, can increase the protein content, offering a good source of protein and other nutrients</p>
-                                <div id="details17" class="food-details" style="display: none;">
+                                <div id="learn-more-content-32" class="learn-more-content hidden">
                                     <ul>
                                         <li>Contains essential minerals like magnesium and calcium, which support strong bones.</li><br>
                                         <li>High in fiber and helps relieve constipation and promote gut health.</li><br>
@@ -309,34 +332,208 @@
                                         <li>Vitamin C and antioxidants improve immune system function.</li>
                                     </ul>
                                 </div>
-                                <button onclick="toggleDetails('details17')">Learn More</button>  </div>
+                                <button class="learn-more-button" data-target-id="learn-more-content-32">Learn More</button>
+                            </div>
 
                             <div class="food-card">
                                 <img src="/static/images/drink3.jpg" alt="Watermelon Juice">
                                 <h2>Watermelon Juice</h2>
                                 <p>Watermelon juice contains a small amount of protein, with roughly 0.5 to 1 gram per cup, but watermelon seed kernels are significantly higher in protein.</p><br><br>
-                                <div id="details18" class="food-details" style="display: none;">
+                                <div id="learn-more-content-33" class="learn-more-content hidden">
                                     <ul>
                                         <li>High in fiber and water content, promoting a healthy digestive system.</li><br>
                                         <li>Contains lycopene, an antioxidant that helps reduce the risk of heart disease.</li><br>
                                         <li>Antioxidants like lycopene and cucurbitacin E have anti-inflammatory properties.</li><br>
                                         <li>Boosts testosterone levels.</li>
-
                                     </ul>
                                 </div>
-                                <button onclick="toggleDetails('details18')">Learn More</button>  </div>
-
+                                <button class="learn-more-button" data-target-id="learn-more-content-33">Learn More</button>
+                            </div>
                         </div>
-    </main>
+</main>
 
+ <div id="basket" class="basket-container">
+    <div class="basket-header">
+        <h3>Your Basket</h3>
+    </div>
+
+    <div class="basket-content">
+    </div>
+
+    <div class="basket-footer">
+        <div class="subtotal">
+            Subtotal: <span id="subtotal-amount">Rs 0.00</span>
+        </div>
+        <div class="checkout">
+            <button id="checkout-button">Checkout</button>
+        </div>
+    </div>
+    <button id="close-basket-button" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 text-gray-500 font-bold py-1 px-4 rounded">Close</button>
+</div>
 
 
 <script>
-    function toggleDetails(id) {
-        var details = document.getElementById(id);
-        details.style.display = details.style.display === "none" || details.style.display === "" ? "block" : "none";
+    const basket = document.getElementById('basket');
+    const addButtons = document.querySelectorAll('.add-to-basket-button');
+    const basketContent = document.querySelector('.basket-content');
+    const closeBasketButton = document.getElementById('close-basket-button');
+    const subtotalAmount = document.getElementById('subtotal-amount');
+    const serviceChargeAmount = document.getElementById('service-charge-amount');
+    const checkoutButton = document.getElementById('checkout-button');
+    const learnMoreButtons = document.querySelectorAll('.learn-more-button');
+
+    let serviceChargeRate = 0;
+
+    function openBasket() {
+        basket.classList.add('open');
     }
+
+    function closeBasket() {
+        basket.classList.remove('open');
+    }
+
+    function addItemToBasket(productName, productPrice) {
+        const existingItem = basketContent.querySelector(`[data-product-name="${productName}"]`);
+
+        if (existingItem) {
+            const quantityElement = existingItem.querySelector('.item-quantity');
+            let quantity = parseInt(quantityElement.textContent);
+            quantity++;
+            quantityElement.textContent = quantity;
+
+            const priceElement = existingItem.querySelector('.item-price');
+            const itemPrice = parseFloat(priceElement.getAttribute('data-price'));
+            const totalPrice = quantity * itemPrice;
+            priceElement.textContent = `Rs ${totalPrice.toFixed(2)}`;
+        } else {
+            const newItem = document.createElement('div');
+            newItem.classList.add('basket-item');
+            newItem.setAttribute('data-product-name', productName);
+
+            newItem.innerHTML = `
+                    <p class="item-name">${productName}</p>
+                    <div class="item-quantity-controls">
+                        <button class="quantity-btn decrease-btn">-</button>
+                        <span class="item-quantity">1</span>
+                        <button class="quantity-btn increase-btn">+</button>
+                    </div>
+                    <p class="item-price" data-price="${productPrice}">Rs ${productPrice.toFixed(2)}</p>
+                    <button class="remove-item-btn text-red-500 hover:text-red-700 font-bold py-1 px-2 rounded">Remove</button>
+                `;
+
+            basketContent.appendChild(newItem);
+        }
+        updateSubtotal();
+    }
+
+    function updateSubtotal() {
+        const items = basketContent.querySelectorAll('.basket-item');
+        let total = 0;
+
+        items.forEach(item => {
+            const quantityElement = item.querySelector('.item-quantity');
+            const priceElement = item.querySelector('.item-price');
+            const itemPrice = parseFloat(priceElement.getAttribute('data-price'));
+            const quantity = parseInt(quantityElement.textContent);
+            total += quantity * itemPrice;
+        });
+
+        subtotalAmount.textContent = `Rs ${total.toFixed(2)}`;
+        updateServiceCharge(total);
+        updateCheckoutButtonState(total);
+    }
+
+    function updateServiceCharge(subtotal) {
+        if (subtotal > 50000) {
+            serviceChargeRate = 0.05;
+        } else if (subtotal > 30000) {
+            serviceChargeRate = 0.03;
+        } else {
+            serviceChargeRate = 0;
+        }
+
+        const serviceCharge = subtotal * serviceChargeRate;
+        serviceChargeAmount.textContent = `Rs ${serviceCharge.toFixed(2)}`;
+    }
+
+    function updateCheckoutButtonState(subtotal) {
+        if (subtotal > 0) {
+            checkoutButton.disabled = false;
+            checkoutButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+            checkoutButton.classList.add('bg-green-500', 'hover:bg-green-700', 'cursor-pointer');
+        } else {
+            checkoutButton.disabled = true;
+            checkoutButton.classList.remove('bg-green-500', 'hover:bg-green-700', 'cursor-pointer');
+            checkoutButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+        }
+    }
+
+    basketContent.addEventListener('click', (event) => {
+        if (event.target.classList.contains('increase-btn')) {
+            const item = event.target.closest('.basket-item');
+            const quantityElement = item.querySelector('.item-quantity');
+            let quantity = parseInt(quantityElement.textContent);
+            quantity++;
+            quantityElement.textContent = quantity;
+
+            const priceElement = item.querySelector('.item-price');
+            const itemPrice = parseFloat(priceElement.getAttribute('data-price'));
+            const totalPrice = quantity * itemPrice;
+            priceElement.textContent = `Rs ${totalPrice.toFixed(2)}`;
+            updateSubtotal();
+        } else if (event.target.classList.contains('decrease-btn')) {
+            const item = event.target.closest('.basket-item');
+            const quantityElement = item.querySelector('.item-quantity');
+            let quantity = parseInt(quantityElement.textContent);
+            if (quantity > 1) {
+                quantity--;
+                quantityElement.textContent = quantity;
+
+                const priceElement = item.querySelector('.item-price');
+                const itemPrice = parseFloat(priceElement.getAttribute('data-price'));
+                const totalPrice = quantity * itemPrice;
+                priceElement.textContent = `Rs ${totalPrice.toFixed(2)}`;
+                updateSubtotal();
+            }
+        } else if (event.target.classList.contains('remove-item-btn')) {
+            const item = event.target.closest('.basket-item');
+            item.remove();
+            updateSubtotal();
+        }
+    });
+
+    learnMoreButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-target-id');
+            const learnMoreContent = document.getElementById(targetId);
+
+            // Close any previously expanded content
+            document.querySelectorAll('.learn-more-content.expanded').forEach(expandedContent => {
+                if (expandedContent !== learnMoreContent) {
+                    expandedContent.classList.remove('expanded');
+                }
+            });
+
+            learnMoreContent.classList.toggle('expanded');
+        });
+    });
+
+    addButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productName = button.getAttribute('data-product-name');
+            const productPrice = parseFloat(button.getAttribute('data-product-price'));
+            openBasket();
+            addItemToBasket(productName, productPrice);
+        });
+    });
+
+    if (closeBasketButton) {
+        closeBasketButton.addEventListener('click', closeBasket);
+    }
+
+    updateCheckoutButtonState(0);
 </script>
+
 <footer class="footer">
     <div class="footer-content">
         <div class="footer-section about-us">
