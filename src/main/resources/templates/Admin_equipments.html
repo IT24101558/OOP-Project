@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Equipment Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .scale-hover:hover {
+            transform: scale(1.03);
+            transition: transform 0.3s ease;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .status-available {
+            background: linear-gradient(to right, #10b981, #14b8a6);
+            color: #fff;
+        }
+        .status-in-use {
+            background: linear-gradient(to right, #f59e0b, #d97706);
+            color: #fff;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-poppins">
+<div class="flex min-h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in">
+        <div class="p-6">
+            <a href="admin_dashboard.html" class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="admin_dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="Admin_Profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-id-card"></i>
+                <span class="font-medium">Profile</span>
+            </a>
+            <a href="Admin_member_dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-users"></i>
+                <span class="font-medium">Members</span>
+            </a>
+            <a href="Admin_class.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="font-medium">Classes</span>
+            </a>
+            <a href="Admin_equipments.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+                <i class="fas fa-dumbbell"></i>
+                <span class="font-medium">Equipment</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-chart-bar"></i>
+                <span class="font-medium">Reports</span>
+            </a>
+            <a href="Admin_settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-cog"></i>
+                <span class="font-medium">Settings</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                    <span class="font-semibold">AR</span>
+                </div>
+                <div>
+                    <h3 class="font-medium">Alex Rodriguez</h3>
+                    <p class="text-xs text-gray-400">Administrator</p>
+                </div>
+            </div>
+            <a href="Admin_logout.html">
+                <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </button>
+            </a>
+        </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto py-8 px-4 lg:px-12">
+        <div class="max-w-6xl mx-auto">
+            <header class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+                <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Equipment Management</h1>
+                <p class="text-gray-400 mt-2">Manage gym equipment inventory, status, and availability.</p>
+            </header>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Treadmill Card -->
+                <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.2s;">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-semibold">Treadmill</h3>
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold status-available">Available</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">High-quality cardio machine with multiple speed settings.</p>
+                    <div class="flex justify-between text-sm text-gray-400">
+            <span class="flex items-center gap-2">
+              <i class="fas fa-box"></i>
+              Qty: 5
+            </span>
+                        <span class="flex items-center gap-2">
+              <i class="fas fa-calendar-check"></i>
+              Last Serviced: Apr 2025
+            </span>
+                    </div>
+                </div>
+                <!-- Bench Press Card -->
+                <div class="glass-effect rounded-xl p-6 animate-slide-up scale-hover" style="animation-delay: 0.3s;">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-semibold">Bench Press</h3>
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold status-in-use">In Use</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Steel bench with adjustable angles for chest workouts.</p>
+                    <div class="flex justify-between text-sm text-gray-400">
+            <span class="flex items-center gap-2">
+              <i class="fas fa-box"></i>
+              Qty: 3
+            </span>
+                        <span class="flex items-center gap-2">
+              <i class="fas fa-calendar-check"></i>
+              Last Serviced: Mar 2025
+            </span>
+                    </div>
+                </div>
+                <!-- Add more equipment cards as needed -->
+            </div>
+            <footer class="mt-12 text-right text-xs text-gray-500">
+                © 2025 FitConnect. All rights reserved.
+            </footer>
+        </div>
+    </main>
+</div>
+</body>
+</html>

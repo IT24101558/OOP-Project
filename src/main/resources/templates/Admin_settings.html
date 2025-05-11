@@ -4,500 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitConnect - Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-        :root {
-            --background: #0d0e16;
-            --foreground: #ffffff;
-            --card: #171826;
-            --card-foreground: #ffffff;
-            --border: #2a2c44;
-            --primary: #171826;
-            --primary-foreground: #ffffff;
-            --secondary: #f8f9fa;
-            --secondary-foreground: #171826;
-            --muted: #282a36;
-            --muted-foreground: #a6a7ab;
-            --accent: #282a36;
-            --accent-foreground: #ffffff;
-            --destructive: #f9595f;
-            --destructive-foreground: #ffffff;
-            --ring: #5dd1a6;
-            --radius: 0.75rem;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
         body {
-            background: var(--background);
-            color: var(--foreground);
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
         }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
-
-        /* Sidebar styles */
-        .sidebar {
-            width: 280px;
-            background: var(--card);
-            border-right: 1px solid var(--border);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            z-index: 10;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 2rem;
-        }
-
-        .logo-icon {
-            background: linear-gradient(to right, #7e57c2, #4d5bbe);
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #6e8efb, #a777e3);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .nav-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            flex: 1;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius);
-            color: #a6a7ab;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-        }
-
-        .nav-item.active {
-            background: linear-gradient(to right, rgba(126, 87, 194, 0.2), rgba(77, 91, 190, 0.2));
-            color: #ffffff;
-            border-left: 3px solid #7e57c2;
-        }
-
-        .user-profile {
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(to right, #ff7eb3, #7e57c2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: white;
-        }
-
-        .user-details h3 {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .user-details p {
-            font-size: 0.75rem;
-            color: var(--muted-foreground);
-        }
-
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            width: 100%;
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: none;
-            border-radius: var(--radius);
-            color: white;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Mobile header */
-        .mobile-header {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1rem;
-            background: var(--card);
-            border-bottom: 1px solid var(--border);
-            z-index: 50;
-        }
-
-        .mobile-header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .mobile-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .notification-bell {
-            position: relative;
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #f9595f;
-            color: white;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .menu-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* Main content */
-        .main-content {
-            flex: 1;
-            padding: 2rem;
-            margin-left: 280px;
-        }
-
-        /* Mobile menu overlay */
-        .mobile-menu-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 40;
-            backdrop-filter: blur(3px);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .mobile-menu-overlay.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Mobile menu */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 256px;
-            height: 100%;
-            background: var(--card);
-            z-index: 45;
-            transform: translateX(-100%);
+        .scale-hover:hover {
+            transform: scale(1.03);
             transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
         }
-
-        .mobile-menu.show {
-            transform: translateX(0);
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
         }
-
-        .mobile-menu-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1.25rem;
-            border-bottom: 1px solid var(--border);
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
         }
-
-        .mobile-nav {
-            padding: 1rem 0.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
-        .mobile-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: var(--muted-foreground);
-            text-decoration: none;
-            border-radius: var(--radius);
-            transition: all 0.2s ease;
-        }
-
-        .mobile-nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-        }
-
-        .mobile-nav-item.active {
-            background: linear-gradient(to right, #7e57c2, #4d5bbe);
-            color: white;
-        }
-
-        .mobile-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Navigation bar (sticky) */
-        .settings-nav {
-            position: sticky;
-            top: 20px;
-            z-index: 5;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 0.5rem;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            overflow-x: auto;
-        }
-
-        .settings-nav::-webkit-scrollbar {
-            height: 0;
-            width: 0;
-        }
-
-        .nav-link {
-            padding: 0.75rem 1.25rem;
-            border-radius: var(--radius);
-            color: var(--muted-foreground);
-            text-decoration: none;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-        }
-
-        .nav-link.active {
-            background: rgba(126, 87, 194, 0.1);
-            color: #7e57c2;
-        }
-
-        /* Section styling */
-        .settings-section {
-            scroll-margin-top: 100px;
-            margin-bottom: 3rem;
-        }
-
-        .settings-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-indicator {
-            width: 4px;
-            height: 40px;
-            border-radius: 999px;
-        }
-
-        .section-indicator.blue {
-            background: linear-gradient(to bottom, #4d5bbe, #7e57c2);
-        }
-
-        .section-indicator.red {
-            background: linear-gradient(to bottom, #f9595f, #ff7eb3);
-        }
-
-        .section-indicator.green {
-            background: linear-gradient(to bottom, #5dd1a6, #5bd4c0);
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        /* Form elements */
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .form-group:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-            margin-bottom: 0;
-        }
-
-        .form-row {
-            display: flex;
-            flex-direction: column;
-        }
-
-        @media (min-width: 768px) {
-            .form-row {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                gap: 2rem;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-
-        .form-label {
-            margin-bottom: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .form-label {
-                margin-bottom: 0;
-            }
-        }
-
-        .form-label h3 {
-            font-size: 1rem;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-        }
-
-        .form-label p {
-            font-size: 0.875rem;
-            color: var(--muted-foreground);
-        }
-
-        .form-input {
-            max-width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .form-input {
-                max-width: 320px;
-                flex: 1;
-            }
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            color: white;
-            font-size: 0.875rem;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #7e57c2;
-            box-shadow: 0 0 0 2px rgba(126, 87, 194, 0.2);
-        }
-
-        /* Toggle switch */
         .toggle-switch {
             position: relative;
             display: inline-block;
             width: 48px;
             height: 24px;
         }
-
         .toggle-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-
         .toggle-slider {
             position: absolute;
             cursor: pointer;
@@ -509,7 +67,6 @@
             transition: .4s;
             border-radius: 34px;
         }
-
         .toggle-slider:before {
             position: absolute;
             content: "";
@@ -521,33 +78,54 @@
             transition: .4s;
             border-radius: 50%;
         }
-
-        input:checked + .toggle-slider {
-            background-color: #7e57c2;
+        .toggle-switch input:checked + .toggle-slider {
+            background: linear-gradient(to right, #8b5cf6, #6366f1);
         }
-
-        input:checked + .toggle-slider:before {
+        .toggle-switch input:checked + .toggle-slider:before {
             transform: translateX(24px);
         }
-
-        /* Profile picture */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .section-indicator {
+            width: 4px;
+            height: 40px;
+            border-radius: 999px;
+        }
+        .section-indicator.blue {
+            background: linear-gradient(to bottom, #6366f1, #8b5cf6);
+        }
+        .section-indicator.red {
+            background: linear-gradient(to bottom, #ef4444, #f59e0b);
+        }
+        .section-indicator.green {
+            background: linear-gradient(to bottom, #10b981, #14b8a6);
+        }
         .profile-picture {
             position: relative;
             width: 64px;
             height: 64px;
             border-radius: 50%;
             padding: 2px;
-            background: linear-gradient(to bottom right, #7e57c2, #4d5bbe);
+            background: linear-gradient(to bottom right, #8b5cf6, #6366f1);
         }
-
         .profile-image {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid black;
+            border: 2px solid #18192b;
         }
-
         .profile-edit {
             position: absolute;
             bottom: 0;
@@ -561,73 +139,34 @@
             justify-content: center;
             cursor: pointer;
         }
-
-        /* Buttons */
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius);
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, #7e57c2, #4d5bbe);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .button-group {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        /* Save button */
         .save-button {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
             padding: 0.75rem 1.5rem;
-            background: linear-gradient(to right, #7e57c2, #4d5bbe);
+            background: linear-gradient(to right, #8b5cf6, #6366f1);
             color: white;
             border: none;
-            border-radius: var(--radius);
+            border-radius: 1rem;
             font-weight: 500;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             z-index: 100;
             transition: all 0.2s ease;
         }
-
         .save-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
-
-        /* Toast notification */
         .toast {
             position: fixed;
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
-            background: #5dd1a6;
+            background: #10b981;
             color: black;
             padding: 0.75rem 1.5rem;
-            border-radius: var(--radius);
+            border-radius: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -637,123 +176,81 @@
             visibility: hidden;
             transition: all 0.3s ease;
         }
-
         .toast.show {
             opacity: 1;
             visibility: visible;
         }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-slide-up {
-            animation: slideUp 0.5s ease-out forwards;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .sidebar {
                 display: none;
             }
-
-            .mobile-header {
-                display: block;
-            }
-
             .main-content {
-                margin-left: 0;
-                padding-top: 5rem;
+                margin-left: 0 !important;
+                padding-top: 5rem !important;
             }
-
-            .settings-nav {
-                top: 70px;
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem !important;
+            }
+            .save-button {
+                right: 1rem;
+                bottom: 1rem;
+                padding: 0.5rem 1rem;
             }
         }
     </style>
 </head>
-<body>
-<!-- Container -->
-<div class="container">
-    <!-- Sidebar (Desktop only) -->
-    <aside class="sidebar">
-        <div class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-dumbbell"></i>
-            </div>
-            <h1 class="logo-text">FitConnect</h1>
+<body class="bg-gray-900 text-white font-poppins">
+<div class="flex min-h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect animate-fade-in sidebar">
+        <div class="p-6">
+            <a href="admin_dashboard.html" class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
         </div>
-
-        <nav class="nav-menu">
-            <a href="admin_dashboard.html" class="nav-item">
-                <i class="fas fa-th-large"></i>
-                <span>Dashboard</span>
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="admin_dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="font-medium">Dashboard</span>
             </a>
-            <a href="Admin_member_dashboard.html" class="nav-item">
+            <a href="Admin_Profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-id-card"></i>
+                <span class="font-medium">Profile</span>
+            </a>
+            <a href="Admin_member_dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-users"></i>
-                <span>Members</span>
+                <span class="font-medium">Members</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-calendar"></i>
-                <span>Classes</span>
+            <a href="Admin_class.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="font-medium">Classes</span>
             </a>
-            <a href="Equipments.html" class="nav-item">
+            <a href="Admin_equipments.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-dumbbell"></i>
-                <span>Equipment</span>
+                <span class="font-medium">Equipment</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-chart-line"></i>
-                <span>Reports</span>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+                <i class="fas fa-chart-bar"></i>
+                <span class="font-medium">Reports</span>
             </a>
-            <a href="Admin_settings.html" class="nav-item active">
+            <a href="Admin_settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
                 <i class="fas fa-cog"></i>
-                <span>Settings</span>
+                <span class="font-medium">Settings</span>
             </a>
         </nav>
-
-        <div class="user-profile">
-            <div class="user-info">
-                <div class="user-avatar">
-                    <span>AR</span>
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                    <span class="font-semibold">AR</span>
                 </div>
-                <div class="user-details">
-                    <h3>Alex Rodriguez</h3>
-                    <p>Premium Member</p>
+                <div>
+                    <h3 class="font-medium">Alex Rodriguez</h3>
+                    <p class="text-xs text-gray-400">Administrator</p>
                 </div>
             </div>
             <a href="Admin_logout.html">
@@ -764,166 +261,69 @@
             </a>
         </div>
     </aside>
-
-    <!-- Mobile Header -->
-    <header class="mobile-header">
-        <div class="mobile-header-content">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-dumbbell"></i>
-                </div>
-                <h1 class="logo-text">FitConnect</h1>
-            </div>
-            <div class="mobile-right">
-                <div class="notification-bell">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </div>
-                <button class="menu-btn" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="menuOverlay"></div>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-header">
-            <div class="logo-icon">
-                <i class="fas fa-dumbbell"></i>
-            </div>
-            <h1 class="logo-text">FitConnect</h1>
-        </div>
-        <nav class="mobile-nav">
-            <a href="admin_dashboard.html" class="mobile-nav-item">
-                <div class="mobile-icon">
-                    <i class="fas fa-home"></i>
-                </div>
-                <span>Dashboard</span>
-            </a>
-            <a href="Admin_member_dashboard.html" class="mobile-nav-item">
-                <div class="mobile-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <span>Members</span>
-            </a>
-            <a href="#" class="mobile-nav-item">
-                <div class="mobile-icon">
-                    <i class="fas fa-calendar"></i>
-                </div>
-                <span>Classes</span>
-            </a>
-            <a href="Equipments.html" class="mobile-nav-item">
-                <div class="mobile-icon">
-                    <i class="fas fa-dumbbell"></i>
-                </div>
-                <span>Equipment</span>
-            </a>
-            <a href="#" class="mobile-nav-item">
-                <div class="mobile-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <span>Reports</span>
-            </a>
-            <a href="Admin_settings.html" class="mobile-nav-item active">
-                <div class="mobile-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <span>Settings</span>
-            </a>
-
-        </nav>
-    </div>
-
     <!-- Main Content -->
-    <main class="main-content">
-        <h1 class="section-title animate-fade-in" style="margin-bottom: 1rem;">Settings</h1>
-        <p class="animate-fade-in" style="color: var(--muted-foreground); margin-bottom: 2rem;">
-            Manage your app preferences and account settings
-        </p>
-
-        <!-- Settings Navigation -->
-        <nav class="settings-nav animate-fade-in">
-            <a href="#account" class="nav-link active">Account</a>
-            <a href="#notifications" class="nav-link">Notifications</a>
-            <a href="#privacy" class="nav-link">Privacy & Security</a>
-        </nav>
-
-        <!-- Account Settings -->
-        <section id="account" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator blue"></div>
-                    <h2 class="section-title">Account Settings</h2>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Profile Picture</h3>
-                            <p>Update your profile picture</p>
-                        </div>
-                        <div class="form-input" style="display: flex; align-items: center; gap: 1rem;">
-                            <div class="profile-picture">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-image">
-                                <div class="profile-edit">
-                                    <i class="fas fa-camera" style="font-size: 12px;"></i>
+    <main class="flex-1 overflow-y-auto py-8 px-4 lg:px-12 main-content" style="margin-left: 16rem;">
+        <div class="max-w-4xl mx-auto">
+            <header class="mb-8 animate-fade-in">
+                <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Settings</h1>
+                <p class="text-gray-400 mt-2">Manage your app preferences and account settings</p>
+            </header>
+            <!-- Settings Navigation -->
+            <nav class="glass-effect flex gap-2 mb-8 px-2 py-2 overflow-x-auto animate-fade-in">
+                <a href="#account" class="px-4 py-2 rounded-lg text-sm font-medium text-purple-300 bg-white/10 hover:bg-purple-600/20 transition-all nav-link active">Account</a>
+                <a href="#notifications" class="px-4 py-2 rounded-lg text-sm font-medium text-purple-300 bg-white/10 hover:bg-purple-600/20 transition-all nav-link">Notifications</a>
+                <a href="#privacy" class="px-4 py-2 rounded-lg text-sm font-medium text-purple-300 bg-white/10 hover:bg-purple-600/20 transition-all nav-link">Privacy & Security</a>
+            </nav>
+            <!-- Account Settings -->
+            <section id="account" class="mb-10 animate-slide-up settings-section">
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="section-indicator blue"></div>
+                        <h2 class="text-xl font-semibold">Account Settings</h2>
+                    </div>
+                    <div class="space-y-8">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Profile Picture</h3>
+                                <p class="text-gray-400 text-sm">Update your profile picture</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="profile-picture">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-image">
+                                    <div class="profile-edit">
+                                        <i class="fas fa-camera text-xs"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="button-group">
-                                <button class="btn btn-secondary">Change</button>
-                                <button class="btn btn-secondary">Remove</button>
+                                <button class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium">Change</button>
+                                <button class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium">Remove</button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Full Name</h3>
-                            <p>Update your display name</p>
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Full Name</h3>
+                                <p class="text-gray-400 text-sm">Update your display name</p>
+                            </div>
+                            <input type="text" class="w-full md:w-80 bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" value="Alex Rodriguez">
                         </div>
-                        <div class="form-input">
-                            <input type="text" value="Alex Rodriguez">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Email Address</h3>
+                                <p class="text-gray-400 text-sm">Update your email address</p>
+                            </div>
+                            <input type="email" class="w-full md:w-80 bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" value="alex@example.com">
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Email Address</h3>
-                            <p>Update your email address</p>
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Password</h3>
+                                <p class="text-gray-400 text-sm">Change your password</p>
+                            </div>
+                            <button class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium">Change Password</button>
                         </div>
-                        <div class="form-input">
-                            <input type="email" value="alex@example.com">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Password</h3>
-                            <p>Change your password</p>
-                        </div>
-                        <div class="form-input">
-                            <button class="btn btn-secondary">Change Password</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 0;">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Two-Factor Authentication</h3>
-                            <p>Add an extra layer of security</p>
-                        </div>
-                        <div class="form-input">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Two-Factor Authentication</h3>
+                                <p class="text-gray-400 text-sm">Add an extra layer of security</p>
+                            </div>
                             <label class="toggle-switch">
                                 <input type="checkbox">
                                 <span class="toggle-slider"></span>
@@ -931,24 +331,50 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Notification Settings -->
-        <section id="notifications" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator red"></div>
-                    <h2 class="section-title">Notification Settings</h2>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Push Notifications</h3>
-                            <p>Receive push notifications</p>
+            </section>
+            <!-- Notification Settings -->
+            <section id="notifications" class="mb-10 animate-slide-up settings-section">
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="section-indicator red"></div>
+                        <h2 class="text-xl font-semibold">Notification Settings</h2>
+                    </div>
+                    <div class="space-y-8">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Push Notifications</h3>
+                                <p class="text-gray-400 text-sm">Receive push notifications</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
                         </div>
-                        <div class="form-input">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Email Notifications</h3>
+                                <p class="text-gray-400 text-sm">Receive email notifications</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Workout Reminders</h3>
+                                <p class="text-gray-400 text-sm">Get reminded about scheduled workouts</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Progress Updates</h3>
+                                <p class="text-gray-400 text-sm">Get regular updates on your progress</p>
+                            </div>
                             <label class="toggle-switch">
                                 <input type="checkbox" checked>
                                 <span class="toggle-slider"></span>
@@ -956,206 +382,98 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Email Notifications</h3>
-                            <p>Receive email notifications</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
+            </section>
+            <!-- Privacy & Security -->
+            <section id="privacy" class="mb-10 animate-slide-up settings-section">
+                <div class="glass-effect rounded-xl p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="section-indicator green"></div>
+                        <h2 class="text-xl font-semibold">Privacy & Security</h2>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Workout Reminders</h3>
-                            <p>Get reminded about scheduled workouts</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 0;">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Progress Updates</h3>
-                            <p>Get regular updates on your progress</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Privacy & Security -->
-        <section id="privacy" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator green"></div>
-                    <h2 class="section-title">Privacy & Security</h2>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Activity Visibility</h3>
-                            <p>Control who can see your activity</p>
-                        </div>
-                        <div class="form-input">
-                            <select>
+                    <div class="space-y-8">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Activity Visibility</h3>
+                                <p class="text-gray-400 text-sm">Control who can see your activity</p>
+                            </div>
+                            <select class="w-full md:w-80 bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors">
                                 <option value="public">Public</option>
                                 <option value="friends-only" selected>Friends Only</option>
                                 <option value="private">Private</option>
                             </select>
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Data Sharing</h3>
-                            <p>Share workout data with third-party apps</p>
-                        </div>
-                        <div class="form-input">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Data Sharing</h3>
+                                <p class="text-gray-400 text-sm">Share workout data with third-party apps</p>
+                            </div>
                             <label class="toggle-switch">
                                 <input type="checkbox">
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 0;">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Download Your Data</h3>
-                            <p>Get a copy of all your data</p>
-                        </div>
-                        <div class="form-input">
-                            <button class="btn btn-secondary">Download</button>
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                            <div>
+                                <h3 class="font-medium">Download Your Data</h3>
+                                <p class="text-gray-400 text-sm">Get a copy of all your data</p>
+                            </div>
+                            <button class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium">Download</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 </div>
-
 <!-- Save Button -->
 <button class="save-button" id="saveButton">Save Changes</button>
-
 <!-- Toast Notification -->
 <div class="toast" id="toast">
     <i class="fas fa-check-circle"></i>
     <span>Settings saved successfully!</span>
 </div>
-
-<!-- JavaScript -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
+    // Save button functionality
+    const saveButton = document.getElementById('saveButton');
+    const toast = document.getElementById('toast');
+    saveButton.addEventListener('click', function() {
+        toast.classList.add('show');
+        setTimeout(function() {
+            toast.classList.remove('show');
+        }, 3000);
+    });
 
-        menuToggle.addEventListener('click', function() {
-            mobileMenu.classList.toggle('show');
-            menuOverlay.classList.toggle('show');
-
-            const icon = menuToggle.querySelector('i');
-            if (mobileMenu.classList.contains('show')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-                document.body.style.overflow = 'hidden';
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-                document.body.style.overflow = '';
-            }
+    // Smooth scroll for navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            navLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
         });
+    });
 
-        menuOverlay.addEventListener('click', function() {
-            mobileMenu.classList.remove('show');
-            menuOverlay.classList.remove('show');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-            document.body.style.overflow = '';
-        });
-
-        // Smooth scroll for navigation links
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                // Remove active class from all links
-                navLinks.forEach(l => l.classList.remove('active'));
-                // Add active class to the clicked link
-                this.classList.add('active');
-
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
+    // Highlight nav links on scroll
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY;
+        document.querySelectorAll('.settings-section').forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + sectionId) {
+                        link.classList.add('active');
+                    }
                 });
-            });
-        });
-
-        // Save button functionality
-        const saveButton = document.getElementById('saveButton');
-        const toast = document.getElementById('toast');
-
-        saveButton.addEventListener('click', function() {
-            // In a real app, you would save the form data here
-            // For now, just show the toast notification
-            toast.classList.add('show');
-
-            // Hide toast after 3 seconds
-            setTimeout(function() {
-                toast.classList.remove('show');
-            }, 3000);
-        });
-
-        // Highlight nav links on scroll
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY;
-
-            document.querySelectorAll('.settings-section').forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.offsetHeight;
-                const sectionId = section.getAttribute('id');
-
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === '#' + sectionId) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
+            }
         });
     });
 </script>
