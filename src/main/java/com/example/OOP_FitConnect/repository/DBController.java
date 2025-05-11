@@ -3,6 +3,7 @@ package com.example.OOP_FitConnect.repository;
 import com.example.OOP_FitConnect.model.User;
 import org.springframework.stereotype.Repository;
 
+import jakarta.annotation.PostConstruct;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,15 +21,14 @@ public class DBController {
         loadFromCSV();
     }
 
+    @PostConstruct
     private void loadFromCSV() {
         File file = new File(CSV_FILE);
         if (!file.exists()) return;
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            // First line: number of users (skip or use for validation)
-            line = br.readLine();
-            // Second line: header (skip)
+            // Skip header
             br.readLine();
             while ((line = br.readLine()) != null) {
                 User user = userFromCSV(line);
@@ -43,10 +43,8 @@ public class DBController {
 
     private void saveToCSV() {
         try (PrintWriter pw = new PrintWriter(new FileWriter(CSV_FILE))) {
-            // Write number of users
-            pw.println(usersById.size());
-            // Write header
-            pw.println("id,name,email,branch,verificationToken,resetToken");
+            // Write header (adjust fields as needed)
+            pw.println("id,email,verificationToken,resetToken");
             for (User user : usersById.values()) {
                 pw.println(userToCSV(user));
             }
@@ -126,27 +124,27 @@ public class DBController {
 
     private String userToCSV(User user) {
         // Adjust this according to your User fields
+        // Escape commas if needed
         return String.join(",",
                 safe(user.getId()),
-                safe(user.getName()),
                 safe(user.getEmail()),
-                safe(user.getBranch()),
                 safe(user.getVerificationToken()),
                 safe(user.getResetToken())
+                // add other fields as needed
         );
     }
 
     private User userFromCSV(String line) {
+        // Adjust this according to your User fields
         String[] parts = line.split(",", -1);
-        if (parts.length < 6) return null;
+        if (parts.length < 4) return null; // adjust if you have more fields
 
         User user = new User();
         user.setId(parts[0]);
-        user.setName(parts[1]);
-        user.setEmail(parts[2]);
-        user.setBranch(parts[3]);
-        user.setVerificationToken(parts[4].isEmpty() ? null : parts[4]);
-        user.setResetToken(parts[5].isEmpty() ? null : parts[5]);
+        user.setEmail(parts[1]);
+        user.setVerificationToken(parts[2].isEmpty() ? null : parts[2]);
+        user.setResetToken(parts[3].isEmpty() ? null : parts[3]);
+        // set other fields as needed
         return user;
     }
 
