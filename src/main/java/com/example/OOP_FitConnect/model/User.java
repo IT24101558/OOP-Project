@@ -12,6 +12,7 @@ public class User {
     private String password;
     private boolean verified;
     private String verificationToken;
+    private String branch;
     private String resetToken;
     private long resetTokenExpiry;
     private Double bmi;
@@ -144,4 +145,8 @@ public class User {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getBranch() {return branch; }
+
+    public void setBranch(String branch) {this.branch = branch;}
 }
