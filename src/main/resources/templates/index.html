@@ -1012,31 +1012,56 @@
             <button type="submit">Send</button>
         </form>
     </div>
+    <div id="formMessage" style="display:none; margin-top: 15px; padding: 10px; border-radius: 5px;"></div>
+
     <script>
+
         document.getElementById("contactForm").addEventListener("submit", async function(e) {
-            e.preventDefault();
+       e.preventDefault();
 
-            const formData = {
-                firstName: this.firstName.value,
-                lastName: this.lastName.value,
-                street: this.street.value,
-                city: this.city.value,
-                email: this.email.value,
-                message: this.message.value
-            };
+       const formMessage = document.getElementById("formMessage");
+       const formData = {
+           firstName: this.elements.firstName.value,
+           lastName: this.elements.lastName.value,
+           email: this.elements.email.value,
+           message: this.elements.message.value
+       };
 
-            const response = await fetch("http://localhost:8080/api/contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            });
+       try {
+           const response = await fetch("/contact", {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json"
+               },
+               body: JSON.stringify(formData)
+           });
 
-            const result = await response.text();
-            alert(result);
-        });
+           if (response.ok) {
+               formMessage.textContent = "✅ Message sent successfully!";
+               formMessage.style.backgroundColor = "#d4edda";
+               formMessage.style.color = "#155724";
+               formMessage.style.border = "1px solid #c3e6cb";
+               formMessage.style.display = "block";
+
+               this.reset(); // Optional: reset the form
+           } else {
+               formMessage.textContent = "❌ Failed to send message.";
+               formMessage.style.backgroundColor = "#f8d7da";
+               formMessage.style.color = "#721c24";
+               formMessage.style.border = "1px solid #f5c6cb";
+               formMessage.style.display = "block";
+           }
+       } catch (error) {
+           formMessage.textContent = "❌ Error sending message.";
+           formMessage.style.backgroundColor = "#f8d7da";
+           formMessage.style.color = "#721c24";
+           formMessage.style.border = "1px solid #f5c6cb";
+           formMessage.style.display = "block";
+       }
+   });
     </script>
+
+
 
     <div class="app-info">
         <h2>POWER SCORE</h2>
