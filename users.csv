@@ -1,4 +1,3 @@
-2
-id,name,email,branch,verificationToken,resetToken
-dcfeccda-e5b4-4d27-8883-81d65b69926a,Admin,admin@user.com,,,
-8ce6b756-4e72-4ae6-a0f0-887ce1b33145,Sanith Wijesinghe,sanithwijesinghe@gmail.com,,c4db0b6d-bb85-4e7e-a549-727cc37c3d9dS,
+id,email,verificationToken,resetToken
+e9a13cf6-ab70-4386-96e9-e432c8063284,sanithwijesinghe@gmail.com,a2fb9671-6071-42b8-a410-32b328cb960d,
+54dce5d2-9c42-4f01-8b71-53415872721c,admin@user.com,,
