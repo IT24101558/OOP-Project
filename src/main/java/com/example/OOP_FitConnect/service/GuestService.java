@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class UserService {
+public class GuestService {
 
     @Autowired
     private DBController dbController;
