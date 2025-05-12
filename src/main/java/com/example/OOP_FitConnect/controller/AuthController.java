@@ -1,7 +1,7 @@
 package com.example.OOP_FitConnect.controller;
 
 import com.example.OOP_FitConnect.model.User;
-import com.example.OOP_FitConnect.service.UserService;
+import com.example.OOP_FitConnect.service.GuestService;
 import jakarta.servlet.http.HttpServletRequest;  //  Still needed for session
 import jakarta.servlet.http.HttpSession;      //  Still needed for session
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.UUID;
 public class AuthController {
 
     @Autowired
-    private UserService userService;
+    private GuestService guestService;
 
     // Guest accessible pages
     @GetMapping("/")
@@ -76,7 +76,7 @@ public class AuthController {
 
     @GetMapping("/reset-password")
     public String resetPasswordPage(@RequestParam String token, Model model) {
-        if (userService.isValidResetToken(token)) {
+        if (guestService.isValidResetToken(token)) {
             model.addAttribute("token", token);
             return "reset-password";
         }
@@ -89,7 +89,7 @@ public class AuthController {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("userId") != null) {
             String userId = (String) session.getAttribute("userId");
-            User user = userService.getUserById(userId);
+            User user = guestService.getUserById(userId);
             if (user != null && "USER".equals(user.getRole())) {
                 model.addAttribute("user", user);
                 return "member_dashboard";
@@ -103,7 +103,7 @@ public class AuthController {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("userId") != null) {
             String userId = (String) session.getAttribute("userId");
-            User admin = userService.getUserById(userId);
+            User admin = guestService.getUserById(userId);
             if (admin != null && "ADMIN".equals(admin.getRole())) {
                 model.addAttribute("admin", admin);
                 return "admin_dashboard";
@@ -121,7 +121,7 @@ public class AuthController {
 
         Map<String, Object> response = new HashMap<>();
 
-        User user = userService.authenticate(email, password);
+        User user = guestService.authenticate(email, password);
         if (user != null) {
             HttpSession session = request.getSession(true);
             session.setAttribute("userId", user.getId());
@@ -157,15 +157,15 @@ public class AuthController {
 
         Map<String, Object> response = new HashMap<>();
 
-        if (userService.getUserByEmail(email) != null) {
+        if (guestService.getUserByEmail(email) != null) {
             response.put("success", false);
             response.put("message", "Email already registered");
             return ResponseEntity.badRequest().body(response);
         }
 
         String verificationToken = UUID.randomUUID().toString();
-        User user = userService.registerUser(name, email, password, verificationToken);
-        userService.sendVerificationEmail(user, verificationToken);
+        User user = guestService.registerUser(name, email, password, verificationToken);
+        guestService.sendVerificationEmail(user, verificationToken);
 
         response.put("success", true);
         response.put("message", "Registration successful! Please check your email to verify your account.");
@@ -177,10 +177,10 @@ public class AuthController {
     public ResponseEntity<Map<String, Object>> forgotPassword(@RequestParam String email) {
         Map<String, Object> response = new HashMap<>();
 
-        User user = userService.getUserByEmail(email);
+        User user = guestService.getUserByEmail(email);
         if (user != null) {
-            String resetToken = userService.generatePasswordResetToken(user);
-            userService.sendPasswordResetEmail(user, resetToken);
+            String resetToken = guestService.generatePasswordResetToken(user);
+            guestService.sendPasswordResetEmail(user, resetToken);
 
             response.put("success", true);
             response.put("message", "Password reset instructions sent to your email");
@@ -200,7 +200,7 @@ public class AuthController {
 
         Map<String, Object> response = new HashMap<>();
 
-        if (userService.resetPassword(token, password)) {
+        if (guestService.resetPassword(token, password)) {
             response.put("success", true);
             response.put("message", "Password reset successful");
             response.put("redirect", "/login");
