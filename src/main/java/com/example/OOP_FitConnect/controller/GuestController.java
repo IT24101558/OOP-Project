@@ -1,7 +1,7 @@
 package com.example.OOP_FitConnect.controller;
 
 import com.example.OOP_FitConnect.model.User;
-import com.example.OOP_FitConnect.service.UserService;
+import com.example.OOP_FitConnect.service.GuestService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GuestController {
 
     @Autowired
-    private UserService userService;
+    private GuestService guestService;
 
     //  Moved guest accessible pages from AuthController to here.
     @GetMapping("/")
@@ -51,14 +51,14 @@ public class GuestController {
 
         if (session.getAttribute("userId") == null) {
             // Create a new guest user and store in the session
-            guestUser = userService.createGuestUser();
+            guestUser = guestService.createGuestUser();
             session.setAttribute("userId", guestUser.getId());
             session.setAttribute("userRole", "GUEST"); //important
             model.addAttribute("user", guestUser);  //send user to the page
         }
         else{
             String userId = (String) session.getAttribute("userId");
-            guestUser = userService.getUserById(userId);
+            guestUser = guestService.getUserById(userId);
             model.addAttribute("user", guestUser);
         }
 
@@ -69,7 +69,7 @@ public class GuestController {
     @PostMapping("/api/start-guest-session")
     public String startGuestSession(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        User guestUser = userService.createGuestUser();  // Create a guest user.
+        User guestUser = guestService.createGuestUser();  // Create a guest user.
         session.setAttribute("userId", guestUser.getId());  // Store the user's ID in the session.
         session.setAttribute("userRole", "GUEST");
         return "redirect:/guest/dashboard"; // Redirect to the guest dashboard.
