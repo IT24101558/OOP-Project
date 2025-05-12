@@ -2,7 +2,7 @@ package com.example.OOP_FitConnect.controller;
 
 import com.example.OOP_FitConnect.model.User;
 import com.example.OOP_FitConnect.model.WorkoutPlan;
-import com.example.OOP_FitConnect.service.UserService;
+import com.example.OOP_FitConnect.service.GuestService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +23,19 @@ import java.util.HashMap;
 public class DashboardController {
 
     @Autowired
-    private UserService userService;
+    private GuestService guestService;
 
     @GetMapping("/member_dashboard")
     public String dashboard(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("userId") != null) {
             String userId = (String) session.getAttribute("userId");
-            User user = userService.getUserById(userId);
+            User user = guestService.getUserById(userId);
 
             if (user != null) {
                 model.addAttribute("user", user);
 
-                List<WorkoutPlan> workoutPlans = userService.getUserWorkoutPlans(userId);
+                List<WorkoutPlan> workoutPlans = guestService.getUserWorkoutPlans(userId);
                 model.addAttribute("workoutPlans", workoutPlans);
 
                 int totalWorkouts = workoutPlans.size();
@@ -70,7 +70,7 @@ public class DashboardController {
 
         if (session != null && session.getAttribute("userId") != null) {
             String userId = (String) session.getAttribute("userId");
-            User user = userService.getUserById(userId);
+            User user = guestService.getUserById(userId);
 
             if (user != null && !user.isGuest()) {
                 WorkoutPlan workoutPlan = new WorkoutPlan();
@@ -79,7 +79,7 @@ public class DashboardController {
                 workoutPlan.setSchedule(schedule);
                 workoutPlan.setCompleted(false);
 
-                userService.addWorkoutPlan(userId, workoutPlan);
+                guestService.addWorkoutPlan(userId, workoutPlan);
 
                 response.put("success", true);
                 response.put("message", "Workout plan added successfully");
@@ -107,10 +107,10 @@ public class DashboardController {
 
         if (session != null && session.getAttribute("userId") != null) {
             String userId = (String) session.getAttribute("userId");
-            User user = userService.getUserById(userId);
+            User user = guestService.getUserById(userId);
 
             if (user != null && !user.isGuest()) {
-                boolean updated = userService.completeWorkout(userId, workoutId);
+                boolean updated = guestService.completeWorkout(userId, workoutId);
                 if (updated) {
                     response.put("success", true);
                     response.put("message", "Workout marked as completed");
