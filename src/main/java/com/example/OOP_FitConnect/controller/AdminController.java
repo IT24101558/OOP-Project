@@ -2,7 +2,7 @@ package com.example.OOP_FitConnect.controller;
 
 import com.example.OOP_FitConnect.model.User;
 import com.example.OOP_FitConnect.service.AdminService;
-import com.example.OOP_FitConnect.service.UserService;
+import com.example.OOP_FitConnect.service.GuestService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class AdminController {
 
     @Autowired
-    private UserService userService;
+    private GuestService guestService;
 
     @Autowired
     private AdminService adminService;
@@ -27,10 +27,10 @@ public class AdminController {
     @GetMapping("/admin_dashboard")
     public String adminDashboard(HttpServletRequest request, Model model) {
         String userId = (String) request.getSession().getAttribute("userId");
-        User admin = userService.getUserById(userId);
+        User admin = guestService.getUserById(userId);
 
         if (admin != null && admin.isAdmin()) {
-            List<User> users = userService.getAllUsers();
+            List<User> users = guestService.getAllUsers();
             Map<String, Object> stats = adminService.getDashboardStats();
 
             // Add all required attributes with default values
@@ -58,10 +58,10 @@ public class AdminController {
 
         Map<String, Object> response = new HashMap<>();
         String userId = (String) request.getSession().getAttribute("userId");
-        User currentAdmin = userService.getUserById(userId);
+        User currentAdmin = guestService.getUserById(userId);
 
         if (currentAdmin != null && currentAdmin.isAdmin()) {
-            if (userService.getUserByEmail(email) != null) {
+            if (guestService.getUserByEmail(email) != null) {
                 response.put("success", false);
                 response.put("message", "Email already exists");
                 return ResponseEntity.badRequest().body(response);
@@ -89,7 +89,7 @@ public class AdminController {
 
         Map<String, Object> response = new HashMap<>();
         String adminId = (String) request.getSession().getAttribute("userId");
-        User admin = userService.getUserById(adminId);
+        User admin = guestService.getUserById(adminId);
 
         if (admin != null && admin.isAdmin()) {
             User updatedUser = adminService.updateUser(userId, name, email, role);
@@ -129,13 +129,13 @@ public class AdminController {
         Map<String, Object> response = new HashMap<>();
 
         String adminId = (String) request.getSession().getAttribute("userId");
-        User admin = userService.getUserById(adminId);
+        User admin = guestService.getUserById(adminId);
 
         if (admin != null && admin.isAdmin()) {
-            User userToDelete = userService.getUserById(userId);
+            User userToDelete = guestService.getUserById(userId);
 
             if (userToDelete != null && !userToDelete.isAdmin()) {
-                userService.deleteUser(userId);
+                guestService.deleteUser(userId);
 
                 response.put("success", true);
                 response.put("message", "User deleted successfully");
