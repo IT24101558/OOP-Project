@@ -15,10 +15,10 @@ public class AdminService {
     @Autowired
     private DBController dbController;
     @Autowired
-    private UserService userService;
+    private GuestService guestService;
 
     public Map<String, Object> getDashboardStats() {
-        List<User> users = userService.getAllUsers();
+        List<User> users = guestService.getAllUsers();
         Map<String, Object> stats = new HashMap<>();
 
         long totalUsers = users.size();
@@ -57,7 +57,7 @@ public class AdminService {
     }
 
     public User updateUser(String userId, String name, String email, String role) {
-        User user = userService.getUserById(userId);
+        User user = guestService.getUserById(userId);
         if (user != null) {
             user.setName(name);
             user.setEmail(email);
@@ -74,7 +74,7 @@ public class AdminService {
     }
 
     public Map<String, Long> getUserStatistics() {
-        List<User> users = userService.getAllUsers();
+        List<User> users = guestService.getAllUsers();
         Map<String, Long> stats = new HashMap<>();
 
         stats.put("totalUsers", (long) users.size());
