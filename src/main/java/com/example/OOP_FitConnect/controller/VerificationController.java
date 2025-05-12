@@ -1,6 +1,6 @@
 package com.example.OOP_FitConnect.controller;
 
-import com.example.OOP_FitConnect.service.UserService;
+import com.example.OOP_FitConnect.service.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class VerificationController {
 
     @Autowired
-    private UserService userService;
+    private GuestService guestService;
 
     @GetMapping("/verify")
     public String verifyEmail(@RequestParam String token, Model model) {
-        boolean verified = userService.verifyEmail(token);
+        boolean verified = guestService.verifyEmail(token);
 
         if (verified) {
             model.addAttribute("verified", true);
