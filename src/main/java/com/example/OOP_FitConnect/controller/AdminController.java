@@ -3,6 +3,7 @@ package com.example.OOP_FitConnect.controller;
 import com.example.OOP_FitConnect.model.User;
 import com.example.OOP_FitConnect.service.AdminService;
 import com.example.OOP_FitConnect.service.GuestService;
+import com.example.OOP_FitConnect.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    private final UserService userService;
+
+    @Autowired
+    public AdminController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     private GuestService guestService;
@@ -24,7 +33,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping("/admin_dashboard")
+    @GetMapping("/dashboard")
     public String adminDashboard(HttpServletRequest request, Model model) {
         String userId = (String) request.getSession().getAttribute("userId");
         User admin = guestService.getUserById(userId);
@@ -150,5 +159,15 @@ public class AdminController {
         response.put("success", false);
         response.put("message", "Unauthorized access");
         return ResponseEntity.badRequest().body(response);
+    }
+    @GetMapping("/admin/profile")
+    public String profilePage(HttpServletRequest request, Model model) {
+        String userId = (String) request.getSession().getAttribute("userId");
+        User admin = userService.getUserById(userId);
+        if (admin != null && admin.isAdmin()) {
+            model.addAttribute("admin", admin);
+            return "Admin_Profile";
+        }
+        return "redirect:/login";
     }
 }
