@@ -1,3 +1,2 @@
-id,email,verificationToken,resetToken
-e9a13cf6-ab70-4386-96e9-e432c8063284,sanithwijesinghe@gmail.com,a2fb9671-6071-42b8-a410-32b328cb960d,
-54dce5d2-9c42-4f01-8b71-53415872721c,admin@user.com,,
+id,email,password,verificationToken,resetToken
+f95a518f-075c-4af8-bded-659fe476e3c2,admin@user.com,1234567890,,
