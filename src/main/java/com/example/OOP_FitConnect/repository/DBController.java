@@ -43,8 +43,7 @@ public class DBController {
 
     private void saveToCSV() {
         try (PrintWriter pw = new PrintWriter(new FileWriter(CSV_FILE))) {
-            // Write header (adjust fields as needed)
-            pw.println("id,email,verificationToken,resetToken");
+            // Write header (adjust fields as needepw.println("id,email,password,verificationToken,resetToken");
             for (User user : usersById.values()) {
                 pw.println(userToCSV(user));
             }
@@ -128,6 +127,7 @@ public class DBController {
         return String.join(",",
                 safe(user.getId()),
                 safe(user.getEmail()),
+                safe(user.getPassword()),
                 safe(user.getVerificationToken()),
                 safe(user.getResetToken())
                 // add other fields as needed
@@ -137,13 +137,15 @@ public class DBController {
     private User userFromCSV(String line) {
         // Adjust this according to your User fields
         String[] parts = line.split(",", -1);
-        if (parts.length < 4) return null; // adjust if you have more fields
+        if (parts.length < 6) return null; // adjust if you have more fields
 
         User user = new User();
         user.setId(parts[0]);
         user.setEmail(parts[1]);
-        user.setVerificationToken(parts[2].isEmpty() ? null : parts[2]);
-        user.setResetToken(parts[3].isEmpty() ? null : parts[3]);
+        user.setPassword(parts[2].isEmpty() ? null : parts[2]);
+        user.setRole(parts[3].isEmpty() ? "USER" : parts[3]); // ADD THIS
+        user.setVerificationToken(parts[4].isEmpty() ? null : parts[4]);
+        user.setResetToken(parts[5].isEmpty() ? null : parts[5]);
         // set other fields as needed
         return user;
     }
