@@ -98,7 +98,7 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @GetMapping("/admin/dashboard")
+    @GetMapping("/dashboard")
     public String adminDashboard(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("userId") != null) {
