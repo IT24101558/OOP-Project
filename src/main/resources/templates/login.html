@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitConnect - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="../static/auth.js"></script>
+    <script src="/static/auth.js"></script>
     <link rel="stylesheet" href="login_styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
@@ -555,6 +555,7 @@
                 <p class="text-sm text-gray-500 mt-2">
                     Enter your details to access your dashboard
                 </p>
+                <div id="alert" class="hidden mt-4 p-4 rounded-md"></div>
             </div>
 
             <form class="space-y-6" id="loginForm">
@@ -632,9 +633,9 @@
 
             <!-- Demo credentials -->
             <div class="mt-8 p-4 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-600">
-                <p class="font-medium mb-2">Demo Credentials:</p>
-                <p>Email: demo@example.com</p>
-                <p>Password: password</p>
+                <p class="font-medium mb-2">Admin Credentials:</p>
+                <p>Email: admin@user.com</p>
+                <p>Password: 1234567890</p>
             </div>
         </div>
     </div>
