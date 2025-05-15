@@ -635,24 +635,18 @@
 
 <!-- JavaScript for Booking System -->
 <script>
-    // Mock data storage - in a real application, this would be replaced with a backend API
     let classSchedule = [];
     let currentDate = new Date();
 
-    // Initialize app with sample data
     function initializeApp() {
-        // Load data from localStorage if available
-        const savedData = localStorage.getItem('classSchedule');
-        if (savedData) {
-            classSchedule = JSON.parse(savedData);
-        } else {
-            // Generate sample data if no saved data exists
-            generateSampleData();
-        }
-
-        updateDateDisplay();
-        renderClassGrid();
-        setupEventListeners();
+        fetch('/api/classes')
+            .then(response => response.json())
+            .then(data => {
+                classSchedule = data;
+                updateDateDisplay();
+                renderClassGrid();
+                setupEventListeners();
+            });
     }
 
     // Generate sample class data
@@ -996,29 +990,31 @@
                             `Join us for a ${duration}-minute ${className} session led by ${instructor}.`;
 
         const newClass = {
-            id: generateId(),
             name: className,
+            instructor: instructor,
             date: classDate,
             time: classTime,
             duration: duration,
-            instructor: instructor,
             capacity: capacity,
-            bookings: 0,
+            bookings: "0",
             description: description
         };
 
-        classSchedule.push(newClass);
-        saveData();
-
-        // If the added class is for the currently displayed date, refresh the grid
-        if (classDate === formatDate(currentDate)) {
+        fetch('/api/classes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newClass)
+        })
+        .then(response => response.json())
+        .then(addedClass => {
+            classSchedule.push(addedClass);
             renderClassGrid();
-        }
-
-        closeAddClassModal();
-
-        // Show success notification
-        showNotification('Class added successfully!', 'success');
+            closeAddClassModal();
+            showNotification('Class added successfully!', 'success');
+        })
+        .catch(() => {
+            showNotification('Failed to add class', 'error');
+        });
     }
 
     // Open View Class Modal

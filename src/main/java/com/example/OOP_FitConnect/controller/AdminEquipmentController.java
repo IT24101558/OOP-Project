@@ -31,7 +31,7 @@ public class AdminEquipmentController {
             List<Equipment> equipmentList = equipmentService.getAll();
             model.addAttribute("admin", admin);
             model.addAttribute("equipmentList", equipmentList);
-            return "Admin_Equipment";
+            return "Admin_equipments";
         }
         return "redirect:/login";
     }
@@ -44,7 +44,7 @@ public class AdminEquipmentController {
         equipment.setName(name);
         equipment.setDescription(description);
         equipment.setQuantity(quantity);
-        equipmentService.save(equipment);
+        equipmentService.add(equipment);
         response.put("success", true);
         return response;
     }
@@ -58,7 +58,7 @@ public class AdminEquipmentController {
             equipment.setName(name);
             equipment.setDescription(description);
             equipment.setQuantity(quantity);
-            equipmentService.save(equipment);
+            equipmentService.add(equipment);
             response.put("success", true);
         } else {
             response.put("success", false);
@@ -74,5 +74,26 @@ public class AdminEquipmentController {
         equipmentService.delete(equipmentId);
         response.put("success", true);
         return response;
+    }
+}
+
+@RestController
+@RequestMapping("/api/equipment")
+class EquipmentApiController {
+    @Autowired
+    private EquipmentService service;
+
+    @GetMapping
+    public List<Equipment> getAll() { return service.getAll(); }
+
+    @PostMapping
+    public Equipment add(@RequestBody Equipment eq) {
+        service.add(eq);
+        return eq;
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        service.delete(id);
     }
 }
