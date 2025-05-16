@@ -1,9 +1,8 @@
 package com.example.OOP_FitConnect.repository;
 
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fitconnect.model.Exercise;
+import com.example.OOP_FitConnect.model.Exercise;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;

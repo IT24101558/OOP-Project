@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class SupplementRepository {
+public class SupplementRespository {
 
     private final List<Supplement> supplements = new ArrayList<>();
     private final AtomicLong nextId = new AtomicLong(1);

@@ -1,10 +1,8 @@
 package com.example.OOP_FitConnect.repository;
 
-
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fitconnect.model.Progress;
+import com.example.OOP_FitConnect.model.Progress;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -31,12 +29,8 @@ public class ProgressRepository {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-
-                // Create initial data
-                List<Progress> initialProgress = new ArrayList<>();
-                initialProgress.add(new Progress("prog-001", "user-001", "2023-05-01", 24, 18350, 1240, 8, 85.0, 14.0, 68.0));
-
-                saveAllProgress(initialProgress);
+                // You can add initial data here if needed
+                saveAllProgress(new ArrayList<>());
             }
         } catch (IOException e) {
             e.printStackTrace();
