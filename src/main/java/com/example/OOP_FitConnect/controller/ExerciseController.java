@@ -1,7 +1,7 @@
 package com.example.OOP_FitConnect.controller;
 
-import com.fitconnect.model.Exercise;
-import com.fitconnect.service.ExerciseService;
+import com.example.OOP_FitConnect.model.Exercise;
+import com.example.OOP_FitConnect.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

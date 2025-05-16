@@ -1,6 +1,7 @@
 package com.example.OOP_FitConnect.controller;
-import com.fitconnect.model.Progress;
-import com.fitconnect.service.ProgressService;
+
+import com.example.OOP_FitConnect.model.Progress;
+import com.example.OOP_FitConnect.service.ProgressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
