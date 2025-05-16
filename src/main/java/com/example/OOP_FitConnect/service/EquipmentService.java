@@ -14,6 +14,6 @@ public class EquipmentService {
 
     public List<Equipment> getAll() { return equipmentRepository.getAll(); }
     public Equipment getById(String id) { return equipmentRepository.getById(id); }
-    public void save(Equipment equipment) { equipmentRepository.save(equipment); }
+    public void add(Equipment equipment) { equipmentRepository.add(equipment); }
     public void delete(String id) { equipmentRepository.delete(id); }
 }

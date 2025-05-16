@@ -306,9 +306,16 @@
                         <button id="todayBtn" class="px-3 py-1.5 rounded-lg bg-white/10 text-blue-400 transition-colors text-sm">Today</button>
                         <button id="nextDayBtn" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 active:bg-white/15 transition-colors text-sm">
                             Next <i class="fas fa-chevron-right ml-1"></i>
-                        </button>
-                        <button id="addClassBtn" class="ml-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-sm">
-                            <i class="fas fa-plus mr-1"></i> Add Class
+                            <a href="membership_plan_management_new.html">
+                                <button id="Membershipplanmanagementbtn" class="ml-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-sm">
+                                    Membership Plan Management
+                                </button>
+                            </a>
+
+
+                            <button id="addClassBtn" class="ml-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-sm">
+                                <i class="fas fa-plus mr-1"></i> Add Class
+                            </button>
                         </button>
                     </div>
                 </div>
@@ -993,7 +1000,7 @@
         const duration = document.getElementById('duration').value;
         const capacity = document.getElementById('capacity').value;
         const description = document.getElementById('classDescription').value ||
-                            `Join us for a ${duration}-minute ${className} session led by ${instructor}.`;
+            `Join us for a ${duration}-minute ${className} session led by ${instructor}.`;
 
         const newClass = {
             id: generateId(),
