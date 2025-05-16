@@ -13,7 +13,7 @@ public class SupplementRespository {
     private final List<Supplement> supplements = new ArrayList<>();
     private final AtomicLong nextId = new AtomicLong(1);
 
-    public SupplementRepository() {
+    public void SupplementRepository() {
         // Initialize with some sample data (replace with your actual data loading if needed)
         supplements.add(new Supplement(nextId.getAndIncrement(), "Whey Protein", "High-quality protein for muscle recovery.", 49.99, "Protein"));
         supplements.add(new Supplement(nextId.getAndIncrement(), "Creatine Monohydrate", "Enhances strength and power.", 29.99, "Performance"));
