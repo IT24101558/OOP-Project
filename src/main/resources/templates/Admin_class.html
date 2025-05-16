@@ -306,9 +306,16 @@
                         <button id="todayBtn" class="px-3 py-1.5 rounded-lg bg-white/10 text-blue-400 transition-colors text-sm">Today</button>
                         <button id="nextDayBtn" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 active:bg-white/15 transition-colors text-sm">
                             Next <i class="fas fa-chevron-right ml-1"></i>
-                        </button>
-                        <button id="addClassBtn" class="ml-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-sm">
-                            <i class="fas fa-plus mr-1"></i> Add Class
+                            <a href="membership_plan_management_new.html">
+                                <button id="Membershipplanmanagementbtn" class="ml-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-sm">
+                                    Membership Plan Management
+                                </button>
+                            </a>
+
+
+                            <button id="addClassBtn" class="ml-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-sm">
+                                <i class="fas fa-plus mr-1"></i> Add Class
+                            </button>
                         </button>
                     </div>
                 </div>
@@ -635,18 +642,24 @@
 
 <!-- JavaScript for Booking System -->
 <script>
+    // Mock data storage - in a real application, this would be replaced with a backend API
     let classSchedule = [];
     let currentDate = new Date();
 
+    // Initialize app with sample data
     function initializeApp() {
-        fetch('/api/classes')
-            .then(response => response.json())
-            .then(data => {
-                classSchedule = data;
-                updateDateDisplay();
-                renderClassGrid();
-                setupEventListeners();
-            });
+        // Load data from localStorage if available
+        const savedData = localStorage.getItem('classSchedule');
+        if (savedData) {
+            classSchedule = JSON.parse(savedData);
+        } else {
+            // Generate sample data if no saved data exists
+            generateSampleData();
+        }
+
+        updateDateDisplay();
+        renderClassGrid();
+        setupEventListeners();
     }
 
     // Generate sample class data
@@ -987,34 +1000,32 @@
         const duration = document.getElementById('duration').value;
         const capacity = document.getElementById('capacity').value;
         const description = document.getElementById('classDescription').value ||
-                            `Join us for a ${duration}-minute ${className} session led by ${instructor}.`;
+            `Join us for a ${duration}-minute ${className} session led by ${instructor}.`;
 
         const newClass = {
+            id: generateId(),
             name: className,
-            instructor: instructor,
             date: classDate,
             time: classTime,
             duration: duration,
+            instructor: instructor,
             capacity: capacity,
-            bookings: "0",
+            bookings: 0,
             description: description
         };
 
-        fetch('/api/classes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newClass)
-        })
-        .then(response => response.json())
-        .then(addedClass => {
-            classSchedule.push(addedClass);
+        classSchedule.push(newClass);
+        saveData();
+
+        // If the added class is for the currently displayed date, refresh the grid
+        if (classDate === formatDate(currentDate)) {
             renderClassGrid();
-            closeAddClassModal();
-            showNotification('Class added successfully!', 'success');
-        })
-        .catch(() => {
-            showNotification('Failed to add class', 'error');
-        });
+        }
+
+        closeAddClassModal();
+
+        // Show success notification
+        showNotification('Class added successfully!', 'success');
     }
 
     // Open View Class Modal
