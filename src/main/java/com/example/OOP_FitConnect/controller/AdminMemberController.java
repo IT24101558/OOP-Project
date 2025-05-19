@@ -30,7 +30,7 @@ public class AdminMemberController {
             List<User> users = userService.getAllUsers();
             model.addAttribute("admin", admin);
             model.addAttribute("users", users);
-            return "Admin_Members";
+            return "Admin_member_dashboard";
         }
         return "redirect:/login";
     }
@@ -71,13 +71,25 @@ public class AdminMemberController {
         return response;
     }
 
-    @PostMapping("/admin/api/member-delete-user/{userId}")
+    @PostMapping("/api/member-delete-user/{userId}")
     @ResponseBody
     public Map<String, Object> deleteUser(@PathVariable String userId) {
-        Map<String, Object> response = new HashMap<>();
         userService.deleteUser(userId);
+        Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         return response;
+    }
+
+    @GetMapping("/api/users")
+    @ResponseBody
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/api/total-members")
+    @ResponseBody
+    public int getTotalMembers() {
+        return userService.getAllUsers().size();
     }
 
 }
