@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Order History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .order-header {
+            background: #1a1a1a;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-type {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+
+        .order-date {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .order-total {
+            font-weight: bold;
+        }
+
+        .order-items {
+            padding: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            flex: 2;
+        }
+
+        .item-quantity {
+            flex: 1;
+            text-align: center;
+        }
+
+        .item-price {
+            flex: 1;
+            text-align: right;
+        }
+
+        .order-footer {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .payment-method {
+            color: #666;
+        }
+
+        .order-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .price-breakdown {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .price-row.total {
+            color: #333;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid #eee;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/supplements" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Shop
+        </a>
+
+        <div class="header">
+            <h1>Order History</h1>
+            <p>View your past orders and their details</p>
+        </div>
+
+        <div id="ordersContainer">
+            <!-- Orders will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        async function loadOrders() {
+            try {
+                const response = await fetch('/api/orders');
+                const orders = await response.json();
+                
+                const ordersContainer = document.getElementById('ordersContainer');
+                
+                if (orders.length === 0) {
+                    ordersContainer.innerHTML = `
+                        <div class="no-orders">
+                            <h2>No orders found</h2>
+                            <p>Start shopping to see your orders here!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                orders.forEach(order => {
+                    const orderDate = new Date(order.orderDate).toLocaleDateString();
+                    const orderElement = document.createElement('div');
+                    orderElement.className = 'order-card';
+                    
+                    orderElement.innerHTML = `
+                        <div class="order-header">
+                            <div>
+                                <div class="order-type">${order.type === 'membership' ? 'Membership Plan' : 'Supplement Order'}</div>
+                                <div class="order-date">Order Date: ${orderDate}</div>
+                            </div>
+                            <div class="order-total">Rs ${order.total.toFixed(2)}</div>
+                        </div>
+                        <div class="order-items">
+                            ${order.items.map(item => `
+                                <div class="order-item">
+                                    <span class="item-name">${item.name}</span>
+                                    ${item.quantity ? `<span class="item-quantity">x${item.quantity}</span>` : ''}
+                                    <span class="item-price">Rs ${(item.price * (item.quantity || 1)).toFixed(2)}</span>
+                                </div>
+                            `).join('')}
+                            <div class="price-breakdown">
+                                <div class="price-row">
+                                    <span>Subtotal</span>
+                                    <span>Rs ${order.subtotal.toFixed(2)}</span>
+                                </div>
+                                <div class="price-row">
+                                    <span>Service Charge (5%)</span>
+                                    <span>Rs ${order.serviceCharge.toFixed(2)}</span>
+                                </div>
+                                <div class="price-row total">
+                                    <span>Total</span>
+                                    <span>Rs ${order.total.toFixed(2)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-footer">
+                            <div class="payment-method">
+                                <i class="fas fa-credit-card"></i> ${order.paymentMethod}
+                            </div>
+                            <div class="order-status status-completed">Completed</div>
+                        </div>
+                    `;
+                    
+                    ordersContainer.appendChild(orderElement);
+                });
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                document.getElementById('ordersContainer').innerHTML = `
+                    <div class="no-orders">
+                        <h2>Error loading orders</h2>
+                        <p>Please try again later</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Load orders when page loads
+        window.onload = loadOrders;
+    </script>
+</body>
+</html> 
