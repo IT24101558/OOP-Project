@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes; // Add this import
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,13 +23,8 @@ public class AuthController {
     private GuestService guestService;
 
     // Guest accessible pages
-    @GetMapping("/")
-    public String indexPage() {
-        return "index";
-    }
-
     @GetMapping("/index")
-    public String indexPage2() {
+    public String indexPage() {
         return "index";
     }
 
@@ -43,14 +38,14 @@ public class AuthController {
         return "memplan";
     }
 
+    @GetMapping("/UserPlans")
+    public String userPlansPage() {
+        return "UserPlans";
+    }
+
     @GetMapping("/About_us")
     public String aboutUsPage() {
         return "About_us";
-    }
-
-    @GetMapping("/supplements")
-    public String supplementsPage() {
-        return "supplements";
     }
 
     // Authentication pages
@@ -112,6 +107,49 @@ public class AuthController {
         return "redirect:/login";
     }
 
+    // Additional user pages
+    @GetMapping("/user/profile")
+    public String userProfile(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userId") != null) {
+            String userId = (String) session.getAttribute("userId");
+            User user = guestService.getUserById(userId);
+            if (user != null && "USER".equals(user.getRole())) {
+                model.addAttribute("user", user);
+                return "profile";
+            }
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/user/schedule")
+    public String userSchedule(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userId") != null) {
+            String userId = (String) session.getAttribute("userId");
+            User user = guestService.getUserById(userId);
+            if (user != null && "USER".equals(user.getRole())) {
+                model.addAttribute("user", user);
+                return "schedule";
+            }
+        }
+        return "redirect:/login";
+    }
+
+    @GetMapping("/user/settings")
+    public String userSettings(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userId") != null) {
+            String userId = (String) session.getAttribute("userId");
+            User user = guestService.getUserById(userId);
+            if (user != null && "USER".equals(user.getRole())) {
+                model.addAttribute("user", user);
+                return "User-Settings";
+            }
+        }
+        return "redirect:/login";
+    }
+
     @PostMapping("/api/login")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> login(
@@ -153,6 +191,7 @@ public class AuthController {
             @RequestParam String name,
             @RequestParam String email,
             @RequestParam String password,
+            @RequestParam String branch,
             HttpServletRequest request) {
 
         Map<String, Object> response = new HashMap<>();
@@ -164,7 +203,7 @@ public class AuthController {
         }
 
         String verificationToken = UUID.randomUUID().toString();
-        User user = guestService.registerUser(name, email, password, verificationToken);
+        User user = guestService.registerUser(name, email, password, verificationToken, branch);
         guestService.sendVerificationEmail(user, verificationToken);
 
         response.put("success", true);
@@ -213,12 +252,12 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request,  RedirectAttributes redirectAttributes) {
+    public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
-        redirectAttributes.addFlashAttribute("message", "Logged out successfully."); //use redirectAttributes
+        redirectAttributes.addFlashAttribute("message", "Logged out successfully.");
         return "redirect:/login";
     }
 }
