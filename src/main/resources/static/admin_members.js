@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.delete-user-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             if (confirm('Are you sure you want to delete this user?')) {
-                fetch(`/admin/api/delete-user/${btn.dataset.userid}`, {method: 'POST'})
+                fetch(`/admin/api/member-delete-user/${btn.dataset.userid}`, {method: 'POST'})
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) location.reload();
