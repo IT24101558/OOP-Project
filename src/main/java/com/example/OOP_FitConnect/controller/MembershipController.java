@@ -1,9 +1,16 @@
 package com.example.OOP_FitConnect.controller;
 
 import com.example.OOP_FitConnect.model.MembershipPlan;
+import com.example.OOP_FitConnect.model.User;
+import com.example.OOP_FitConnect.service.GuestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +18,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Controller
 public class MembershipController {
+
+    @Autowired
+    private GuestService guestService;
 
     private final List<MembershipPlan> membershipPlans = new ArrayList<>();
     private final List<PlanHistoryRecord> planHistory = new ArrayList<>();
@@ -93,6 +104,19 @@ public class MembershipController {
         }
 
         return ResponseEntity.ok(filteredHistory);
+    }
+
+    @GetMapping("/monthprogress")
+    public String monthProgressPage(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userId") != null) {
+            String userId = (String) session.getAttribute("userId");
+            User user = guestService.getUserById(userId);
+            if (user != null) {
+                model.addAttribute("user", user);
+            }
+        }
+        return "monthprogress";
     }
 
     private record PlanHistoryRecord(int i, LocalDate localDate, String standard, int i1, double v, String active) {
