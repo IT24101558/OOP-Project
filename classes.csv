@@ -1,3 +1,3 @@
-id,name,instructor,schedule
-6c7127f9-07fd-4184-a0c0-ba8ad44866cd,Yoga Class,Jane Doe,Monday 10:00-11:00
-
+id,name,date,time,duration,instructor
+250a4a9c-b5cc-41a7-b7d9-fd71aeec8c98,yoga,2023-12-15,09:00,60,sanith
+ab2eaf12-78f3-4cad-a594-5b74e5f0e442,Weight,2025-02-06,17:24,60,sayura
