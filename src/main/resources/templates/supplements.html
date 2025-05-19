@@ -605,7 +605,7 @@
             <div class="food-card">
                 <img src="/images/Protein2.jpg" alt="Dymatize ISO 100">
                 <h2>Dymatize ISO 100</h2>
-                <p>Ultra-fast absorbing hydrolyzed whey protein. Dymatize ISO 100 – Sri Lanka’s #1 choice for authentic supplements!</p>
+                <p>Ultra-fast absorbing hydrolyzed whey protein. Dymatize ISO 100 – Sri Lanka's #1 choice for authentic supplements!</p>
                 <div id="details2" class="food-details" style="display: none;">
                     <ul>
                         <li>Ultra-Fast Absorption.</li><br>
@@ -914,6 +914,9 @@
         <div class="subtotal">
             Subtotal: <span id="subtotal-amount">Rs 0.00</span>
         </div>
+        <div class="service-charge">
+            Service Charge: <span id="service-charge-amount">Rs 0.00</span>
+        </div>
         <div class="checkout">
             <button id="checkout-button">Checkout</button>
         </div>
@@ -1081,6 +1084,20 @@
         closeBasketButton.addEventListener('click', closeBasket);
     }
     updateCheckoutButtonState(0);
+
+    // Checkout button handler to map to payment.html
+    checkoutButton.addEventListener('click', function () {
+        const items = [];
+        const basketItems = basketContent.querySelectorAll('.basket-item');
+        basketItems.forEach(item => {
+            const name = item.querySelector('.item-name').textContent;
+            const price = parseFloat(item.querySelector('.item-price').getAttribute('data-price'));
+            const quantity = parseInt(item.querySelector('.item-quantity').textContent);
+            items.push({ name, price, quantity: parseInt(quantity) });
+        });
+        sessionStorage.setItem('orderItems', JSON.stringify(items));
+        window.location.href = '/payment';
+    });
 </script>
 
 
