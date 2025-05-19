@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .payment-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .payment-form {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .payment-summary {
+            flex: 1;
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+        }
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #666;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .payment-method {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: #007bff;
+        }
+
+        .payment-method.selected {
+            border-color: #007bff;
+            background: #f0f7ff;
+        }
+
+        .payment-method i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .payment-method.selected i {
+            color: #007bff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .card-details {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .pay-button {
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .pay-button:hover {
+            background: #0056b3;
+        }
+
+        .summary-header {
+            margin-bottom: 30px;
+        }
+
+        .summary-header h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .plan-details {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .plan-name {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .plan-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-features li i {
+            margin-right: 10px;
+            color: #00ff00;
+        }
+
+        .price-summary {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        
+        .order-item-name {
+            flex: 2;
+        }
+        
+        .order-item-quantity {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .order-item-price {
+            flex: 1;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .payment-container {
+                flex-direction: column;
+            }
+            
+            .payment-form,
+            .payment-summary {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-form">
+            <div class="form-header">
+                <h2>Payment Details</h2>
+                <p>Complete your membership purchase</p>
+            </div>
+
+            <div class="payment-methods">
+                <div class="payment-method selected" onclick="selectPaymentMethod(this)">
+                    <i class="fas fa-credit-card"></i>
+                    <p>Credit Card</p>
+                </div>
+                <div class="payment-method" onclick="selectPaymentMethod(this)">
+                    <i class="fab fa-paypal"></i>
+                    <p>PayPal</p>
+                </div>
+                <div class="payment-method" onclick="selectPaymentMethod(this)">
+                    <i class="fas fa-university"></i>
+                    <p>Bank Transfer</p>
+                </div>
+            </div>
+
+            <form id="paymentForm" onsubmit="handlePayment(event)">
+                <div class="form-group">
+                    <label for="cardName">Cardholder Name</label>
+                    <input type="text" id="cardName" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" required placeholder="1234 5678 9012 3456" maxlength="19" onkeyup="formatCardNumber(this)">
+                </div>
+
+                <div class="card-details">
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" required placeholder="MM/YY" maxlength="5" onkeyup="formatExpiryDate(this)">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" required placeholder="123" maxlength="3">
+                    </div>
+                </div>
+
+                <button type="submit" class="pay-button">Pay Now</button>
+            </form>
+        </div>
+
+        <div class="payment-summary">
+            <div class="summary-header">
+                <h2>Order Summary</h2>
+            </div>
+
+            <div class="plan-details">
+                <h3 class="plan-name" id="orderTitle">Order Details</h3>
+                <div id="orderItems" class="order-items">
+                    <!-- Order items will be populated here -->
+                </div>
+            </div>
+
+            <div class="price-summary">
+                <div class="price-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">Rs 0.00</span>
+                </div>
+                <div class="price-row">
+                    <span>Service Charge (5%)</span>
+                    <span id="serviceCharge">Rs 0.00</span>
+                </div>
+                <div class="price-row total">
+                    <span>Total</span>
+                    <span id="total">Rs 0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load order details from sessionStorage
+        window.onload = function() {
+            const selectedPlan = JSON.parse(sessionStorage.getItem('selectedPlan'));
+            const orderItems = JSON.parse(sessionStorage.getItem('orderItems'));
+            
+            if (selectedPlan) {
+                // Handle membership plan purchase
+                document.getElementById('orderTitle').textContent = 'Membership Plan';
+                const orderItemsDiv = document.getElementById('orderItems');
+                orderItemsDiv.innerHTML = `
+                    <div class="order-item">
+                        <div class="order-item-name">${selectedPlan.name}</div>
+                        <div class="order-item-price">Rs ${selectedPlan.price.toFixed(2)}</div>
+                    </div>
+                `;
+                
+                const subtotal = selectedPlan.price;
+                const serviceCharge = subtotal * 0.05;
+                const total = subtotal + serviceCharge;
+
+                document.getElementById('subtotal').textContent = `Rs ${subtotal.toFixed(2)}`;
+                document.getElementById('serviceCharge').textContent = `Rs ${serviceCharge.toFixed(2)}`;
+                document.getElementById('total').textContent = `Rs ${total.toFixed(2)}`;
+
+                // Store order details for history
+                sessionStorage.setItem('currentOrder', JSON.stringify({
+                    type: 'membership',
+                    items: [{
+                        name: selectedPlan.name,
+                        price: selectedPlan.price,
+                        quantity: 1
+                    }],
+                    subtotal: subtotal,
+                    serviceCharge: serviceCharge,
+                    total: total
+                }));
+            } else if (orderItems) {
+                // Handle supplement order
+                document.getElementById('orderTitle').textContent = 'Supplement Order';
+                const orderItemsDiv = document.getElementById('orderItems');
+                orderItemsDiv.innerHTML = orderItems.map(item => `
+                    <div class="order-item">
+                        <div class="order-item-name">${item.name}</div>
+                        <div class="order-item-quantity">x${item.quantity}</div>
+                        <div class="order-item-price">Rs ${(item.price * item.quantity).toFixed(2)}</div>
+                    </div>
+                `).join('');
+
+                const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const serviceCharge = subtotal * 0.05;
+                const total = subtotal + serviceCharge;
+
+                document.getElementById('subtotal').textContent = `Rs ${subtotal.toFixed(2)}`;
+                document.getElementById('serviceCharge').textContent = `Rs ${serviceCharge.toFixed(2)}`;
+                document.getElementById('total').textContent = `Rs ${total.toFixed(2)}`;
+
+                // Store order details for history
+                sessionStorage.setItem('currentOrder', JSON.stringify({
+                    type: 'supplements',
+                    items: orderItems,
+                    subtotal: subtotal,
+                    serviceCharge: serviceCharge,
+                    total: total
+                }));
+            }
+        };
+
+        function selectPaymentMethod(element) {
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})/g, '$1 ').trim();
+            input.value = value;
+        }
+
+        function formatExpiryDate(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            input.value = value;
+        }
+
+        async function handlePayment(event) {
+            event.preventDefault();
+            
+            const cardName = document.getElementById('cardName').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if(!cardName || !cardNumber || !expiryDate || !cvv) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            try {
+                const currentOrder = JSON.parse(sessionStorage.getItem('currentOrder'));
+                const orderData = {
+                    ...currentOrder,
+                    paymentMethod: 'Credit Card',
+                    orderDate: new Date().toISOString()
+                };
+
+                const response = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Clear stored data
+                    sessionStorage.removeItem('selectedPlan');
+                    sessionStorage.removeItem('orderItems');
+                    sessionStorage.removeItem('currentOrder');
+                    
+                    // Redirect to order history
+                    window.location.href = '/order-history';
+                } else {
+                    alert(result.message || 'Payment failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error processing payment:', error);
+                alert('An error occurred while processing your payment. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html> 
