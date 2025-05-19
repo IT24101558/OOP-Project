@@ -1,14 +1,32 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitConnect - Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom right, #1a1c2e, #14162a);
+            color: #fff;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .scale-hover:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        /* Keep your existing custom styles for settings-specific elements */
         :root {
             --background: #1a1c2e;
             --foreground: #ffffff;
@@ -33,7 +51,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
 
         body {
@@ -889,526 +906,361 @@
     </style>
 </head>
 <body>
-<!-- Container -->
-<div class="container">
-    <!-- Sidebar (Desktop only) -->
-    <aside class="sidebar">
-        <div class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-dumbbell"></i>
-            </div>
-            <h1 class="logo-text">FitConnect</h1>
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex flex-col w-64 h-screen glass-effect">
+        <div class="p-6">
+            <a href="#" class="flex items-center gap-3">
+                <div class="bg-gradient-to-r from-purple-500 to-blue-500 p-2.5 rounded-lg">
+                    <i class="fas fa-dumbbell text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">FitConnect</h1>
+            </a>
         </div>
-
-        <nav class="nav-menu">
-            <a href="member_dashboard.html" class="nav-item">
+        <nav class="flex-1 p-4 space-y-2">
+            <a href="/user/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-th-large"></i>
-                <span>Dashboard</span>
+                <span class="font-medium">Dashboard</span>
             </a>
-            <a href="profile.html" class="nav-item">
+            <a href="/user/profile" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-user"></i>
-                <span>Profile</span>
+                <span class="font-medium">Profile</span>
             </a>
-            <a href="schedule.html" class="nav-item">
+            <a href="/user/schedule" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-calendar"></i>
-                <span>Schedule</span>
+                <span class="font-medium">Schedule</span>
             </a>
-            <a href="exercises.html" class="nav-item">
+            <a href="/exercises" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-dumbbell"></i>
-                <span>Exercises</span>
+                <span class="font-medium">Exercises</span>
             </a>
-            <a href="monthprogress.html" class="nav-item">
+            <a href="/monthprogress" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-chart-line"></i>
-                <span>Progress</span>
+                <span class="font-medium">Progress</span>
             </a>
-            <a href="#" class="nav-item active">
+            <a href="/user/settings" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white">
                 <i class="fas fa-cog"></i>
-                <span>Settings</span>
+                <span class="font-medium">Settings</span>
             </a>
         </nav>
 
-        <div class="user-profile">
-            <div class="user-info">
-                <div class="user-avatar">
-                    <span>AR</span>
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
+                    <span class="font-semibold">??</span>
                 </div>
-                <div class="user-details">
-                    <h3>Soeash Nisheada</h3>
-                    <p>Premium Member</p>
+                <div>
+                    <h3 class="font-medium"><span th:text="${user.name}">User</span></h3>
                 </div>
             </div>
-            <button class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Log Out</span>
-            </button>
+            <a href="/logout">
+                <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </button>
+            </a>
         </div>
     </aside>
 
-    <!-- Mobile Header -->
-    <header class="mobile-header">
-        <div class="mobile-header-content">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-dumbbell"></i>
-                </div>
-                <h1 class="logo-text">FitConnect</h1>
-            </div>
-            <button class="menu-btn" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-
-
     <!-- Main Content -->
-    <main class="main-content">
-        <h1 class="section-title animate-fade-in" style="margin-bottom: 1rem;">Settings</h1>
-        <p class="animate-fade-in" style="color: var(--muted-foreground); margin-bottom: 2rem;">
-            Manage your app preferences and account settings
-        </p>
+    <main class="flex-1 overflow-y-auto p-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <header class="mb-8">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Settings</h1>
+                <p class="text-gray-400 mt-2">Manage your app preferences and account settings</p>
+            </header>
 
-        <!-- Settings Navigation -->
-        <nav class="settings-nav animate-fade-in">
-            <a href="#account" class="nav-link">Account</a>
-            <a href="#notifications" class="nav-link">Notifications</a>
-            <a href="#privacy" class="nav-link">Privacy & Security</a>
-            <a href="#billing" class="nav-link">Billing</a>
-            <a href="#support" class="nav-link">Support</a>
-        </nav>
+            <!-- Settings Navigation -->
+            <nav class="glass-effect rounded-xl p-4 mb-8 flex space-x-4 overflow-x-auto">
+                <a href="#account" class="px-4 py-2 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">Account</a>
+                <a href="#notifications" class="px-4 py-2 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">Notifications</a>
+                <a href="#privacy" class="px-4 py-2 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">Privacy & Security</a>
+                <a href="#support" class="px-4 py-2 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">Support</a>
+            </nav>
 
-        <!-- Account Settings -->
-        <section id="account" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator blue"></div>
-                    <h2 class="section-title">Account Settings</h2>
-                </div>
+            <!-- Account Settings -->
+            <section id="account" class="settings-section animate-slide-up">
+                <div class="settings-card">
+                    <div class="section-header">
+                        <div class="section-indicator blue"></div>
+                        <h2 class="section-title">Account Settings</h2>
+                    </div>
 
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Profile Picture</h3>
-                            <p>Update your profile picture</p>
-                        </div>
-                        <div class="form-input" style="display: flex; align-items: center; gap: 1rem;">
-                            <div class="profile-picture">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-image">
-                                <div class="profile-edit">
-                                    <i class="fas fa-camera" style="font-size: 12px;"></i>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Profile Picture</h3>
+                                <p>Update your profile picture</p>
+                            </div>
+                            <div class="form-input" style="display: flex; align-items: center; gap: 1rem;">
+                                <div class="profile-picture">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-image">
+                                    <div class="profile-edit">
+                                        <i class="fas fa-camera" style="font-size: 12px;"></i>
+                                    </div>
+                                </div>
+                                <div class="button-group">
+                                    <button class="btn btn-secondary">Change</button>
+                                    <button class="btn btn-secondary">Remove</button>
                                 </div>
                             </div>
-                            <div class="button-group">
-                                <button class="btn btn-secondary">Change</button>
-                                <button class="btn btn-secondary">Remove</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Full Name</h3>
+                                <p>Update your display name</p>
+                            </div>
+                            <div class="form-input">
+                                <input type="text" th:value="${user.name}" class="w-full md:w-80 px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-purple-500 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Email Address</h3>
+                                <p>Update your email address</p>
+                            </div>
+                            <div class="form-input">
+                                <input type="email" th:value="${user.email}" class="w-full md:w-80 px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:border-purple-500 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Password</h3>
+                                <p>Change your password</p>
+                            </div>
+                            <div class="form-input">
+                                <button class="btn btn-secondary">Change Password</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Two-Factor Authentication</h3>
+                                <p>Add an extra layer of security</p>
+                            </div>
+                            <div class="form-input">
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="toggle-slider"></span>
+                                </label>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Full Name</h3>
-                            <p>Update your display name</p>
-                        </div>
-                        <div class="form-input">
-                            <input type="text" value="Soeash Nisheada">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Email Address</h3>
-                            <p>Update your email address</p>
-                        </div>
-                        <div class="form-input">
-                            <input type="email" value="nishedas@gmail.com">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Password</h3>
-                            <p>Change your password</p>
-                        </div>
-                        <div class="form-input">
-                            <button class="btn btn-secondary">Change Password</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 0;">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Two-Factor Authentication</h3>
-                            <p>Add an extra layer of security</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Notification Settings -->
-        <section id="notifications" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator red"></div>
-                    <h2 class="section-title">Notification Settings</h2>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Push Notifications</h3>
-                            <p>Receive push notifications</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Email Notifications</h3>
-                            <p>Receive email notifications</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Workout Reminders</h3>
-                            <p>Get reminded about scheduled workouts</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 0;">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Progress Updates</h3>
-                            <p>Get regular updates on your progress</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Privacy & Security -->
-        <section id="privacy" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator green"></div>
-                    <h2 class="section-title">Privacy & Security</h2>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Activity Visibility</h3>
-                            <p>Control who can see your activity</p>
-                        </div>
-                        <div class="form-input">
-                            <select>
-                                <option value="public">Public</option>
-                                <option value="friends-only" selected>Friends Only</option>
-                                <option value="private">Private</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Data Sharing</h3>
-                            <p>Share workout data with third-party apps</p>
-                        </div>
-                        <div class="form-input">
-                            <label class="toggle-switch">
-                                <input type="checkbox">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 0;">
-                    <div class="form-row">
-                        <div class="form-label">
-                            <h3>Download Your Data</h3>
-                            <p>Get a copy of all your data</p>
-                        </div>
-                        <div class="form-input">
-                            <button class="btn btn-secondary">Download</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Billing Settings -->
-        <section id="billing" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator purple"></div>
-                    <h2 class="section-title">Billing</h2>
-                </div>
-
-                <h3 style="margin-bottom: 1rem;">Your Plan</h3>
-                <div class="plans-grid">
-                    <div class="plan-card">
-                        <h4 class="plan-name">Student Plan</h4>
-                        <p class="plan-price">Rs.7,000.00<span>/month</span></p>
-                        <ul class="plan-features">
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Workout tracking
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Basic analytics
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                3 workout plans
-                            </li>
-                        </ul>
-                        <button class="btn btn-secondary" style="width: 100%;">Downgrade</button>
+            <!-- Notification Settings -->
+            <section id="notifications" class="settings-section animate-slide-up">
+                <div class="settings-card">
+                    <div class="section-header">
+                        <div class="section-indicator red"></div>
+                        <h2 class="section-title">Notification Settings</h2>
                     </div>
 
-                    <div class="plan-card active">
-                        <div class="plan-badge">Current</div>
-                        <h4 class="plan-name">Basic Plan</h4>
-                        <p class="plan-price">Rs. 10,000.00<span>/month</span></p>
-                        <ul class="plan-features">
-                            <li>
-                                <span class="check-icon">✓</span>
-                                All Basic features
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Advanced analytics
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Unlimited workout plans
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Personal coach chat
-                            </li>
-                        </ul>
-                        <button class="btn btn-secondary" style="width: 100%; background: rgba(126, 87, 194, 0.2); color: #a777e3; cursor: not-allowed;">Current Plan</button>
-                    </div>
-
-                    <div class="plan-card">
-                        <h4 class="plan-name">Couples Plan</h4>
-                        <p class="plan-price">Rs. 15,000.00<span>/month</span></p>
-                        <ul class="plan-features">
-                            <li>
-                                <span class="check-icon">✓</span>
-                                All Premium features
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Priority support
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                1-on-1 coaching calls
-                            </li>
-                            <li>
-                                <span class="check-icon">✓</span>
-                                Custom meal plans
-                            </li>
-                        </ul>
-                        <button class="btn btn-secondary" style="width: 100%;">Upgrade</button>
-                    </div>
-                </div>
-
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3>Payment Methods</h3>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-credit-card"></i>
-                            <span style="margin-left: 0.5rem;">Add New</span>
-                        </button>
-                    </div>
-
-                    <div class="payment-card">
-                        <div class="payment-card-info">
-                            <div class="card-icon">
-                                <i class="fab fa-cc-visa" style="color: #1A1F71;"></i>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Push Notifications</h3>
+                                <p>Receive push notifications</p>
                             </div>
-                            <div class="card-details">
-                                <h4>Visa ending in 4242</h4>
-                                <p>Expires 12/25</p>
+                            <div class="form-input">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
                             </div>
                         </div>
-                        <div class="card-actions">
-                            <button>Edit</button>
-                            <span style="color: #555;">|</span>
-                            <button>Remove</button>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Email Notifications</h3>
+                                <p>Receive email notifications</p>
+                            </div>
+                            <div class="form-input">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Workout Reminders</h3>
+                                <p>Get reminded about scheduled workouts</p>
+                            </div>
+                            <div class="form-input">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Progress Updates</h3>
+                                <p>Get regular updates on your progress</p>
+                            </div>
+                            <div class="form-input">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
-                    <h3 style="margin-bottom: 1rem;">Billing History</h3>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Description</th>
-                                <th style="text-align: right;">Amount</th>
-                                <th style="text-align: right;">Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>May 1, 2025</td>
-                                <td>Premium Plan - Monthly</td>
-                                <td style="text-align: right;">$19.00</td>
-                                <td style="text-align: right;">
-                                    <span class="status-badge status-paid">Paid</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Apr 1, 2025</td>
-                                <td>Premium Plan - Monthly</td>
-                                <td style="text-align: right;">$19.00</td>
-                                <td style="text-align: right;">
-                                    <span class="status-badge status-paid">Paid</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Mar 1, 2025</td>
-                                <td>Premium Plan - Monthly</td>
-                                <td style="text-align: right;">$19.00</td>
-                                <td style="text-align: right;">
-                                    <span class="status-badge status-paid">Paid</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+            <!-- Privacy & Security -->
+            <section id="privacy" class="settings-section animate-slide-up">
+                <div class="settings-card">
+                    <div class="section-header">
+                        <div class="section-indicator green"></div>
+                        <h2 class="section-title">Privacy & Security</h2>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Support Settings -->
-        <section id="support" class="settings-section animate-slide-up">
-            <div class="settings-card">
-                <div class="section-header">
-                    <div class="section-indicator orange"></div>
-                    <h2 class="section-title">Support</h2>
-                </div>
-
-                <h3 style="margin-bottom: 1rem;">Frequently Asked Questions</h3>
-                <div style="margin-bottom: 2rem;">
-                    <div class="faq-item" id="faq1">
-                        <div class="faq-question">
-                            <span>How do I track my workouts?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            You can track your workouts by going to the Exercises section, selecting your workout plan, and clicking on "Start Workout". The app will guide you through your exercises and record your progress.
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Activity Visibility</h3>
+                                <p>Control who can see your activity</p>
+                            </div>
+                            <div class="form-input">
+                                <select>
+                                    <option value="public">Public</option>
+                                    <option value="friends-only" selected>Friends Only</option>
+                                    <option value="private">Private</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="faq-item" id="faq2">
-                        <div class="faq-question">
-                            <span>How do I change my subscription plan?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            You can change your subscription plan in the Billing section of your Settings. Choose the plan you want and follow the prompts to update your subscription.
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Data Sharing</h3>
+                                <p>Share workout data with third-party apps</p>
+                            </div>
+                            <div class="form-input">
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="faq-item" id="faq3">
-                        <div class="faq-question">
-                            <span>Can I sync with other fitness devices?</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Yes! FitConnect can sync with most popular fitness trackers and smartwatches. Go to the Settings page and look for "Connected Devices" to set up your integrations.
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <div class="form-row">
+                            <div class="form-label">
+                                <h3>Download Your Data</h3>
+                                <p>Get a copy of all your data</p>
+                            </div>
+                            <div class="form-input">
+                                <button class="btn btn-secondary">Download</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div style="margin-top: 2rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3>Contact Support</h3>
-                        <a href="mailto:support@fitconnect.com" style="color: #7e57c2; text-decoration: none;">support@fitconnect.com</a>
+            <!-- Support Settings -->
+            <section id="support" class="settings-section animate-slide-up">
+                <div class="settings-card">
+                    <div class="section-header">
+                        <div class="section-indicator orange"></div>
+                        <h2 class="section-title">Support</h2>
                     </div>
 
-                    <div class="support-card">
-                        <div style="margin-bottom: 1rem;">
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">How can we help you?</label>
-                            <textarea placeholder="Describe your issue or question..."></textarea>
+                    <h3 style="margin-bottom: 1rem;">Frequently Asked Questions</h3>
+                    <div style="margin-bottom: 2rem;">
+                        <div class="faq-item" id="faq1">
+                            <div class="faq-question">
+                                <span>How do I track my workouts?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                You can track your workouts by going to the Exercises section, selecting your workout plan, and clicking on "Start Workout". The app will guide you through your exercises and record your progress.
+                            </div>
                         </div>
 
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-headset"></i>
-                                <span style="margin-left: 0.5rem;">Submit Request</span>
-                            </button>
-                            <button class="btn btn-secondary">Live Chat</button>
+                        <div class="faq-item" id="faq2">
+                            <div class="faq-question">
+                                <span>How do I change my subscription plan?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                You can change your subscription plan in the Billing section of your Settings. Choose the plan you want and follow the prompts to update your subscription.
+                            </div>
+                        </div>
+
+                        <div class="faq-item" id="faq3">
+                            <div class="faq-question">
+                                <span>Can I sync with other fitness devices?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Yes! FitConnect can sync with most popular fitness trackers and smartwatches. Go to the Settings page and look for "Connected Devices" to set up your integrations.
+                            </div>
                         </div>
                     </div>
 
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-info-circle"></i>
+                    <div style="margin-top: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3>Contact Support</h3>
+                            <a href="mailto:support@fitconnect.com" style="color: #7e57c2; text-decoration: none;">support@fitconnect.com</a>
                         </div>
-                        <div>
-                            <h4 style="color: #4d5bbe; font-weight: 500; margin-bottom: 0.5rem;">Premium Support</h4>
-                            <p style="font-size: 0.875rem; color: var(--muted-foreground);">
-                                As a Premium member, you have access to priority support. Our team typically responds within 2 hours during business hours.
-                            </p>
+
+                        <div class="support-card">
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">How can we help you?</label>
+                                <textarea placeholder="Describe your issue or question..."></textarea>
+                            </div>
+
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-headset"></i>
+                                    <span style="margin-left: 0.5rem;">Submit Request</span>
+                                </button>
+                                <button class="btn btn-secondary">Live Chat</button>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: #4d5bbe; font-weight: 500; margin-bottom: 0.5rem;">Premium Support</h4>
+                                <p style="font-size: 0.875rem; color: var(--muted-foreground);">
+                                    As a Premium member, you have access to priority support. Our team typically responds within 2 hours during business hours.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 </div>
 
