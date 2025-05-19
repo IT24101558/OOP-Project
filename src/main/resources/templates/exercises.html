@@ -85,27 +85,27 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-2">
-            <a href="member_dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="/user/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-th-large"></i>
                 <span class="font-medium">Dashboard</span>
             </a>
-            <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="/user/profile" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-user"></i>
                 <span class="font-medium">Profile</span>
             </a>
-            <a href="schedule.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="/user/schedule" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-calendar"></i>
                 <span class="font-medium">Schedule</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
+            <a href="/exercises" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white scale-hover transition-all duration-300">
                 <i class="fas fa-dumbbell"></i>
                 <span class="font-medium">Exercises</span>
             </a>
-            <a href="monthprogress.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="/monthprogress" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-chart-line"></i>
                 <span class="font-medium">Progress</span>
             </a>
-            <a href="User-Settings.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
+            <a href="/user/settings" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-white/10 transition-all duration-300">
                 <i class="fas fa-cog"></i>
                 <span class="font-medium">Settings</span>
             </a>
@@ -114,14 +114,13 @@
         <div class="p-4 border-t border-white/10">
             <div class="flex items-center gap-3 mb-3">
                 <div class="h-10 w-10 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center">
-                    <span class="font-semibold">AR</span>
+                    <span class="font-semibold">??</span>
                 </div>
                 <div>
-                    <h3 class="font-medium">Alex Rodriguez</h3>
-                    <p class="text-xs text-gray-400">Premium Member</p>
+                    <h3 class="font-medium"><span th:text="${user.name}">User</span><</h3>
                 </div>
             </div>
-            <a href="Member_logout.html">
+            <a href="/logout">
                 <button class="w-full mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl p-2.5 transition-all duration-300 flex items-center justify-center gap-2">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Log Out</span>
@@ -199,7 +198,7 @@
             <div class="mb-8 animate-slide-up" style="animation-delay: 0.4s;">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold mb-6">Popular Categories</h2>
-                    <a href="popular-categories.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                    <a href="/exercises/popular-categories" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
                         <span>View All</span>
                     </a>
                 </div>
@@ -231,7 +230,7 @@
                             </div>
                             <div class="mt-3 flex items-center justify-between">
                                 <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
-                                <a href="Strength Training Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                <a href="/exercises/strength-training" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
                                     <span>Details</span>
                                     <i class="fas fa-chevron-right text-xs"></i>
                                 </a>
@@ -264,7 +263,7 @@
                             </div>
                             <div class="mt-3 flex items-center justify-between">
                                 <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
-                                <a href="HIIT Workouts Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                <a href="/exercises/hiit-workouts" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
                                     <span>Details</span>
                                     <i class="fas fa-chevron-right text-xs"></i>
                                 </a>
@@ -297,7 +296,7 @@
                             </div>
                             <div class="mt-3 flex items-center justify-between">
                                 <span class="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-xs">Intermediate</span>
-                                <a href="Flexibility & Yoga Details.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                                <a href="/exercises/flexibility-yoga" class="text-sm text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
                                     <span>Details</span>
                                     <i class="fas fa-chevron-right text-xs"></i>
                                 </a>
@@ -310,7 +309,7 @@
                 <div class="mb-8 animate-slide-up" style="animation-delay: 0.4s;">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-semibold mb-6">Featured Exercises</h2>
-                        <a href="Featured Exercises.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                        <a href="/exercises/featured" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
                             <span>View All</span>
                         </a>
                     </div>
@@ -424,7 +423,7 @@
                 <div class="mb-8 animate-slide-up" style="animation-delay: 0.4s;">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-semibold mb-6">Popular Workouts</h2>
-                        <a href="Popular Workouts.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                        <a href="/exercises/popular-workouts" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">
                             <span>View All</span>
                         </a>
                     </div>
