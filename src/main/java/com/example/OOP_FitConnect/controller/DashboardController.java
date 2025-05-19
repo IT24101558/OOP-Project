@@ -131,4 +131,9 @@ public class DashboardController {
         response.put("message", "Not authenticated");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
+
+    @GetMapping("/profile")
+    public String profilePage() {
+        return "profile";
+    }
 }
