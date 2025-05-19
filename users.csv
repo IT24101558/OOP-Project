@@ -1,1 +1,7 @@
-da18b5ce-bdf3-4767-b8db-7f01266222ed,admin@user.com,1234567890,,
+id,name,email,password,role,verificationToken,resetToken,branch
+c0205f34-da78-4fd0-8cae-a7ec3bec8eac,Sanith Wijesinghe,sanithwijesinghe@gmail.com,123123123,USER,333be963-4a3f-47af-a1e0-8985f7e447c6,,Dehiwala
+99595f33-7ce3-4918-8d6b-8d787fd55005,kenula,rugwer8hbiu@gmail.com,123123123123,USER,d1384577-484e-4317-92c7-6c944c4d7302,,Panadura
+4f2e7a0c-bba7-4969-a7eb-cd64e012c265,soesh coorey,soesh@gmail.com,12345678,USER,9bdfd480-bcc2-45cf-bb05-5617dfe9a9d0,,Dehiwala
+9ebd7e25-df62-4901-b562-7bd0cc48662b,Admin,admin@user.com,1234567890,ADMIN,,,
+20450f4c-b0fe-4d6b-aa5e-00c1202fdc3e,kenula,demo@example.com,123123123123,USER,f2225270-dd62-49d7-8160-4af227ea2dc9,,Panadura
+67359df9-dd04-43b3-9d01-5ad72e34877d,rozanna hi,rozannablack1@gmail.com,11111111,USER,81ea3230-8346-469f-87ff-a6c84e132f25,,Rathmalana
