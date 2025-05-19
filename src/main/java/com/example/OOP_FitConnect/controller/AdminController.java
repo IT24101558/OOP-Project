@@ -170,4 +170,13 @@ public class AdminController {
         }
         return "redirect:/login";
     }
+     @GetMapping("/admin/logout")
+    public String showLogoutConfirmation() {
+        return "Admin_logout";
+    }
+
+    @GetMapping("/admin/logout/confirm")
+    public String confirmLogout() {
+        return "redirect:/";
+    }
 }
