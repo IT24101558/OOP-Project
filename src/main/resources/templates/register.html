@@ -8,14 +8,14 @@
     <script src="../static/auth.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
-        // Simple form validation and navigation to verification page
+        // Updated form validation and backend submission
         document.addEventListener('DOMContentLoaded', function() {
-            const registrationForm = document.getElementById('registrationForm');
+            const registrationForm = document.getElementById('registerForm');
 
             registrationForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // Basic validation
+                // Get form values
                 const fullName = document.getElementById('name').value;
                 const email = document.getElementById('email').value;
                 const branch = document.getElementById('branch').value;
@@ -28,46 +28,47 @@
                     return;
                 }
 
-                // Email validation
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
                     alert('Please enter a valid email address');
                     return;
                 }
 
-                // Password validation
                 if (password.length < 8) {
                     alert('Password must be at least 8 characters');
                     return;
                 }
 
-                // Confirm password
                 if (password !== confirmPassword) {
                     alert('Passwords do not match');
                     return;
                 }
 
-                // Store data in sessionStorage to access on verification page
-                sessionStorage.setItem('userEmail', email);
-
-                // Simulate sending a verification code
-                const verificationCode = Math.floor(100000 + Math.random() * 900000);
-                sessionStorage.setItem('verificationCode', verificationCode);
-
-                // For demo purposes - in a real app, this would be sent via backend
-                console.log(`Verification code ${verificationCode} would be sent to ${email}`);
-
-                // Navigate to verification page
-                window.location.href = 'verification.html';
-
-
-                document.getElementById("yourFormID").addEventListener("submit", function (event) {
-                    event.preventDefault(); // prevent default submission
-
-                    // Optionally validate fields or send data to backend here...
-
-                    // After success, redirect to verify.html
-                    window.location.href = "verify.html";
+                // Send data to backend
+                fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        name: fullName,
+                        email: email,
+                        password: password,
+                        branch: branch
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message || 'Registration successful! Please log in.');
+                        window.location.href = '/login'; // Redirect to login page
+                    } else {
+                        alert(data.message || 'Registration failed.');
+                    }
+                })
+                .catch(error => {
+                    alert('An error occurred during registration.');
+                    console.error(error);
                 });
             });
         });
@@ -271,7 +272,7 @@
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
                     </button>
-                 </form>
+            </form>
             <div class="mt-8 text-center">
                 <p class="text-sm text-gray-500">
                     Already have an account?
