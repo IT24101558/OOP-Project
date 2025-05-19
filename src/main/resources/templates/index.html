@@ -838,8 +838,8 @@
     <div class="hero-content">
         <h1>Live your best life</h1>
         <p>
-            At "FitConnect", we believe that every day is a fresh opportunity to become the strongest version of yourself. Our dedicated trainers, state-of-the-art equipment, and welcoming community will support you at every step - whether you’re a beginner or a seasoned athlete. We’re more than just a gym; we’re a family that motivates and empowers each other to go beyond our limits.<br><br>
-            Step inside FitConnect and discover a place where you’ll not only build physical strength but also confidence, discipline, and lifelong friendships. Join us today and take the first step toward a stronger, healthier, and happier you!
+            At "FitConnect", we believe that every day is a fresh opportunity to become the strongest version of yourself. Our dedicated trainers, state-of-the-art equipment, and welcoming community will support you at every step - whether you're a beginner or a seasoned athlete. We're more than just a gym; we're a family that motivates and empowers each other to go beyond our limits.<br><br>
+            Step inside FitConnect and discover a place where you'll not only build physical strength but also confidence, discipline, and lifelong friendships. Join us today and take the first step toward a stronger, healthier, and happier you!
         </p>
         <div class="hero-buttons">
             <a href="/login" class="btn">Login</a>
@@ -861,7 +861,7 @@
             <li>Offering over 100 cardio machines</li>
             <li>Over 300 new pieces of new weight equipment</li>
         </ul>
-        <a href="about.html" class="btn">Learn More</a>
+        <a href="/About_us" class="btn">Learn More</a>
     </div>
     <div class="image-container">
         <img src="images/222.jpg" alt="FitConnect Gym Photo" />
@@ -952,47 +952,38 @@
             <option value="female">Female</option>
         </select>
 
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter your age" required>
+
         <button onclick="calculateBMI()">Calculate Now</button>
 
         <p id="bmi-result" class="result"></p>
     </div>
     <script>
         function calculateBMI() {
-            const weight = document.getElementById("weight").value;
-            const height = document.getElementById("height").value;
+            const weight = parseFloat(document.getElementById("weight").value);
+            const height = parseFloat(document.getElementById("height").value);
             const gender = document.getElementById("gender").value;
-            const messageBox = document.getElementById("bmi-message");
+            const age = parseInt(document.getElementById("age").value);
+            const resultBox = document.getElementById("bmi-result");
 
-            if (!weight || !height || !gender) {
-                showMessage("Please fill in all fields.");
+            if (!weight || !height || !gender || !age) {
+                resultBox.textContent = "Please fill in all fields.";
+                resultBox.classList.add("show");
                 return;
             }
 
-            fetch("/api/bmi", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: `weight=${weight}&height=${height}&gender=${gender}`
-            })
-            .then(res => res.text())
-            .then(data => {
-                showMessage(data);
-            })
-            .catch(err => {
-                showMessage("An error occurred.");
-                console.error(err);
-            });
-        }
+            // BMI calculation
+            const heightM = height / 100;
+            const bmi = weight / (heightM * heightM);
+            let category = "";
+            if (bmi < 18.5) category = "Underweight";
+            else if (bmi < 25) category = "Normal weight";
+            else if (bmi < 30) category = "Overweight";
+            else category = "Obese";
 
-        function showMessage(message) {
-            const messageBox = document.getElementById("bmi-message");
-            messageBox.textContent = message;
-            messageBox.classList.add("show");
-
-            setTimeout(() => {
-                messageBox.classList.remove("show");
-            }, 4000); // Auto-hide after 4 seconds
+            resultBox.textContent = `Your BMI is ${bmi.toFixed(1)} (${category})`;
+            resultBox.classList.add("show");
         }
     </script>
 </section>
@@ -1002,65 +993,66 @@
 <section class="get-in-touch">
     <div class="contact-form">
         <h1>Questions? Contact us below:</h1>
-        <form>
-            <input type="text" placeholder="First Name">
-            <input type="text" placeholder="Last Name">
-            <input type="text" placeholder="Street">
-            <input type="text" placeholder="City">
-            <input type="email" placeholder="Email">
-            <textarea placeholder="Message"></textarea>
+        <form id="contactForm">
+            <input type="text" name="firstName" placeholder="First Name" required>
+            <input type="text" name="lastName" placeholder="Last Name" required>
+            <input type="text" name="street" placeholder="Street" required>
+            <input type="text" name="city" placeholder="City" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Message" required></textarea>
             <button type="submit">Send</button>
+            <div id="formMessage" style="display:none; margin-top: 15px; padding: 15px; border-radius: 5px; text-align: center; font-weight: 500;"></div>
         </form>
     </div>
-    <div id="formMessage" style="display:none; margin-top: 15px; padding: 10px; border-radius: 5px;"></div>
 
     <script>
-
         document.getElementById("contactForm").addEventListener("submit", async function(e) {
-       e.preventDefault();
+            e.preventDefault();
 
-       const formMessage = document.getElementById("formMessage");
-       const formData = {
-           firstName: this.elements.firstName.value,
-           lastName: this.elements.lastName.value,
-           email: this.elements.email.value,
-           message: this.elements.message.value
-       };
+            const formMessage = document.getElementById("formMessage");
+            const formData = {
+                firstName: this.elements.firstName.value,
+                lastName: this.elements.lastName.value,
+                street: this.elements.street.value,
+                city: this.elements.city.value,
+                email: this.elements.email.value,
+                message: this.elements.message.value
+            };
 
-       try {
-           const response = await fetch("/contact", {
-               method: "POST",
-               headers: {
-                   "Content-Type": "application/json"
-               },
-               body: JSON.stringify(formData)
-           });
+            try {
+                const response = await fetch("/contact", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                });
 
-           if (response.ok) {
-               formMessage.textContent = "✅ Message sent successfully!";
-               formMessage.style.backgroundColor = "#d4edda";
-               formMessage.style.color = "#155724";
-               formMessage.style.border = "1px solid #c3e6cb";
-               formMessage.style.display = "block";
+                const result = await response.json();
 
-               this.reset(); // Optional: reset the form
-           } else {
-               formMessage.textContent = "❌ Failed to send message.";
-               formMessage.style.backgroundColor = "#f8d7da";
-               formMessage.style.color = "#721c24";
-               formMessage.style.border = "1px solid #f5c6cb";
-               formMessage.style.display = "block";
-           }
-       } catch (error) {
-           formMessage.textContent = "❌ Error sending message.";
-           formMessage.style.backgroundColor = "#f8d7da";
-           formMessage.style.color = "#721c24";
-           formMessage.style.border = "1px solid #f5c6cb";
-           formMessage.style.display = "block";
-       }
-   });
+                if (result.success) {
+                    formMessage.textContent = "✅ " + result.message;
+                    formMessage.style.backgroundColor = "#d4edda";
+                    formMessage.style.color = "#155724";
+                    formMessage.style.border = "1px solid #c3e6cb";
+                    formMessage.style.display = "block";
+                    this.reset(); // Reset the form
+                } else {
+                    formMessage.textContent = "❌ " + result.message;
+                    formMessage.style.backgroundColor = "#f8d7da";
+                    formMessage.style.color = "#721c24";
+                    formMessage.style.border = "1px solid #f5c6cb";
+                    formMessage.style.display = "block";
+                }
+            } catch (error) {
+                formMessage.textContent = "❌ Error sending message. Please try again.";
+                formMessage.style.backgroundColor = "#f8d7da";
+                formMessage.style.color = "#721c24";
+                formMessage.style.border = "1px solid #f5c6cb";
+                formMessage.style.display = "block";
+            }
+        });
     </script>
-
 
 
     <div class="app-info">
