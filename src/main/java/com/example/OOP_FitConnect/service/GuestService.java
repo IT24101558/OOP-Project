@@ -51,7 +51,7 @@ public class GuestService {
         return null;
     }
 
-    public User registerUser(String name, String email, String password, String verificationToken) {
+    public User registerUser(String name, String email, String password, String verificationToken, String branch) {
         if (dbController.getUserByEmail(email) != null) {
             throw new IllegalArgumentException("Email already in use");
         }
@@ -62,6 +62,7 @@ public class GuestService {
         user.setPassword(password);
         user.setVerificationToken(verificationToken);
         user.setRole("USER");
+        user.setBranch(branch);
         dbController.saveUser(user);
         return user;
     }
