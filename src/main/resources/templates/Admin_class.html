@@ -86,34 +86,58 @@
                         <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Class Management</h1>
                         <p class="text-gray-400 mt-2">Create, edit, and manage gym classes</p>
                     </div>
-                    <button id="addClassBtn" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-white font-semibold">
-                        <i class="fas fa-plus mr-2"></i> Add Class
-                    </button>
+                    <div class="flex gap-4">
+                        <button id="addPlanBtn" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-white font-semibold">
+                            <i class="fas fa-plus mr-2"></i> Add Plan
+                        </button>
+                        <button id="addClassBtn" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-all text-white font-semibold">
+                            <i class="fas fa-plus mr-2"></i> Add Class
+                        </button>
+                    </div>
                 </div>
             </header>
+
+            <!-- Plans Table -->
+            <div class="glass-effect rounded-xl p-6 mb-8">
+                <h2 class="text-2xl font-bold mb-4">Membership Plans</h2>
+                <table class="w-full text-left" id="plans-table">
+                    <thead>
+                    <tr class="border-b border-white/10">
+                        <th class="p-4 font-medium">Plan Name</th>
+                        <th class="p-4 font-medium">Price</th>
+                        <th class="p-4 font-medium">Description</th>
+                        <th class="p-4 font-medium">Features</th>
+                        <th class="p-4 font-medium">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="plans-table-body">
+                    <!-- Rows will be injected by JS -->
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Classes Table -->
             <div class="glass-effect rounded-xl p-6 mb-8">
                 <table class="w-full text-left" id="class-table">
                     <thead>
-                        <tr class="border-b border-white/10">
-                            <th class="p-4 font-medium">Class</th>
-                            <th class="p-4 font-medium">Date</th>
-                            <th class="p-4 font-medium">Time</th>
-                            <th class="p-4 font-medium">Duration</th>
-                            <th class="p-4 font-medium">Instructor</th>
-                            <th class="p-4 font-medium">Enrollments</th>
-                            <th class="p-4 font-medium">Actions</th>
-                        </tr>
+                    <tr class="border-b border-white/10">
+                        <th class="p-4 font-medium">Class</th>
+                        <th class="p-4 font-medium">Date</th>
+                        <th class="p-4 font-medium">Time</th>
+                        <th class="p-4 font-medium">Duration</th>
+                        <th class="p-4 font-medium">Instructor</th>
+                        <th class="p-4 font-medium">Enrollments</th>
+                        <th class="p-4 font-medium">Actions</th>
+                    </tr>
                     </thead>
                     <tbody id="class-table-body">
-                        <!-- Rows will be injected by JS -->
+                    <!-- Rows will be injected by JS -->
                     </tbody>
                 </table>
             </div>
-                    </div>
+        </div>
     </main>
-                </div>
+</div>
 
 <!-- Add/Edit Class Modal -->
 <div id="classModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm opacity-0 invisible transition-all">
@@ -125,15 +149,15 @@
                 <label class="block text-sm text-gray-300 mb-1">Class Name</label>
                 <input type="text" id="className" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
             </div>
-                <div>
+            <div>
                 <label class="block text-sm text-gray-300 mb-1">Date</label>
                 <input type="date" id="classDate" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
             </div>
-                <div>
+            <div>
                 <label class="block text-sm text-gray-300 mb-1">Time</label>
                 <input type="time" id="classTime" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
             </div>
-                <div>
+            <div>
                 <label class="block text-sm text-gray-300 mb-1">Duration (minutes)</label>
                 <input type="number" id="classDuration" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
             </div>
@@ -149,16 +173,47 @@
     </div>
 </div>
 
-<script>
-let editingId = null;
+<!-- Add/Edit Plan Modal -->
+<div id="planModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm opacity-0 invisible transition-all">
+    <div class="glass-effect rounded-xl max-w-md w-full mx-4 p-6">
+        <h2 class="text-xl font-semibold mb-4" id="planModalTitle">Add Plan</h2>
+        <form id="planForm" class="space-y-4">
+            <input type="hidden" id="planId">
+            <div>
+                <label class="block text-sm text-gray-300 mb-1">Plan Name</label>
+                <input type="text" id="planName" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+            </div>
+            <div>
+                <label class="block text-sm text-gray-300 mb-1">Price</label>
+                <input type="number" id="planPrice" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+            </div>
+            <div>
+                <label class="block text-sm text-gray-300 mb-1">Description</label>
+                <input type="text" id="planDescription" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required>
+            </div>
+            <div>
+                <label class="block text-sm text-gray-300 mb-1">Features (comma-separated)</label>
+                <textarea id="planFeatures" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-purple-500 transition-colors" required></textarea>
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button type="button" id="cancelPlanBtn" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:opacity-90 transition-all">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-async function loadClasses() {
-    const response = await fetch('/admin/api/classes');
-    const data = await response.json();
-    const tbody = document.getElementById('class-table-body');
-    tbody.innerHTML = '';
-    data.forEach((cls, idx) => {
-        tbody.innerHTML += `
+<script>
+    let editingId = null;
+    let editingPlanId = null;
+
+    async function loadClasses() {
+        const response = await fetch('/admin/api/classes');
+        const data = await response.json();
+        const tbody = document.getElementById('class-table-body');
+        tbody.innerHTML = '';
+        data.forEach((cls, idx) => {
+            tbody.innerHTML += `
             <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
                 <td class="p-4">${cls.name}</td>
                 <td class="p-4">${cls.date}</td>
@@ -172,85 +227,176 @@ async function loadClasses() {
                 </td>
             </tr>
         `;
-        updateEnrollmentCount(cls.id);
-    });
-}
+            updateEnrollmentCount(cls.id);
+        });
+    }
 
-async function updateEnrollmentCount(classId) {
-    const response = await fetch(`/admin/api/classes/${classId}/bookings`);
-    const count = await response.json();
-    document.getElementById(`enrollments-${classId}`).textContent = count;
-}
+    async function updateEnrollmentCount(classId) {
+        const response = await fetch(`/admin/api/classes/${classId}/bookings`);
+        const count = await response.json();
+        document.getElementById(`enrollments-${classId}`).textContent = count;
+    }
 
-document.getElementById('addClassBtn').onclick = function() {
-    document.getElementById('modalTitle').textContent = 'Add Class';
-    document.getElementById('classForm').reset();
-    document.getElementById('editIndex').value = '';
-    editingId = null;
-    document.getElementById('classModal').classList.remove('opacity-0', 'invisible');
-    document.getElementById('classModal').classList.add('flex');
-};
-
-document.getElementById('cancelClassBtn').onclick = function() {
-    document.getElementById('classModal').classList.add('opacity-0', 'invisible');
-    document.getElementById('classModal').classList.remove('flex');
-    editingId = null;
-};
-
-document.getElementById('classForm').onsubmit = async function(e) {
-            e.preventDefault();
-    const cls = {
-        name: document.getElementById('className').value,
-        date: document.getElementById('classDate').value,
-        time: document.getElementById('classTime').value,
-        duration: document.getElementById('classDuration').value,
-        instructor: document.getElementById('classInstructor').value
+    document.getElementById('addClassBtn').onclick = function() {
+        document.getElementById('modalTitle').textContent = 'Add Class';
+        document.getElementById('classForm').reset();
+        document.getElementById('editIndex').value = '';
+        editingId = null;
+        document.getElementById('classModal').classList.remove('opacity-0', 'invisible');
+        document.getElementById('classModal').classList.add('flex');
     };
-    if (!editingId) {
-        // Add new class
-        await fetch('/admin/api/classes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(cls)
-        });
-    } else {
-        // Edit class
-        await fetch(`/admin/api/classes/${editingId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(cls)
-        });
-    }
-    document.getElementById('classModal').classList.add('opacity-0', 'invisible');
-    document.getElementById('classModal').classList.remove('flex');
-    editingId = null;
-    loadClasses();
-};
 
-window.editClass = async function(id, idx) {
-    const response = await fetch('/admin/api/classes');
-    const data = await response.json();
-    const cls = data.find(c => c.id === id);
-    if (!cls) return;
-    document.getElementById('modalTitle').textContent = 'Edit Class';
-    document.getElementById('className').value = cls.name;
-    document.getElementById('classDate').value = cls.date;
-    document.getElementById('classTime').value = cls.time;
-    document.getElementById('classDuration').value = cls.duration;
-    document.getElementById('classInstructor').value = cls.instructor;
-    editingId = id;
-    document.getElementById('classModal').classList.remove('opacity-0', 'invisible');
-    document.getElementById('classModal').classList.add('flex');
-};
+    document.getElementById('cancelClassBtn').onclick = function() {
+        document.getElementById('classModal').classList.add('opacity-0', 'invisible');
+        document.getElementById('classModal').classList.remove('flex');
+        editingId = null;
+    };
 
-window.deleteClass = async function(id) {
-    if (confirm('Are you sure you want to delete this class?')) {
-        await fetch(`/admin/api/classes/${id}`, { method: 'DELETE' });
+    document.getElementById('classForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const cls = {
+            name: document.getElementById('className').value,
+            date: document.getElementById('classDate').value,
+            time: document.getElementById('classTime').value,
+            duration: document.getElementById('classDuration').value,
+            instructor: document.getElementById('classInstructor').value
+        };
+        if (!editingId) {
+            // Add new class
+            await fetch('/admin/api/classes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(cls)
+            });
+        } else {
+            // Edit class
+            await fetch(`/admin/api/classes/${editingId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(cls)
+            });
+        }
+        document.getElementById('classModal').classList.add('opacity-0', 'invisible');
+        document.getElementById('classModal').classList.remove('flex');
+        editingId = null;
         loadClasses();
-    }
-};
+    };
 
-document.addEventListener('DOMContentLoaded', loadClasses);
+    window.editClass = async function(id, idx) {
+        const response = await fetch('/admin/api/classes');
+        const data = await response.json();
+        const cls = data.find(c => c.id === id);
+        if (!cls) return;
+        document.getElementById('modalTitle').textContent = 'Edit Class';
+        document.getElementById('className').value = cls.name;
+        document.getElementById('classDate').value = cls.date;
+        document.getElementById('classTime').value = cls.time;
+        document.getElementById('classDuration').value = cls.duration;
+        document.getElementById('classInstructor').value = cls.instructor;
+        editingId = id;
+        document.getElementById('classModal').classList.remove('opacity-0', 'invisible');
+        document.getElementById('classModal').classList.add('flex');
+    };
+
+    window.deleteClass = async function(id) {
+        if (confirm('Are you sure you want to delete this class?')) {
+            await fetch(`/admin/api/classes/${id}`, { method: 'DELETE' });
+            loadClasses();
+        }
+    };
+
+    // Plan Management Functions
+    async function loadPlans() {
+        const response = await fetch('/admin/api/plans');
+        const data = await response.json();
+        const tbody = document.getElementById('plans-table-body');
+        tbody.innerHTML = '';
+        data.forEach((plan) => {
+            tbody.innerHTML += `
+            <tr class="border-b border-white/10 hover:bg-white/5 transition-colors">
+                <td class="p-4">${plan.name}</td>
+                <td class="p-4">Rs. ${plan.price.toFixed(2)}</td>
+                <td class="p-4">${plan.description}</td>
+                <td class="p-4">${plan.features.join(', ')}</td>
+                <td class="p-4 flex gap-2">
+                    <button onclick="editPlan('${plan.id}')" class="p-2 rounded-lg bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 transition-all"><i class="fas fa-edit"></i></button>
+                    <button onclick="deletePlan('${plan.id}')" class="p-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 transition-all"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `;
+        });
+    }
+
+    document.getElementById('addPlanBtn').onclick = function() {
+        document.getElementById('planModalTitle').textContent = 'Add Plan';
+        document.getElementById('planForm').reset();
+        document.getElementById('planId').value = '';
+        editingPlanId = null;
+        document.getElementById('planModal').classList.remove('opacity-0', 'invisible');
+        document.getElementById('planModal').classList.add('flex');
+    };
+
+    document.getElementById('cancelPlanBtn').onclick = function() {
+        document.getElementById('planModal').classList.add('opacity-0', 'invisible');
+        document.getElementById('planModal').classList.remove('flex');
+        editingPlanId = null;
+    };
+
+    document.getElementById('planForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const plan = {
+            name: document.getElementById('planName').value,
+            price: parseFloat(document.getElementById('planPrice').value),
+            description: document.getElementById('planDescription').value,
+            features: document.getElementById('planFeatures').value.split(',').map(f => f.trim())
+        };
+
+        if (!editingPlanId) {
+            // Add new plan
+            await fetch('/admin/api/plans', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(plan)
+            });
+        } else {
+            // Edit plan
+            await fetch(`/admin/api/plans/${editingPlanId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(plan)
+            });
+        }
+        document.getElementById('planModal').classList.add('opacity-0', 'invisible');
+        document.getElementById('planModal').classList.remove('flex');
+        editingPlanId = null;
+        loadPlans();
+    };
+
+    window.editPlan = async function(id) {
+        const response = await fetch(`/admin/api/plans/${id}`);
+        const plan = await response.json();
+        document.getElementById('planModalTitle').textContent = 'Edit Plan';
+        document.getElementById('planName').value = plan.name;
+        document.getElementById('planPrice').value = plan.price;
+        document.getElementById('planDescription').value = plan.description;
+        document.getElementById('planFeatures').value = plan.features.join(', ');
+        document.getElementById('planId').value = id;
+        editingPlanId = id;
+        document.getElementById('planModal').classList.remove('opacity-0', 'invisible');
+        document.getElementById('planModal').classList.add('flex');
+    };
+
+    window.deletePlan = async function(id) {
+        if (confirm('Are you sure you want to delete this plan?')) {
+            await fetch(`/admin/api/plans/${id}`, { method: 'DELETE' });
+            loadPlans();
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        loadClasses();
+        loadPlans();
+    });
 </script>
 </body>
 </html>
