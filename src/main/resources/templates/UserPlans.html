@@ -551,18 +551,18 @@
 </section>
 
 <script>
-function selectPlan(planName, price, features) {
-    // Store plan details in sessionStorage
-    const planDetails = {
-        name: planName,
-        price: price,
-        features: features
-    };
-    sessionStorage.setItem('selectedPlan', JSON.stringify(planDetails));
-    
-    // Redirect to payment page
-    window.location.href = '/payment';
-}
+    function selectPlan(planName, price, features) {
+        // Store plan details in sessionStorage
+        const planDetails = {
+            name: planName,
+            price: price,
+            features: features
+        };
+        sessionStorage.setItem('selectedPlan', JSON.stringify(planDetails));
+
+        // Redirect to payment page
+        window.location.href = '/payment';
+    }
 </script>
 </body>
 </html>
