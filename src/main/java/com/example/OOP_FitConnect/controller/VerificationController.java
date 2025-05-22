@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class VerificationController {
 
     @Autowired
-    private GuestService guestService;
+    private GuestService guestService; //encapsulation
 
-    @GetMapping("/verify")
+    @GetMapping("/verify") //abstraction
     public String verifyEmail(@RequestParam String token, Model model) {
         boolean verified = guestService.verifyEmail(token);
 

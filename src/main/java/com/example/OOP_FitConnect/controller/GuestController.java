@@ -52,7 +52,7 @@ public class GuestController {
         if (session.getAttribute("userId") == null) {
             // Create a new guest user and store in the session
             guestUser = guestService.createGuestUser();
-            session.setAttribute("userId", guestUser.getId());
+            session.setAttribute("userId", guestUser.getId());      //encapsulation
             session.setAttribute("userRole", "GUEST"); //important
             model.addAttribute("user", guestUser);  //send user to the page
         }
@@ -70,7 +70,7 @@ public class GuestController {
     public String startGuestSession(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User guestUser = guestService.createGuestUser();  // Create a guest user.
-        session.setAttribute("userId", guestUser.getId());  // Store the user's ID in the session.
+        session.setAttribute("userId", guestUser.getId());  // Store the user's ID in the session., encapsulation
         session.setAttribute("userRole", "GUEST");
         return "redirect:/guest/dashboard"; // Redirect to the guest dashboard.
     }

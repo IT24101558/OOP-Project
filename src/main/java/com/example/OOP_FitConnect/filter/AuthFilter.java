@@ -6,10 +6,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AuthFilter implements Filter {
+public class AuthFilter implements Filter { //polymophisum,inheritance
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) //abstraction
             throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
