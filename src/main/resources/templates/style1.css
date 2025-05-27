@@ -1,0 +1,64 @@
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding: 1rem;
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+}
+
+#controls button {
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#controls button:hover {
+    background: #555;
+}
+
+#memberDisplay h2, #uiUpdateQueueLog h2 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+}
+
+#memberList, #logList {
+    list-style: none;
+    padding: 0;
+}
+
+#memberList li, #logList li {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #333;
+    color: #fff;
+    margin-top: 1rem;
+}
